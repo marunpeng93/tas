@@ -16,7 +16,7 @@
 	//    $ node examples/nodejs/index.js
 	//
 	// For debugging with the examples, uncomment the below line:
-		//   require('./examples');
+	//    require('./examples');
 	// ----------------------------------------
 
 	module.exports = tas;

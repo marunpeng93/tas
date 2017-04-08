@@ -1,11 +1,11 @@
 {
 	"name": "tas",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "",
 	"main": "main.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/hiowenluke/tas"
+		"url": "https://github.com/tasjs/tas"
 	},
 	"keywords": [],
 	"scripts": {

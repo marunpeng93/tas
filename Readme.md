@@ -43,7 +43,7 @@ tas({
 
 **In Web**
 
-Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/dev/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/dev/dist/tas.min.js) to your local folder such as /path/to/js/lib.
+Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
 
 ```html
 <script src="js/lib/tas.js"></script>
@@ -63,7 +63,7 @@ Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/dev/dist/tas.js) o
 
 **In Web RequireJS**
 
-Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/dev/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/dev/dist/tas.min.js) to your local folder such as /path/to/js/lib.
+Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
 
 ```js
 define(['tas'], function (tas) {
