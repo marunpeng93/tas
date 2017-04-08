@@ -1,6 +1,6 @@
 # Tas.js
 
-Tas simplifies code logic, making code easy to maintain. Tas executes async code in a sync manner, avoiding callback hell, and is faster and easier to use than Promise. Tas can be used in [Node](https://nodejs.org) and in browsers. Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
+Tas simplifies code logic, making code easy to maintain. Tas executes async code in a sync manner, avoiding callback hell, and is faster and easier to use than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
@@ -17,7 +17,7 @@ The tasks written by Tas do not need to use Promise / resolve / reject, generato
 
 ## Install Tas
 
-### In Node
+### In Node.js
 
 ```bash
 $ npm install tas
@@ -82,7 +82,7 @@ define(['tas'], function (tas) {
 
 ### Sync Tasks
 
-All functions of the tasks object, including sub-object functions are executed one by one, passing the data via "return" to the next function or tasks. (See the full example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js))
+All functions of the tasks object, including sub-object functions are executed one by one, passing the data via "return" to the next function or tasks. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) )
 
 ```js
 tas("My first tasks", {
@@ -122,7 +122,7 @@ tas("My Second tasks", {
 
 ### Async Tasks
 
-Tas executes async code in a sync manner, and all functions that contain async code are executed one by one. As the current async task completes, Tas will continue with subsequent tasks (whether they are async tasks or sync tasks). (See the full example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) )
+Tas executes async code in a sync manner, and all functions that contain async code are executed one by one. As the current async task completes, Tas will continue with subsequent tasks (whether they are async tasks or sync tasks). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) )
 
 ```js
 tas.await("Prepare", {
@@ -176,7 +176,7 @@ We can use Tas as if using Promise. The tasks written by Tas do not need to use 
 
 #### A Simple Example
 
-After this tasks is completed, continue. You can concatenate multiple tasks behind tas.promise(). (See the full example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) )
+After this tasks is completed, continue. You can concatenate multiple tasks behind tas.promise(). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) )
 
 ```js
 tas.promise(function(){
@@ -216,7 +216,7 @@ tas({
 
 #### As Promise.all()
 
-Perform mutiple tasks at the same time. After all tasks have been completed, continue. The total waiting time is only that of the longest task time. (See the full example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) )
+Perform mutiple tasks at the same time. After all tasks have been completed, continue. The total waiting time is only that of the longest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) )
 
 For example, get the list data, user data, and advertising data from server at the same time, or load multiple files from local at the same time.
 
@@ -249,7 +249,7 @@ tas("Handle the data", function (err, data) {
 
 #### As Promise.race()
 
-When one task is finished, the other unfinished task(s) will be canceled. So the total waiting time is only that of the shortest task time. (See the full example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) )
+When one task is finished, the other unfinished task(s) will be canceled. So the total waiting time is only that of the shortest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) )
 
 For example, request the same file from multiple mirror websites, or wait for one of the sprites to stop moving, or wait for 5 seconds or wait for the "Next" button to be clicked.
 
@@ -287,7 +287,7 @@ $ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
 ```
 
-Run the examples in Node:
+Run the examples in Node.js:
 ```bash
 $ cd /path/to/tas
 $ node examples/nodejs/index.js
@@ -302,7 +302,7 @@ $ open examples/web_requirejs/index.html
 
 Or view the source code of the examples online:
 
-| Topic                                | For Node                                 | For Web                                  | For Web RequireJS                        |
+| Topic                                | For Node.js                              | For Web                                  | For Web RequireJS                        |
 | ------------------------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | 1. Basic flow control in Tas         | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) |
 | 2. Turns async callback to sync      | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) |
@@ -317,7 +317,7 @@ Or view the source code of the examples online:
 
 ## A Crazy Example
 
-Tas can be nested calls, and mix many sync tasks and async tasks. There is **a crazy example** (for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) ) to show how powerful Tas is. Please note the order in which the tasks are executed. This helps to deepen understanding of the asynchronous execution mode in JavaScript. 
+Tas can be nested calls, and mix many sync tasks and async tasks. There is **a crazy example** (for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) ) to show how powerful Tas is. Please note the order in which the tasks are executed. This helps to deepen understanding of the asynchronous execution mode in JavaScript. 
 
 　
 
@@ -329,7 +329,7 @@ Tas provides a small amount of APIs and instructions to control the flow, and th
 
 ### Basic Flow Control
 
-Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) .
+Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js).
 
 | Usage           | Functions                                |
 | --------------- | ---------------------------------------- |
@@ -341,7 +341,7 @@ Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Ba
 
 ### Pass The Data
 
-Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) .
+Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js).
 
 | Usage              | Functions                                |
 | ------------------ | ---------------------------------------- |
@@ -353,7 +353,7 @@ Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Ba
 
 ### Handle The Async Tasks
 
-Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) .
+Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js).
 
 | Usage       | Functions                                |
 | ----------- | ---------------------------------------- |
@@ -364,7 +364,7 @@ Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Tu
 
 ### As Promise
 
-Example for [Node](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) .
+Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js).
 
 | Usage         | Functions                                |
 | ------------- | ---------------------------------------- |
