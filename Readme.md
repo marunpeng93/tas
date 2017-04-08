@@ -4,7 +4,7 @@ Tas simplifies code logic, making code easy to maintain. Tas executes async code
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries. (<a href="#why">Why?</a>).
 
-
+　
 
 ## Easy to Use
 
@@ -12,7 +12,7 @@ The tasks written by Tas do not need to use Promise / resolve / reject, generato
 2. There is no need to write the tasks in the form of a callback, just in logical order.
 3. Pass the data via "return" to the next function or tasks naturally.
 
-
+　
 
 ## Install
 
@@ -36,7 +36,7 @@ tas({
 });
 ```
 
-
+　
 
 ### In Web
 
@@ -56,7 +56,7 @@ Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js
 </script>
 ```
 
-
+　
 
 ### In Web RequireJS
 
@@ -75,7 +75,7 @@ define(['tas'], function (tas) {
 });
 ```
 
-
+　
 
 ## Quick Examples
 
@@ -117,7 +117,7 @@ tas("My Second tasks", {
 });
 ```
 
-
+　
 
 ### Async Tasks
 
@@ -165,13 +165,13 @@ tas("Finished", function(){
 })
 ```
 
-
+　
 
 ### As Promise
 
 We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. 
 
-
+　
 
 #### A Simple Example
 
@@ -211,7 +211,7 @@ tas({
 });
 ```
 
-
+　
 
 #### As Promise.all()
 
@@ -244,7 +244,7 @@ tas("Handle the data", function (err, data) {
 });
 ```
 
-
+　
 
 #### As Promise.race()
 
@@ -275,7 +275,7 @@ tas(function (err, data) {
 });
 ```
 
-
+　
 
 ## Full Examples
 
@@ -312,19 +312,19 @@ Or view the source code of the examples online:
 | 7. Use as cancelable Promise.race    | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) |
 | 8. How powerful Tas is               | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) |
 
-
+　
 
 ## A Crazy Example
 
 Tas can be nested calls, and mix many sync tasks and async tasks. There is **a crazy example** (for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) ) to show how powerful Tas is. Please note the order in which the tasks are executed. This helps to deepen understanding of the asynchronous execution mode in JavaScript. 
 
-
+　
 
 ## APIs and Instructions
 
 Tas provides a small amount of APIs and instructions to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
 
-
+　
 
 ### Basic Flow Control
 
@@ -336,7 +336,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.
 | return "break!" | Abort Tas.                               |
 | tas.break()     | Abort Tas from nested function (closures). |
 
-
+　
 
 ### Pass The Data
 
@@ -348,7 +348,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.
 | this.foo = "bar"   | The data is valid for the functions in the current task object. |
 | tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. |
 
-
+　
 
 ### Handle The Async Tasks
 
@@ -359,7 +359,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.
 | tas.await() | If the tasks/subtasks contains async code, use tas.await(). |
 | tas.next()  | Jump to the next function or tasks to continue. |
 
-
+　
 
 ### As Promise
 
@@ -372,7 +372,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.
 | tas.race()    | As long as one of tasks is completed, continue. |
 | this.done     | Use as a callback function and receive data. |
 
-
+　
 
 ## <a name="why">Why is Tas faster than Promise?</a>
 
@@ -388,7 +388,7 @@ Tas does not use setTimeout or similar methods recommended by the Promise standa
 
 \[4\] "All callbacks scheduled via process.nextTick() are run at the end of a phase of the event loop (e.g. timers) before transitioning to the next phase. " [See details](https://nodesource.com/blog/understanding-the-nodejs-event-loop/)
 
-
+　
 
 ## License
 
