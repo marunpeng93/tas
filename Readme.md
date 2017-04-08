@@ -4,7 +4,7 @@ Tas simplifies code logic, making code easy to maintain. Tas executes async code
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries. (<a href="#why">Why?</a>).
 
-
+　
 
 ## Easy to Use
 
@@ -12,7 +12,7 @@ The tasks written by Tas do not need to use Promise / resolve / reject, generato
 2. There is no need to write the tasks in the form of a callback, just in logical order.
 3. Pass the data via "return" to the next function or tasks naturally.
 
-
+　
 
 
 ## Install
