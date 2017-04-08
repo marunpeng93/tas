@@ -1,8 +1,10 @@
 # Tas.js
 
-Tas simplifies code logic, making code easy to maintain. Tas executes async code in a sync manner, avoiding callback hell, and is faster and easier to use than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
+Tas simplifies code logic, splitting complex logic into a set of mini tasks. Tas executes async code in a sync manner, avoiding callback hell, and is better than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. 
 
-The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
+The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, Tas is also faster than Promise (<a href="#why">Why</a>).
+
+Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
 　
 
@@ -377,7 +379,7 @@ Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6
 
 ## <a name="why">Why is Tas faster than Promise?</a>
 
-Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries.
+Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries such as bluebird, Q, etc.
 
 **References:**
 
