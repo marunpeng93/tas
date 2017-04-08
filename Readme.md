@@ -172,9 +172,9 @@ tas("Finished", function(){
 We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. 
 
 　
-
+　
 #### A Simple Example
-
+　
 After this tasks is completed, continue. You can concatenate multiple tasks behind tas.promise(). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) )
 
 ```js
@@ -212,9 +212,9 @@ tas({
 ```
 
 　
-
+　
 #### As Promise.all()
-
+　
 Perform mutiple tasks at the same time. After all tasks have been completed, continue. The total waiting time is only that of the longest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) )
 
 For example, get the list data, user data, and advertising data from server at the same time, or load multiple files from local at the same time.
@@ -245,9 +245,9 @@ tas("Handle the data", function (err, data) {
 ```
 
 　
-
+　
 #### As Promise.race()
-
+　
 When one task is finished, the other unfinished task(s) will be canceled. So the total waiting time is only that of the shortest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) )
 
 For example, request the same file from multiple mirror websites, or wait for one of the sprites to stop moving, or wait for 5 seconds or wait for the "Next" button to be clicked.
@@ -378,7 +378,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.
 
 Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries.
 
-#### References:
+**References:**
 
 \[1\] "This can be implemented with either a 'macro-task' mechanism such as setTimeout or setImmediate, or with a 'micro-task' mechanism such as MutationObserver or process.nextTick." [See details](https://promisesaplus.com/#point-67)
 
