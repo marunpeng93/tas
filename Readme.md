@@ -18,10 +18,8 @@ The tasks written by Tas do not need to use Promise / resolve / reject, generato
 
 **In Node.js**
 
-Install Tas globally.
-
 ```bash
-$ npm install tas -g
+$ npm install tas
 ```
 
 Use Tas in modules.
