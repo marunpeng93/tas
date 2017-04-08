@@ -38,12 +38,12 @@
 	// Let's start
 	//--------------------------------------------
 	require('./1.Basic-flow-control-in-Tas');
-	//require('./2.Turns-async-callback-to-sync');
-	//require('./3.Understand-the-order-of-Tas-tasks');
-	//require('./4.Fix-callback-hell');
-	//require('./5.Easier-to-use-than-Promise');
-	//require('./6.Use-as-Promise.all-(and-race)');
-	//require('./7.Use-as-cancelable-Promise.race');
-	//require('./8.How-powerful-Tas-is');
+	require('./2.Turns-async-callback-to-sync');
+	require('./3.Understand-the-order-of-Tas-tasks');
+	require('./4.Fix-callback-hell');
+	require('./5.Easier-to-use-than-Promise');
+	require('./6.Use-as-Promise.all-(and-race)');
+	require('./7.Use-as-cancelable-Promise.race');
+	require('./8.How-powerful-Tas-is');
 
 });
