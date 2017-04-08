@@ -1,0 +1,26 @@
+{
+	"name": "tas",
+	"version": "1.0.2",
+	"description": "",
+	"main": "main.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hiowenluke/tas"
+	},
+	"keywords": [],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "hi.owen.luke@gmail.com",
+	"license": "MIT",
+	"dependencies": {},
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-uglify": "^2.0.1",
+		"gulp-util": "^3.0.8",
+		"gulp-webpack": "^1.5.0",
+		"preprocess": "^3.1.0",
+		"through2": "^2.0.3",
+		"webpack": "^2.2.1"
+	}
+}
