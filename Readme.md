@@ -326,7 +326,7 @@ Tas provides a small amount of APIs and instructions to control the flow, and th
 
 　
 
-**Basic Flow Control** 
+### Basic Flow Control
 
 Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) .
 
@@ -338,7 +338,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.
 
 　
 
-**Pass The Data**
+### Pass The Data
 
 Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) .
 
@@ -350,7 +350,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.
 
 　
 
-**Handle The Async Tasks**
+### Handle The Async Tasks
 
 Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) .
 
@@ -361,7 +361,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.
 
 　
 
-**As Promise**
+### As Promise
 
 Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) .
 
