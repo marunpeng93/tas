@@ -382,13 +382,13 @@ Tas does not use setTimeout or similar methods recommended by the Promise standa
 
 **References:**
 
-1. "This can be implemented with either a 'macro-task' mechanism such as setTimeout or setImmediate, or with a 'micro-task' mechanism such as MutationObserver or process.nextTick." [See details](https://promisesaplus.com/#point-67)
+\[1\]. "This can be implemented with either a 'macro-task' mechanism such as setTimeout or setImmediate, or with a 'micro-task' mechanism such as MutationObserver or process.nextTick." [See details](https://promisesaplus.com/#point-67)
 
-2. "Modern browsers impose a minimum delay of 4ms on every setTimeout, regardless of how long you specify. " [See details](http://www.bluejava.com/4NS/Speed-up-your-Websites-with-a-Faster-setTimeout-using-soon)
+\[2\]. "Modern browsers impose a minimum delay of 4ms on every setTimeout, regardless of how long you specify. " [See details](http://www.bluejava.com/4NS/Speed-up-your-Websites-with-a-Faster-setTimeout-using-soon)
 
-3. "setImmediate() is designed to execute a script once the current poll phase completes." [See details](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+\[3\]. "setImmediate() is designed to execute a script once the current poll phase completes." [See details](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
 
-4. "All callbacks scheduled via process.nextTick() are run at the end of a phase of the event loop (e.g. timers) before transitioning to the next phase. " [See details](https://nodesource.com/blog/understanding-the-nodejs-event-loop/)
+\[4\]. "All callbacks scheduled via process.nextTick() are run at the end of a phase of the event loop (e.g. timers) before transitioning to the next phase. " [See details](https://nodesource.com/blog/understanding-the-nodejs-event-loop/)
 
 　
 
