@@ -1,7 +1,7 @@
 /**
  * Examples of Tas.js for Web
  * (c) 2017 Owen Luke
- * https://github.com/hiowenluke/tas
+ * https://github.com/tasjs/tas
  * Released under the MIT License.
  */
 
@@ -21,7 +21,7 @@
 	// Tas is the abbreviation of "tasks".
 
 	// Learn more about Tas:
-	// https://github.com/hiowenluke/tas
+	// https://github.com/tasjs/tas
 
 	//--------------------------------------------
 	// How to use these examples
