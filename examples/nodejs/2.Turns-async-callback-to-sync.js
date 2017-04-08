@@ -7,10 +7,10 @@
 
 (function(){arguments[0](
 	require('../../lib'),
-	require('../utils').title,
-	require('../utils').log,
-	require('../utils').logs,
-	require('../utils').tree
+	require('../util').title,
+	require('../util').log,
+	require('../util').logs,
+	require('../util').tree
 )})
 
 (function (tas, title, log, logs, tree) {

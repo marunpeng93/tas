@@ -30,14 +30,14 @@
 	}
 
 	// Web
-	root.utils = factory(root, root.document);
+	root.util = factory(root, root.document);
 
 }(typeof window !== "undefined" ? window : this, function (window, document) {
 
 	// Utils of examples of Tas.js
-	var utils = {
+	var util = {
 		title: function(str){
-			var line = utils.repeat('-', 40);
+			var line = util.repeat('-', 40);
 
 			console.log(line);
 			console.log(str);
@@ -50,7 +50,7 @@
 
 			({
 			forBrowser: function(){
-				if (!utils.isInBrowser()) return this;
+				if (!util.isInBrowser()) return this;
 				if (args.length === 0) {
 					args = ['\n'];
 				}
@@ -83,14 +83,14 @@
 		logs: function(){
 			var args = [].slice.call(arguments);
 			args.forEach(function(str){
-				utils.log(str);
+				util.log(str);
 			});
 		},
 
 		tree: function(layer, str, extra){
 			extra = extra || 0;
 
-			var indent = utils.repeat(' ', (layer - 1 + extra) * 4);
+			var indent = util.repeat(' ', (layer - 1 + extra) * 4);
 			console.log(layer + ': ' + indent + str);
 		},
 
@@ -103,5 +103,5 @@
 		}
 	};
 
-	return utils;
+	return util;
 }));

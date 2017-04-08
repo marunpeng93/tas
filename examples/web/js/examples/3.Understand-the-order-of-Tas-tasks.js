@@ -158,5 +158,5 @@
 		// It is recommended that you put all the logic code into Tas.
 	});
 
-// The utils is only used for this example, not part of Tas.
-})(tas, utils.title, utils.log, utils.logs, utils.tree);
+// The util is only used for this example, not part of Tas.
+})(tas, util.title, util.log, util.logs, util.tree);

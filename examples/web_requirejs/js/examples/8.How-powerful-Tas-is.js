@@ -5,9 +5,9 @@
  * Released under the MIT License.
  */
 
-// The utils is only used for this example, not part of Tas.
-define(['../../../../dist/tas.min', '../../../../examples/utils'], function(tas, utils){
-	var title = utils.title, log = utils.log, logs = utils.logs, tree = utils.tree;
+// The util is only used for this example, not part of Tas.
+define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, util){
+	var title = util.title, log = util.log, logs = util.logs, tree = util.tree;
 
 	tas(function(){
 		title('8. How powerful Tas is');
