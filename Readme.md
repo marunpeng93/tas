@@ -16,7 +16,7 @@ The tasks written by Tas do not need to use Promise / resolve / reject, generato
 
 ## Install
 
-**In Node.js**
+### In Node.js
 
 ```bash
 $ npm install tas
@@ -38,7 +38,7 @@ tas({
 
 　
 
-**In Web**
+### In Web
 
 Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
 
@@ -58,7 +58,7 @@ Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js
 
 　
 
-**In Web RequireJS**
+### In Web RequireJS
 
 Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
 
@@ -173,7 +173,7 @@ We can use Tas as if using Promise. The tasks written by Tas do not need to use 
 
 　
 
-**A Simple Example**
+#### A Simple Example
 
 After this tasks is completed, continue. You can concatenate multiple tasks behind tas.promise(). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) )
 
@@ -213,7 +213,7 @@ tas({
 
 　
 
-**As Promise.all()**
+#### As Promise.all()
 
 Perform mutiple tasks at the same time. After all tasks have been completed, continue. The total waiting time is only that of the longest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) )
 
@@ -246,7 +246,7 @@ tas("Handle the data", function (err, data) {
 
 　
 
-**As Promise.race()**
+#### As Promise.race()
 
 When one task is finished, the other unfinished task(s) will be canceled. So the total waiting time is only that of the shortest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) )
 
@@ -378,7 +378,7 @@ Example for [NodeJS](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.
 
 Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries.
 
-**References:**
+#### References:
 
 \[1\] "This can be implemented with either a 'macro-task' mechanism such as setTimeout or setImmediate, or with a 'micro-task' mechanism such as MutationObserver or process.nextTick." [See details](https://promisesaplus.com/#point-67)
 
