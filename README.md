@@ -1,10 +1,10 @@
 # Tas.js
 
-Tas simplifies code logic, splitting complex logic into a set of mini tasks. Tas executes async code in a sync manner, avoiding callback hell, and is better than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. 
+Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. 
 
-The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, Tas is also faster than Promise (<a href="#why">Why</a>).
+The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
-Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks". 
+Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
 　
 
@@ -12,71 +12,23 @@ Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no depe
 
 1. Zero learning costs. Using the basic syntax of JavaScript, you can write the vast majority of tasks.
 2. There is no need to write the tasks in the form of a callback, just in logical order.
-3. Pass the data via "return" to the next function or tasks naturally.
+3. Pass the data via return or this to the next function or tasks naturally.
 
 
 　
 
-## Install Tas
+## Install
 
-### In Node.js
-
+In Node.js (<a href='#test'>test</a>):
 ```bash
 $ npm install tas
 ```
 
-Use Tas in modules.
-
-```js
-var tas = require("tas");
-tas({
-    t1: function () {
-        // Do something
-    },
-    t2: function(){
-        // Do something
-    }
-});
-```
-
 　
 
-### In Web
+In Web / RequireJS (<a href='#test'>test</a>):
 
-Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
-
-```html
-<script src="js/lib/tas.js"></script>
-<script>
-    tas({
-        t1: function () {
-            // Do something
-        },
-        t2: function(){
-            // Do something
-        }
-    });
-</script>
-```
-
-　
-
-### In Web RequireJS
-
-Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) to your local folder such as /path/to/js/lib.
-
-```js
-define(['tas'], function (tas) {
-    tas({
-        t1: function () {
-            // Do something
-        },
-        t2: function(){
-            // Do something
-        }
-    });
-});
-```
+Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
 
 　
 
@@ -84,37 +36,29 @@ define(['tas'], function (tas) {
 
 ### Sync Tasks
 
-All functions of the tasks object, including sub-object functions are executed one by one, passing the data via "return" to the next function or tasks. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) )
+With Tas, we can turn complex logic or high-coupling logic into a set of mini-tasks. All mini-tasks are executed one by one. 
 
 ```js
 tas("My first tasks", {
-    task1: function () {
-        // Do something
-    },
-    task2: function(){
+    t1: function () {
         return [1, 2, 3];
     },
-    task3: function(a, b, c){
+    t2: function(a, b, c){
         console.log(a, b, c); // 1 2 3
         return [4, 5, 6];
     }
 });
 
 tas("My Second tasks", {
-    tasks1: {
-        task1: function (a, b, c) {
+    t3: {
+        t4: function (a, b, c) {
             console.log(a, b, c); // 4 5 6
-        },
-        task2: function(){
             return [7, 8, 9];
         }
     },
-    tasks2: {
-        task1: function (a, b, c) {
+    t5: {
+        t6: function (a, b, c) {
             console.log(a, b, c); // 7 8 9
-        },
-        task2: function(){
-            // Do something
         }
     }
 });
@@ -124,47 +68,25 @@ tas("My Second tasks", {
 
 ### Async Tasks
 
-Tas executes async code in a sync manner, and all functions that contain async code are executed one by one. As the current async task completes, Tas will continue with subsequent tasks (whether they are async tasks or sync tasks). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) )
+With Tas, we can write async code like writing sync code, easily avoiding callback hell / pyramid. All async tasks and sync tasks will be executed in the order we have written.
 
 ```js
-tas.await("Prepare", {
-    t1: function(){
-        setTimeout(function(){
-            tas.next(1, 2, 3);
-        }, 1000);
-    },
-    t2: function(a, b, c){
-        console.log(a, b, c); // 1 2 3
-        tas.next(4, 5, 6);
-    }
+var a = 0;
+
+tas.await(function(){
+    a ++; // 1
+  
+    setTimeout(function(){      
+        a ++; // 2
+        tas.next();
+    }, 1000);
 });
 
-tas("Ready", function(){
-    console.log("Ready");
-});
-
-tas.await("Handle the file", {
-    init: function (a, b, c) {
-        console.log(a, b, c); // 4 5 6
-        // Do something
-        tas.next();
-    },
-    readFile: function(){
-        // Do something
-        tas.next();
-    },
-    setFileContent: function(){
-        // Do something
-        tas.next();
-    },
-    writeFile: function(){
-        // Do something
-        tas.next();
-    }
-});
-
-tas("Finished", function(){
-    console.log("Finished");
+// This task is executed after the previous async task execution is completed.
+// This proves that all tasks are executed in the order we have written.
+tas(function(){
+    a ++ ; // 3
+    console.log(a); // 3
 })
 ```
 
@@ -174,98 +96,10 @@ tas("Finished", function(){
 
 We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. 
 
-　
-
-#### A Simple Example
-
-After this tasks is completed, continue. You can concatenate multiple tasks behind tas.promise(). (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) )
-
 ```js
 tas.promise(function(){
-    // Use this.done() as a callback function and receive data.
-    ajax.get('http://a.com/1.json', this.done);
-});
-
-// Handle the data.
-tas(function (err, data) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log(data);
-    }
-    // Passing the data to the next function or tasks.
-    return [err, data];
-});
-
-// Continue to handle the data.
-tas({
-    t1: function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log(data);
-        }
-    },
-    t2: function(){
-        console.log('Done');
-    }
-});
-```
-
-　
-
-#### As Promise.all()
-
-Perform mutiple tasks at the same time. After all tasks have been completed, continue. The total waiting time is only that of the longest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) )
-
-For example, get the list data, user data, and advertising data from server at the same time, or load multiple files from local at the same time.
-
-```js
-tas.all("Fetch the data", {
-    users: function () {
-        ajax("http://a.com/users.json", this.done);
-    },
-    comments: function () {
-        ajax("http://a.com/comments.json", this.done);
-    },
-    posts: function () {
-        ajax("http://a.com/posts.json", this.done);
-    }
-});
-
-tas("Handle the data", function (err, data) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        data.forEach(function(d){
-            console.log(d);
-        });
-    }
-});
-```
-
-　
-
-#### As Promise.race()
-
-When one task is finished, the other unfinished task(s) will be canceled. So the total waiting time is only that of the shortest task time. (See the full example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) )
-
-For example, request the same file from multiple mirror websites, or wait for one of the sprites to stop moving, or wait for 5 seconds or wait for the "Next" button to be clicked.
-
-```js
-tas.race({
-    t1: function () {
-        ajax.getData("http://cdn1.a.com/data.json", this.done);
-    },
-    t2: function () {
-        ajax.getData("http://cdn2.a.com/data.json", this.done);
-    },
-    t3: function () {
-        ajax.getData("http://cdn3.a.com/data.json", this.done);
-    }
+    // Use this.done to pass the data 
+    ajax.get('https://api.github.com', this.done);
 });
 
 tas(function (err, data) {
@@ -275,6 +109,80 @@ tas(function (err, data) {
     else {
         console.log(data);
     }
+});
+```
+
+　
+
+### Modularization
+
+With Tas, when all dependencies (even including async module) execution are completed, the current module will get theire results. Everything becomes sync execution, no callback hell / pyramid. 
+
+a.js (dependency)
+
+```js
+var tas = require('tas');
+var a = 0;
+
+tas.await(function(){
+    a ++; // 1
+      
+    setTimeout(function(){
+        a ++; // 2
+        tas.next();
+    }, 1000);
+});
+
+tas(function(){
+    a ++; // 3
+});
+
+module.exports = {
+    get: function(){
+        return a; // 3
+    }
+};
+```
+
+b.js (dependency)
+
+```js
+var tas = require('tas');
+var a = 2;
+
+tas.await(function(){
+	a ++; // 3
+
+	setTimeout(function(){
+		a ++; // 4
+		tas.next();
+	}, 500);
+});
+
+tas(function(){
+	a ++; // 5
+})
+
+module.exports = {
+    get: function(){
+        return a; // 5
+    }
+};
+```
+
+calc.js (depends on a.js and b.js)
+```js
+var tas = require('tas');
+
+// The tasks in a.js and b.js are executed in the order we have written.
+var ma = require('./a');
+var mb = require('./b');
+
+// This task will be executed after all tasks are completed.
+tas(function(){
+    var a = ma.get(); // 3
+    var b = mb.get(); // 5
+    console.log(a + b); // 8
 });
 ```
 
@@ -282,44 +190,117 @@ tas(function (err, data) {
 
 ## Full Examples
 
-Clone the Tas repo:
+Clone the Tas repo first:
 
 ```bash
 $ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
 ```
 
-Run the examples in Node.js:
-```bash
-$ cd /path/to/tas
-$ node examples/nodejs/index.js
-```
+　
 
-Or run the examples in your browser:
+### For Node.js
+
+Run the test of examples in Node.js:
+
 ```bash
-$ cd /path/to/tas
-$ open examples/web/index.html
-$ open examples/web_requirejs/index.html
+$ cd /path/to/tas/examples
+$ node nodejs/__tas/test.js
 ```
 
 Or view the source code of the examples online:
 
-| Topic                                | For Node.js                              | For Web                                  | For Web RequireJS                        |
-| ------------------------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| 1. Basic flow control in Tas         | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js) |
-| 2. Turns async callback to sync      | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js) |
-| 3. Understand the order of Tas tasks | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/3.Understand-the-order-of-Tas-tasks.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/3.Understand-the-order-of-Tas-tasks.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/3.Understand-the-order-of-Tas-tasks.js) |
-| 4. Fix callback hell                 | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/4.Fix-callback-hell.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/4.Fix-callback-hell.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/4.Fix-callback-hell.js) |
-| 5. Easier to use than Promise        | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/5.Easier-to-use-than-Promise.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/5.Easier-to-use-than-Promise.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/5.Easier-to-use-than-Promise.js) |
-| 6. Use as Promise.all (and race)     | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js) |
-| 7. Use as cancelable Promise.race    | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/7.Use-as-cancelable-Promise.race.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/7.Use-as-cancelable-Promise.race.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/7.Use-as-cancelable-Promise.race.js) |
-| 8. How powerful Tas is               | [See It](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [See It](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) |
+| Folder            | Topic                               | Example                                  | Test                                     |
+| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/1.hello_world.test.js) |
+| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/2.via_return.test.js) |
+| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/3.via_this.test.js) |
+| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/4.via_tas.test.js) |
+| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/1.async_tasks.test.js) |
+| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/2.mix_tasks.test.js) |
+| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/3.the_order_of_tasks.test.js) |
+| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
+| 3. As Promise     | 1. Eaaier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/1.easier_to_use_than_promise.test.js) |
+| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
+| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
+| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
+| 4. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/1.ignore_the_current_function.test.js) |
+| 4. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/2.break_the_current_tasks.test.js) |
+| 4. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.break_the_flow/3.abort_tas.test.js) |
+| 5. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/1.common_load.test.js) |
+| 5. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/2.multiple_load.test.js) |
+| 5. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.modularization/3.chain_load.test.js) |
+| 6. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.complex/1.a_crazy_example.test.js) |
 
 　
 
-## A Crazy Example
+### For Web
 
-Tas can be nested calls, and mix many sync tasks and async tasks. There is **a crazy example** (for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/8.How-powerful-Tas-is.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/8.How-powerful-Tas-is.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/8.How-powerful-Tas-is.js) ) to show how powerful Tas is. Please note the order in which the tasks are executed. This helps to deepen understanding of the asynchronous execution mode in JavaScript. 
+Run the test of examples in your browser:
+
+```bash
+$ cd /path/to/tas/examples
+$ open web/__tas/test.html
+```
+
+Or view the source code of the examples online:
+
+| Folder            | Topic                               | Example                                  | Test                                     |
+| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/1.hello_world.test.js) |
+| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/2.via_return.test.js) |
+| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/3.via_this.test.js) |
+| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/1.pass_the_data/4.via_tas.test.js) |
+| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/1.async_tasks.test.js) |
+| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/2.mix_tasks.test.js) |
+| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/3.the_order_of_tasks.test.js) |
+| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
+| 3. As Promise     | 1. Eaaier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/1.easier_to_use_than_promise.test.js) |
+| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
+| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
+| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
+| 4. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/1.ignore_the_current_function.test.js) |
+| 4. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/2.break_the_current_tasks.test.js) |
+| 4. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/4.break_the_flow/3.abort_tas.test.js) |
+| 5. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/1.common_load.test.js) |
+| 5. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/2.multiple_load.test.js) |
+| 5. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/5.modularization/3.chain_load.test.js) |
+| 6. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/6.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/6.complex/1.a_crazy_example.test.js) |
+
+　
+
+### For Web RequireJS
+
+Run the test of examples in your browser:
+
+```bash
+$ cd /path/to/tas/examples
+$ open web_requirejs/__tas/test.html
+```
+
+Or view the source code of the examples online:
+
+| Folder            | Topic                               | Example                                  | Test                                     |
+| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/1.hello_world.test.js) |
+| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/2.via_return.test.js) |
+| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/3.via_this.test.js) |
+| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/1.pass_the_data/4.via_tas.test.js) |
+| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/1.async_tasks.test.js) |
+| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/2.mix_tasks.test.js) |
+| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/3.the_order_of_tasks.test.js) |
+| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
+| 3. As Promise     | 1. Eaaier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/1.easier_to_use_than_promise.test.js) |
+| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
+| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
+| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
+| 4. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/1.ignore_the_current_function.test.js) |
+| 4. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/2.break_the_current_tasks.test.js) |
+| 4. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/4.break_the_flow/3.abort_tas.test.js) |
+| 5. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/1.common_load.test.js) |
+| 5. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/2.multiple_load.test.js) |
+| 5. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/5.modularization/3.chain_load.test.js) |
+| 6. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/6.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/6.complex/1.a_crazy_example.test.js) |
 
 　
 
@@ -329,57 +310,103 @@ Tas provides a small amount of APIs and instructions to control the flow, and th
 
 　
 
-### Basic Flow Control
-
-Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js).
-
-| Usage           | Functions                                |
-| --------------- | ---------------------------------------- |
-| return "break"  | Abort the current tasks.                 |
-| return "break!" | Abort Tas.                               |
-| tas.break()     | Abort Tas from nested function (closures). |
-
-　
-
 ### Pass The Data
 
-Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/1.Basic-flow-control-in-Tas.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/1.Basic-flow-control-in-Tas.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/1.Basic-flow-control-in-Tas.js).
-
-| Usage              | Functions                                |
-| ------------------ | ---------------------------------------- |
-| return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. |
-| this.foo = "bar"   | The data is valid for the functions in the current task object. |
-| tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. |
+| Usage              | Functions                                | Example                                  |
+| ------------------ | ---------------------------------------- | ---------------------------------------- |
+| return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_return.js) |
+| this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_this.js) |
+| tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_tas.js) |
 
 　
 
-### Handle The Async Tasks
+### Async Tasks
 
-Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/2.Turns-async-callback-to-sync.js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/2.Turns-async-callback-to-sync.js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/2.Turns-async-callback-to-sync.js).
-
-| Usage       | Functions                                |
-| ----------- | ---------------------------------------- |
-| tas.await() | If the tasks/subtasks contains async code, use tas.await(). |
-| tas.next()  | Jump to the next function or tasks to continue. |
+| Usage          | Functions                                | Example                                  |
+| -------------- | ---------------------------------------- | ---------------------------------------- |
+| return "await" | If the sync tasks contains an async task, use it in the async task. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/return_await.js) |
+| tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/tas.await\(\).js) |
+| tas.next()     | Jump to the next function or tasks to continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/tas.next\(\).js) |
 
 　
 
 ### As Promise
 
-Example for [Node.js](https://github.com/tasjs/tas/blob/master/examples/nodejs/6.Use-as-Promise.all-\(and-race\).js) | [Web](https://github.com/tasjs/tas/blob/master/examples/web/js/examples/6.Use-as-Promise.all-\(and-race\).js) | [Web RequireJS](https://github.com/tasjs/tas/blob/master/examples/web_requirejs/js/examples/6.Use-as-Promise.all-\(and-race\).js).
+| Usage         | Functions                                | Example                                  |
+| ------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.promsise\(\).js) |
+| tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.all\(\).js) |
+| tas.race()    | As long as one of tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.race\(\).js) |
+| tas.cancel()  | Manually cancel the unfinished task(s).  | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.cancel\(\).js) |
+| this.done     | Pass the data received from promise to the next task. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/this.done.js) |
 
-| Usage         | Functions                                |
-| ------------- | ---------------------------------------- |
-| tas.promise() | After this tasks is completed, continue. |
-| tas.all()     | After all tasks are completed, continue. |
-| tas.race()    | As long as one of tasks is completed, continue. |
-| this.done     | Use as a callback function and receive data. |
+　
+
+### Break The Flow
+
+| Usage           | Functions                                | Example                                  |
+| --------------- | ---------------------------------------- | ---------------------------------------- |
+| return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_ignore.js) |
+| return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_break.js) |
+| return "abort"  | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_abort.js) |
+| tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/tas.break\(\).js) |
+| tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/tas.abort\(\).js) |
+
+　
+
+## <a name='test'>Test</a>
+
+Clone the Tas repo (if you have not done so yet):
+
+```bash
+$ cd /path/to
+$ git clone https://github.com/tasjs/tas.git
+```
+
+　
+
+#### With Mocha
+
+```bash
+$ cd /path/to/tas
+$ npm test
+```
+
+　
+
+#### In Node.JS
+
+Test with Node.js
+```bash
+$ cd /path/to/tas/test
+$ node nodejs/test.js
+```
+
+　
+
+#### In Web
+
+Test in your browser:
+```bash
+$ cd /path/to/tas/test
+$ open web/test.html
+```
+
+　
+
+#### In Web RequireJS
+
+Test in your browser:
+```bash
+$ cd /path/to/tas/test
+$ open web_requirejs/test.html
+```
 
 　
 
 ## <a name="why">Why is Tas faster than Promise?</a>
 
-Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries such as bluebird, Q, etc.
+Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries such as bluebird, Q, aigle, when.js, etc.
 
 **References:**
 
