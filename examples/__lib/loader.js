@@ -4,20 +4,28 @@
 
 var loadScripts = {
 	urls: [],
+	status: {},
+	callback: null,
 
-	do: function (urls) {
+	do: function (urls, callback) {
 		({
 			init: function(){
+				loadScripts.saveCallback(callback);
+
 				if (typeof urls !== "undefined") {
 					!(urls instanceof Array) && (urls = [urls]);
 					[].push.apply(loadScripts.urls, urls);
 				}
+
 				return this;
 			},
 
 			loadNext: function(){
 				var url = loadScripts.urls.shift();
-				if (!url) return this;
+				if (!url) {
+					loadScripts.doCallback();
+					return this;
+				}
 
 				var box = document.getElementsByTagName("head").item(0) || document.documentElement;
 				var script = document.createElement("script");
@@ -47,7 +55,15 @@ var loadScripts = {
 			}
 
 		}).init().loadNext();
+	},
+
+	saveCallback: function(callback) {
+		callback && (loadScripts.callback = callback);
+	},
+
+	doCallback: function(){
+		loadScripts.callback && loadScripts.callback();
 	}
 };
 
-var require = loadScripts.do;
+var load = loadScripts.do;
