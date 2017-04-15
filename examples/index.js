@@ -6,7 +6,7 @@
  */
 
 (function(){arguments[0](
-	require('./nodejs')
+	require('./nodejs/__tas/test.js')
 )})
 
 (function(){
@@ -16,17 +16,17 @@
 	// ----------------------------------------
 
 	// For NodeJs
-	// 		1. Open main.js in the project root directory.
+	// 		1. Open /path/to/tas/main.js.
 	// 		2. Uncomment line "require('./examples');" to load examples.
-	// 		3. Run "node main.js" on the command line, like the following:
-	// 		   $ node main.js
+	// 		3. Run the following command in your terminal:
+	// 		   $ node /path/to/tas/main.js
 
 	// For Web
-	//		1. Open ./web/index.html in browser.
+	//		1. Open /path/to/tas/examples/web/__tas/test.html in browser.
 	//		2. See the logs in the console.
 
 	// For Web RequireJS
-	//		1. Open ./web-(requirejs)/index.html in browser.
+	//		1. Open /path/to/tas/examples/web_requirejs/__tas/test.html in browser.
 	//		2. See the logs in the console.
 
 	// Enjoy!
