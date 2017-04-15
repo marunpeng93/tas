@@ -66,18 +66,23 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(28),
+		__webpack_require__(30),
 		__webpack_require__(9),
-		__webpack_require__(17)
+		__webpack_require__(19)
 	)})
 
 	(function(app, util, layer, maxLayer){
 
 		var basic = {
 
-			// Abort Tas from nested function (closures).
-			break: function(){
-				app.break();
+			// Break the current tasks.
+			break: function(err){
+				app.break(err);
+			},
+
+			// Break Tas from nested function (closures).
+			abort: function(err){
+				app.abort(err);
 			}
 		};
 
@@ -102,6 +107,10 @@ function(module, exports, __webpack_require__) {
 
 			race: function(){
 				app.race([].slice.call(arguments));
+			},
+
+			cancel: function(args){
+				app.cancel(args);
 			}
 		};
 
@@ -126,9 +135,9 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(3),
-		__webpack_require__(22),
 		__webpack_require__(24),
-		__webpack_require__(28)
+		__webpack_require__(26),
+		__webpack_require__(30)
 	)})
 
 	(function(core, async, promise, util){
@@ -142,8 +151,12 @@ function(module, exports, __webpack_require__) {
 				core.do(args);
 			},
 
-			break: function(){
-				core.break();
+			break: function(err){
+				core.break(err);
+			},
+
+			abort: function(err){
+				core.abort(err);
 			}
 		};
 
@@ -207,6 +220,10 @@ function(module, exports, __webpack_require__) {
 				}
 
 				}).setDescribe().convertFuncToObj().packPromiseTask().applyToAwait();
+			},
+
+			cancel: function(args){
+				promise.cancel(args);
 			}
 		};
 
@@ -231,8 +248,12 @@ function(module, exports, __webpack_require__) {
 				tasks.next(args);
 			},
 
-			break: function(){
-				tasks.break();
+			break: function(err){
+				tasks.break(err);
+			},
+
+			abort: function(err){
+				tasks.abort(err);
 			}
 		};
 
@@ -245,7 +266,7 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(5),
 		__webpack_require__(10),
-		__webpack_require__(20)
+		__webpack_require__(22)
 	)})
 
 	(function(data, units, global){
@@ -261,7 +282,13 @@ function(module, exports, __webpack_require__) {
 				units.do(tas, tasks);
 			},
 
-			break: function(){
+			break: function(err){
+				err && console.log(err);
+				units.break();
+			},
+
+			abort: function(err){
+				err && console.log(err);
 				global.isAbort.set();
 			},
 
@@ -443,11 +470,12 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(11),
 		__webpack_require__(12),
-		__webpack_require__(18),
-		__webpack_require__(20)
+		__webpack_require__(20),
+		__webpack_require__(15),
+		__webpack_require__(22)
 	)})
 
-	(function(data, run, exec, global){
+	(function(data, run, exec, status, global){
 
 		var units = {
 			tas: {},
@@ -468,6 +496,10 @@ function(module, exports, __webpack_require__) {
 			},
 
 			break: function(){
+				status.isBreak.set();
+			},
+
+			abort: function(){
 				global.isAbort.set();
 			}
 		};
@@ -564,7 +596,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(13),
-		__webpack_require__(14),
+		__webpack_require__(15),
 		__webpack_require__(9)
 	)})
 
@@ -594,38 +626,79 @@ function(module, exports, __webpack_require__) {
 	});
 },
 
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(14)
+	)})
+
+	(function(array){
+
+		var pass = Object.create(array);
+
+		// Alias
+		pass.saveArguments = pass.set;
+		pass.getArguments = pass.get;
+
+		module.exports = (pass);
+	});
+},
+
 function(module, exports) {
 
 	(function(){
 
-		var pass = {
+		var array = {
 			data: [],
-			
-			getArguments: function(){
+
+			get: function(){
 				return this.data;
 			},
 
-			saveArguments: function(arr){
+			set: function(arr){
 				this.data = arr;
+			},
+
+			pop: function(){
+				return this.data.pop();
+			},
+
+			push: function(element){
+				this.data.push(element);
+			},
+
+			shift: function(){
+				return this.data.shift();
+			},
+
+			unshift: function(element){
+				this.data.unshift(element);
 			}
 		};
 
-		module.exports = (pass);
+		module.exports = (array);
 	})();
 },
 
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		isGoNext: __webpack_require__(15),
-		maxLayer: __webpack_require__(17)
+
+		isGoNext: __webpack_require__(16),
+		isBreak: __webpack_require__(18),
+		maxLayer: __webpack_require__(19),
+
+		reset: function(){
+			this.isGoNext.reset();
+			this.isBreak.reset();
+		}
 	};
 },
 
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(16)
+		__webpack_require__(17)
 	)})
 
 	(function(boolean){
@@ -665,6 +738,19 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
+		__webpack_require__(17)
+	)})
+
+	(function(boolean){
+
+		var isBreak = Object.create(boolean);
+		module.exports = (isBreak);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
 		__webpack_require__(7)
 	)})
 
@@ -678,10 +764,10 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(19),
+		__webpack_require__(21),
 		__webpack_require__(11),
-		__webpack_require__(14),
-		__webpack_require__(20)
+		__webpack_require__(15),
+		__webpack_require__(22)
 	)})
 
 	(function(checker, data, status, global){
@@ -689,13 +775,15 @@ function(module, exports, __webpack_require__) {
 		var exec = {
 			do: function(units, layer){
 				var func, result, isBreak;
-				if (global.isAbort.get()) return;
+				if (checker.isAbortTas()) return;
 
 				while(func = data.getNextFunc(layer)) {
-					status.isGoNext.reset();
+
+					status.reset();
 					result = units.run(func);
 
-					if (global.isAbort.get()) {
+					if (checker.isAbortTas(result)) {
+						global.isAbort.set();
 						break;
 					}
 
@@ -704,12 +792,16 @@ function(module, exports, __webpack_require__) {
 						break;
 					}
 
-					if (checker.isBreakTas(result)) {
+					if (checker.isIgnoreThisFunc(result)) {
+						status.isGoNext.set();
+					}
+
+					if (checker.isAwaitInSyncFunc(result)) {
 						global.isAbort.set();
 						break;
 					}
 
-					if (!checker.isAwaitTasksFunc(func) || status.isGoNext.get()) {
+					if (checker.isSyncTasksFunc(func) || checker.isGoNext()) {
 						continue;
 					}
 
@@ -729,32 +821,53 @@ function(module, exports, __webpack_require__) {
 	});
 },
 
-function(module, exports) {
+function(module, exports, __webpack_require__) {
 
-	(function(){
+	(function(){arguments[0](
+		__webpack_require__(15),
+		__webpack_require__(22)
+	)})
+
+	(function(status, global){
 
 		var checker = {
 			isAwaitTasksFunc: function(func){
 				return func.root.await;
 			},
 
-			isBreakCurrentTasks: function(result){
-				return result === "break" || result === false;
+			isAwaitInSyncFunc: function(result){
+				return result === 'await';
 			},
 
-			isBreakTas: function(result){
-				return result === "break!";
+			isBreakCurrentTasks: function(result){
+				return result === "break" || result === false || status.isBreak.get();
+			},
+
+			isAbortTas: function(result){
+				return result === "abort" || global.isAbort.get();
+			},
+
+			isIgnoreThisFunc: function(result){
+				return result === 'ignore';
+			},
+
+			isSyncTasksFunc: function(func){
+				return !checker.isAwaitTasksFunc(func);
+			},
+
+			isGoNext: function(){
+				return status.isGoNext.get();
 			}
 		};
 
 		module.exports = (checker);
-	})();
+	});
 },
 
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(21)
+		__webpack_require__(23)
 	)})
 
 	(function(isAbort){
@@ -772,7 +885,7 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(16)
+		__webpack_require__(17)
 	)})
 
 	(function(boolean){
@@ -785,10 +898,10 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(23),
-		__webpack_require__(20),
+		__webpack_require__(25),
+		__webpack_require__(22),
 		__webpack_require__(13),
-		__webpack_require__(14)
+		__webpack_require__(15)
 	)})
 
 	(function(resume, global, pass, status){
@@ -815,11 +928,11 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(20),
+		__webpack_require__(22),
 		__webpack_require__(4),
 		__webpack_require__(9),
 		__webpack_require__(10),
-		__webpack_require__(14)
+		__webpack_require__(15)
 	)})
 
 	(function(global, tas, layer, units, status){
@@ -842,7 +955,7 @@ function(module, exports, __webpack_require__) {
 						// Handle the remain functions
 						units.exec(lay);
 
-						// Handle the tasks in cache
+						// Handle the tasks in sequence
 						while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
 							global.reset();
 							units.do(tas, tasks);
@@ -850,6 +963,7 @@ function(module, exports, __webpack_require__) {
 
 						lay --;
 					}
+
 					return this;
 				}
 				}).setState().handleTheTasks();
@@ -863,9 +977,9 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(25),
-		__webpack_require__(26),
-		__webpack_require__(22)
+		__webpack_require__(27),
+		__webpack_require__(28),
+		__webpack_require__(24)
 	)})
 
 	(function(all, race, async){
@@ -899,6 +1013,10 @@ function(module, exports, __webpack_require__) {
 
 			done: function(args){
 				async.do(args);
+			},
+
+			cancel: function(args){
+				race.cancel(args);
 			}
 		};
 
@@ -939,7 +1057,7 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(27)
+		__webpack_require__(29)
 	)})
 
 	(function(canceler){
@@ -960,6 +1078,10 @@ function(module, exports, __webpack_require__) {
 				};
 
 				promise.exec(tasks);
+			},
+
+			cancel: function(args){
+				canceler.cancel(args);
 			}
 		};
 
@@ -972,42 +1094,48 @@ function(module, exports) {
 	(function(){
 
 		var canceler = {
-			get: function(handlers){
-				var func;
-
-				if (typeof handlers.do !== 'undefined' && handlers.do instanceof Function){
-					func = handlers.do;
+			getAbortFunc: function(obj){
+				if (typeof obj.abort !== 'undefined' && obj.abort instanceof Function){
+					return obj.abort;
 				}
-				else {
-					Object.keys(handlers).find(function(key){
-						if (handlers[key] instanceof Function) {
-							func = handlers[key];
-							return key;
-						}
-					});
-				}
-				return func;
 			},
 
 			doWithCustomize: function(handlers){
-				var func = canceler.get(handlers);
+				var func = canceler.getAbortFunc(handlers);
 				func && func();
 				return typeof func !== 'undefined';
 			},
 
 			doWithDefault: function(handlers){
-				handlers.forEach(function(handler){
+				handlers.forEach(function(hdl){
+					var func;
 
 					// Only valid for web.
-					if (typeof XMLHttpRequest !== "undefined" && handler instanceof XMLHttpRequest) {
-						if (handler.readyState !== XMLHttpRequest.UNSENT) {
-							handler.abort();
+					if (typeof XMLHttpRequest !== "undefined" && hdl instanceof XMLHttpRequest) {
+						if (hdl.readyState !== XMLHttpRequest.UNSENT) {
+							hdl.abort();
 						}
 					}
 					else {
-						// Valid for NodeJS and web.
-						clearTimeout(handler);
+						// The ajax or request object has abort() method, such as
+						// Superagent (one of Node.js third-party modules).
+						func = canceler.getAbortFunc(hdl);
+						if (func) {
+							func();
+						}
+						else {
+							// Valid for NodeJS and web.
+							clearTimeout(hdl);
+						}
 					}
+				});
+			},
+
+			cancel: function(handlers){
+				if (!handlers || !(handlers instanceof Array)) return;
+
+				handlers.forEach(function(hdl){
+					hdl.abort && hdl.abort instanceof Function && hdl.abort();
 				});
 			}
 		};
@@ -1019,8 +1147,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(29),
-		string: __webpack_require__(30)
+		object: __webpack_require__(31),
+		string: __webpack_require__(32)
 	};
 },
 
