@@ -1,0 +1,5 @@
+test/mocha
+--reporter tap
+--recursive
+--bail
+--timeout 30000

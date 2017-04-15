@@ -1,8 +1,14 @@
+/**
+ * Test of Tas.js
+ * (c) 2017 Owen Luke
+ * https://github.com/tasjs/tas
+ * Released under the MIT License.
+ */
 
-var tas = require('../../lib');
+var tas = require('../../../lib');
 var expect = require('chai').expect;
 
-describe('break the flow: tas.abort()', function(){
+describe('break the flow: return "abort"', function(){
     it('should return 1', function(){
 
         tas(function(){
@@ -10,9 +16,7 @@ describe('break the flow: tas.abort()', function(){
 
             tas({
                 t1: function(){
-                    [1].forEach(function(){
-                        tas.abort();
-                    });
+                    return 'abort';
                 },
 
                 t2: function(){
