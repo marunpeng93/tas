@@ -304,17 +304,17 @@ Or view the source code of the examples online:
 
 　
 
-## APIs
+## APIs Examples
 
-Tas provides a small amount of APIs and instructions to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
+Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
 
 　
 
-### Examples For Node.js 
+### For Node.js 
 
 Pass The Data
 
-| Usage              | Functions                                | Example                                  | Test                                     |
+| API                | Functions                                | Example                                  | Test                                     |
 | ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_return.test.js) |
 | this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_this.test.js) |
@@ -324,7 +324,7 @@ Pass The Data
 
 Async Tasks
 
-| Usage          | Functions                                | Example                                  | Test                                     |
+| API            | Functions                                | Example                                  | Test                                     |
 | -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/return_await.test.js) |
 | tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/2.async_tasks/tas.await\(\).test.js) |
@@ -334,7 +334,7 @@ Async Tasks
 
 As Promise
 
-| Usage         | Functions                                | Example                                  | Test                                     |
+| API           | Functions                                | Example                                  | Test                                     |
 | ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.promsise\(\).test.js) |
 | tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/3.as_promise/tas.all\(\).test.js) |
@@ -346,7 +346,7 @@ As Promise
 
 Break The Flow
 
-| Usage           | Functions                                | Example                                  | Test                                     |
+| API             | Functions                                | Example                                  | Test                                     |
 | --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_ignore.test.js) |
 | return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/4.break_the_flow/return_break.test.js) |
@@ -356,11 +356,11 @@ Break The Flow
 
 　
 
-### Examples For Web
+### For Web
 
 Pass The Data
 
-| Usage              | Functions                                | Example                                  | Test                                     |
+| API                | Functions                                | Example                                  | Test                                     |
 | ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_return.test.js) |
 | this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_this.test.js) |
@@ -370,7 +370,7 @@ Pass The Data
 
 Async Tasks
 
-| Usage          | Functions                                | Example                                  | Test                                     |
+| API            | Functions                                | Example                                  | Test                                     |
 | -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/return_await.test.js) |
 | tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.await\(\).test.js) |
@@ -380,7 +380,7 @@ Async Tasks
 
 As Promise
 
-| Usage         | Functions                                | Example                                  | Test                                     |
+| API           | Functions                                | Example                                  | Test                                     |
 | ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.promsise\(\).test.js) |
 | tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.all\(\).test.js) |
@@ -392,7 +392,7 @@ As Promise
 
 Break The Flow
 
-| Usage           | Functions                                | Example                                  | Test                                     |
+| API             | Functions                                | Example                                  | Test                                     |
 | --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.break_the_flow/return_ignore.test.js) |
 | return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.break_the_flow/return_break.test.js) |
@@ -402,11 +402,11 @@ Break The Flow
 
 　
 
-### Examples For Web RequireJS 
+### For Web RequireJS 
 
 Pass The Data
 
-| Usage              | Functions                                | Example                                  | Test                                     |
+| API                | Functions                                | Example                                  | Test                                     |
 | ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_return.test.js) |
 | this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_this.test.js) |
@@ -416,7 +416,7 @@ Pass The Data
 
 Async Tasks
 
-| Usage          | Functions                                | Example                                  | Test                                     |
+| API            | Functions                                | Example                                  | Test                                     |
 | -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/return_await.test.js) |
 | tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.await\(\).test.js) |
@@ -426,7 +426,7 @@ Async Tasks
 
 As Promise
 
-| Usage         | Functions                                | Example                                  | Test                                     |
+| API           | Functions                                | Example                                  | Test                                     |
 | ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.promsise\(\).test.js) |
 | tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.all\(\).test.js) |
@@ -438,7 +438,7 @@ As Promise
 
 Break The Flow
 
-| Usage           | Functions                                | Example                                  | Test                                     |
+| API             | Functions                                | Example                                  | Test                                     |
 | --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.break_the_flow/return_ignore.test.js) |
 | return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.break_the_flow/return_break.test.js) |
