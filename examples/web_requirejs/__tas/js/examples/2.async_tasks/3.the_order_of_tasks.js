@@ -5,16 +5,14 @@
  * Released under the MIT License.
  */
 
-// The util is only used for this example, not part of Tas.
-define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, util){
-	var title = util.title, log = util.log, logs = util.logs, tree = util.tree;
+define(['../tas', '../util'],
+function(tas, util){
 
-	tas(function(){
-		title('3. Understand the order of Tas tasks');
-	});
+	var log = util.log;
+	var a;
 
-	// The tas.await() and tas() in this indent level is not part of 
-	// this example. Use it to distinguish multiple examples.
+	// The tas.await() and tas() in the first indent level is not part of
+	// this example, just use it to distinguish multiple examples.
 	tas.await(function(){
 
 		//--------------------------------------------
@@ -31,22 +29,19 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 		// So the final value of a is 3, rather than the expected 2.
 		//--------------------------------------------
 
-		var a = 1;
+		a = 1;
 
 		tas.await("start", function(){
-			log('Wait 1 second...');
-
 			setTimeout(function whenTimesUp(){
-				a ++;
+				a ++; // 3
 				tas.next();
-			}, 1000);
+			}, 500);
 		});
 
 		a = 2;
 
 		tas("end", function(){
 			log(a); // It's 3, not 2.
-			log();
 		})
 	});
 
@@ -64,15 +59,13 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 		//   end()
 		//--------------------------------------------
 
-		var a = 4;
+		a = 4;
 
 		tas.await("start", function () {
-			log('Wait 1 second...');
-
 			setTimeout(function whenTimesUp(){
-				a ++;
+				a ++; // 5
 				tas.next();
-			}, 1000);
+			}, 500);
 		});
 
 		tas("doIt", function(){
@@ -81,7 +74,6 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 
 		tas("end", function(){
 			log(a); // 6
-			log();
 		});
 	});
 
@@ -92,15 +84,13 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 		// 3. The simplified way
 		//--------------------------------------------
 
-		var a = 7;
+		a = 7;
 
 		tas.await(function () {
-			log('Wait 1 second...');
-
 			setTimeout(function(){
-				a ++;
+				a ++; // 8
 				tas.next();
-			}, 1000);
+			}, 500);
 		});
 
 		tas(function(){
@@ -109,7 +99,6 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 
 		tas(function(){
 			log(a); // 9
-			log();
 		});
 	});
 
@@ -129,34 +118,20 @@ define(['../../../../dist/tas.min', '../../../../examples/util'], function(tas, 
 	tas(function(){
 
 		//--------------------------------------------
-		// 5. Split the code into multiple Tas tasks
+		// 5. Split the code logic into a set of mini-tasks
 		//--------------------------------------------
 
-		// Split the code into a set of small tasks. This way, when you want to insert 
+		// Always split the code logic into a set of mini-tasks. When you want to insert
 		// a new task, you do not have to heavily adjust the original code structure.
 
-		// For example, if you want to insert an asynchronous task to get data 
-		// from the server, you just need to use Tas.await() to contain the 
-		// necessary async code, and put the other code into Tas().
+		// For example, if you want to insert an asynchronous task to get data
+		// from the server, you just need to use tas.await() to contain the
+		// necessary async code, and put other code into tas().
 	});
 
-
-	tas(function(){
-
-		//--------------------------------------------
-		// 6. Put all the logic code into Tas
-		//--------------------------------------------
-
-		// Consider the following common situation:
-
-		// Loading multiple JS files at the same time, and each JS file contains async code.
-		// Those async code will not be executed in the order defined by the code.
-		// Now with Tas, this problem will be solved easily.
-
-		// Read the index.js file again. It loaded multiple JS files at once.
-		// All Tas tasks (mixing the sync tasks and the async tasks)
-		// are executed in the order defined by the code.
-
-		// It is recommended that you put all the logic code into Tas.
-	});
+	return {
+		get: function(){
+			return a; // 9
+		}
+	};
 });
