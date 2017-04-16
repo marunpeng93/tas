@@ -10,7 +10,7 @@ var test = require('../../../examples/__lib/tester').test;
 var runner = require('./this.done');
 
 tas(function(){
-    var exp = 'object';
-    var val = typeof runner.get();
-    test("3.as promise: this.done", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: this.done", tas, exp, val);
 });

@@ -9,23 +9,23 @@ var tas = require('../../../lib');
 var a = 1;
 
 tas({
-    t1: function(){
-        [1].forEach(function(){
-            tas.abort();
-        });
-    },
+	t1: function(){
+		[1].forEach(function(){
+			tas.abort();
+		});
+	},
 
-    t2: function(){
-        a ++; // skipped
-    }
+	t2: function(){
+		a ++; // skipped
+	}
 });
 
 tas(function(){
-    a ++; // skipped
+	a ++; // skipped
 });
 
 module.exports = {
-    get: function(){
-        return a; // 1
-    }
+	get: function(){
+		return a; // 1
+	}
 };

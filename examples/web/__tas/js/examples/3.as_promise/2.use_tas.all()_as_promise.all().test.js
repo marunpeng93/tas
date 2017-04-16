@@ -7,10 +7,10 @@
 
 tas(function(){
 
-    var test = tester.test;
-    var runner = useTasAllAsPromiseAll;
+	var test = tester.test;
+	var runner = useTasAllAsPromiseAll;
 
-    var exp = 'array';
-    var val = runner.get() instanceof Array ? 'array' : '';
-    test("3.as promise: use tas.all() as promise.all()", tas, exp, val);
+	var exp = 'array';
+	var val = runner.get() instanceof Array ? 'array' : '';
+	test("3.as promise: use tas.all() as promise.all()", tas, exp, val);
 });

@@ -10,7 +10,7 @@ var test = require('../../../__lib/tester').test;
 var runner = require('./2.use_tas.all()_as_promise.all()');
 
 tas(function(){
-    var exp = 'array';
-    var val = runner.get() instanceof Array ? 'array' : '';
-    test("3.as promise: use tas.all() as promise.all()", tas, exp, val);
+	var exp = 'array';
+	var val = runner.get() instanceof Array ? 'array' : '';
+	test("3.as promise: use tas.all() as promise.all()", tas, exp, val);
 });

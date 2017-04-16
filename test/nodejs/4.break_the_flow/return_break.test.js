@@ -10,7 +10,7 @@ var test = require('../../../examples/__lib/tester').test;
 var runner = require('./return_break');
 
 tas(function(){
-    var exp = 2;
-    var val = runner.get();
-    test('4.break the flow: return "break"', tas, exp, val);
+	var exp = 2;
+	var val = runner.get();
+	test('4.break the flow: return "break"', tas, exp, val);
 });

@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../util', '../../lib/superagent'],
+define(['../tas', '../util', '../../../../../__lib/superagent'],
 function(tas, util, superagent){
 
 	var log = util.log;

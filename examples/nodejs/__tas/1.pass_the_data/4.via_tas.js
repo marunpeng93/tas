@@ -13,35 +13,35 @@
 var tas = require('../../../../lib');
 tas(function(){
 
-    tas.a = 1;
+	tas.a = 1;
 
-    tas({
-        t1: function(){
-            tas.a ++; // 2
-        },
+	tas({
+		t1: function(){
+			tas.a ++; // 2
+		},
 
-        t2: {
-            t3: function(){
-                tas.a ++; // 3
-            },
+		t2: {
+			t3: function(){
+				tas.a ++; // 3
+			},
 
-            t4: function(){
-                [1].forEach(function(){
-                    tas.a ++; // 4
-                });
-                
-                tas.a ++; // 5
-            }
-        },
+			t4: function(){
+				[1].forEach(function(){
+					tas.a ++; // 4
+				});
 
-        t5: function(){
-            tas.a ++; // 6
-        }
-    });
+				tas.a ++; // 5
+			}
+		},
 
-    tas(function(){
-        tas.a ++; // 7
-    });
+		t5: function(){
+			tas.a ++; // 6
+		}
+	});
+
+	tas(function(){
+		tas.a ++; // 7
+	});
 });
 
 module.exports = {

@@ -10,7 +10,7 @@ var test = require('../../../examples/__lib/tester').test;
 var runner = require('./via_this');
 
 tas(function(){
-    var exp = 5;
-    var val = runner.get();
-    test("1.pass the data: via this", tas, exp, val);
+	var exp = 5;
+	var val = runner.get();
+	test("1.pass the data: via this", tas, exp, val);
 });

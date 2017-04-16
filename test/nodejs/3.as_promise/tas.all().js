@@ -28,7 +28,7 @@ tas(function(err, d){
 });
 
 module.exports = {
-    get: function(){
-        return data;
-    }
+	get: function(){
+		return data;
+	}
 };

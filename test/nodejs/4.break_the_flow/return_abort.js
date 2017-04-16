@@ -23,7 +23,7 @@ tas(function(){
 });
 
 module.exports = {
-    get: function(){
-        return a; // 1
-    }
+	get: function(){
+		return a; // 1
+	}
 };

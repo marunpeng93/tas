@@ -7,10 +7,10 @@
 
 tas(function(){
 
-    var test = tester.test;
-    var runner = easierToUseThanPromise;
+	var test = tester.test;
+	var runner = easierToUseThanPromise;
 
-    var exp = 'object';
-    var val = typeof runner.get();
-    test("3.as promise: easier to use than promise", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: easier to use than promise", tas, exp, val);
 });

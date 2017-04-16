@@ -31,7 +31,7 @@ tas({
 });
 
 module.exports = {
-    get: function(){
-        return a; // 5
-    }
+	get: function(){
+		return a; // 5
+	}
 };

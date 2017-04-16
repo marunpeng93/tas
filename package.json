@@ -9,18 +9,21 @@
   },
   "keywords": [],
   "scripts": {
-    "test": "mocha"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcov -- -R spec && codecov -t 59abf604-36e3-4d18-989d-7fb997b28809"
   },
   "author": "hi.owen.luke@gmail.com",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
+    "codecov": "^2.1.0",
     "gulp": "^3.9.1",
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
     "gulp-webpack": "^1.5.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "mocha-multi": "^0.11.0",
     "preprocess": "^3.1.0",
     "superagent": "^3.5.2",
     "through2": "^2.0.3",

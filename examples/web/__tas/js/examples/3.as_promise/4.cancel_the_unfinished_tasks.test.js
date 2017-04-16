@@ -7,10 +7,10 @@
 
 tas(function(){
 
-    var test = tester.test;
-    var runner = cancelTheUnfinishedTasks;
+	var test = tester.test;
+	var runner = cancelTheUnfinishedTasks;
 
-    var exp = 'object';
-    var val = typeof runner.get();
-    test("3.as promise: cancel the unfinished tasks", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: cancel the unfinished tasks", tas, exp, val);
 });

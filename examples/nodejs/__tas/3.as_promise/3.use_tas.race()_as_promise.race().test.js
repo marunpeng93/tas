@@ -10,7 +10,7 @@ var test = require('../../../__lib/tester').test;
 var runner = require('./3.use_tas.race()_as_promise.race()');
 
 tas(function(){
-    var exp = 'object';
-    var val = typeof runner.get();
-    test("3.as promise: use tas.race() as promise.race()", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: use tas.race() as promise.race()", tas, exp, val);
 });

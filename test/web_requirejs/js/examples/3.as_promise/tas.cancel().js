@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../../lib/superagent'],
+define(['../tas', '../../../../../examples/__lib/superagent'],
 function(tas, superagent) {
 
 	var request = superagent;

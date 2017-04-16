@@ -11,9 +11,9 @@ var runner = require('./return_abort');
 
 tas(function(){
 
-    // The following code will not be executed, 
-    // because Tas was broken in runner.
+	// The following code will not be executed,
+	// because Tas was broken in runner.
 	var exp = 1;
 	var val = runner.get();
-	test('4.break the flow: return "break"', tas, exp, val);
+	test('4.break the flow: return "abort"', tas, exp, val);
 });
