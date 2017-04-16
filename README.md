@@ -1,6 +1,6 @@
 # Tas.js
 
-Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise. Tas can be used in [Node.js](https://nodejs.org) and in browsers. 
+Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
@@ -19,14 +19,14 @@ Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no depe
 
 ## Install
 
-In Node.js (<a href='#test'>test</a>):
+In Node.js:
 ```bash
-$ npm install tas
+$ npm install tas --save
 ```
 
 　
 
-In Web / RequireJS (<a href='#test'>test</a>):
+In Web / RequireJS:
 
 Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
 
