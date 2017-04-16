@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 <p>
 <a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://travis-ci.org/tasjs/tas.svg?branch=master' /></a>
 <a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' /></a>
