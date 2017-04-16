@@ -14,5 +14,6 @@ env:
   - NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly
 
 matrix:
+  fast_finish: true
   allow_failures:
   - node_js: "8"
