@@ -7,7 +7,7 @@
 
 (function(){
 
-	var isLocalTest = 1;
+	var isLocalTest = 0;
 
 	var defaultCfg = {
 		root: 'https://raw.githubusercontent.com/tasjs/tas/master/',
