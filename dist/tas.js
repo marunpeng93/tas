@@ -1032,7 +1032,7 @@ function(module, exports) {
 				tasks.done = function(err, data){
 					count ++;
 
-					err && (error = err);
+					err && /* istanbul ignore next */ (error = err);
 					results.push(data);
 
 					if (count === len) {
