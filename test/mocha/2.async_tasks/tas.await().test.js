@@ -6,7 +6,7 @@
  */
 
 var tas = require('../../../lib');
-var config = require('../config');
+var config = require('../../config');
 var expect = require('chai').expect;
 
 describe('async tasks: tas.await()', function(){

@@ -6,7 +6,7 @@
  */
 
 var tas = require('../../../lib');
-var config = require('../config');
+var config = require('../../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 

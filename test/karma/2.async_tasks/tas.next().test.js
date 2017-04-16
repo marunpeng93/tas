@@ -5,10 +5,6 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../../config');
-var expect = require('chai').expect;
-
 describe('async tasks: tas.next()', function(){
 	it('should return 3', function(done){
 
@@ -24,7 +20,7 @@ describe('async tasks: tas.next()', function(){
 		});
 
 		tas(function(){
-			expect(a).to.be.equal(3);
+			expect(a).toBe(3);
 			done();
 		});
 	});

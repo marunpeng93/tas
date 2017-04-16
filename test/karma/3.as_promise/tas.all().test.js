@@ -5,13 +5,10 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../../config');
-var request = require('superagent');
-var expect = require('chai').expect;
-
 describe('as promise: tas.all()', function(){
 	it('should return an array', function(done){
+
+		var request = superagent;
 
 		tas.all({
 			t1: function(){
@@ -28,7 +25,7 @@ describe('as promise: tas.all()', function(){
 		});
 
 		tas(function(err, data){
-			expect(data).to.be.an.instanceof(Array);
+			expect(data instanceof Array).toBe(true);
 			done();
 		});
 	});

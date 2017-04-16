@@ -5,14 +5,10 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../../config');
-var request = require('superagent');
-var expect = require('chai').expect;
-
 describe('as promise: tas.cancel()', function(){
 	it('should return an object', function(done){
 
+		var request = superagent;
 		var handlers = [];
 
 		tas.race({
@@ -33,10 +29,8 @@ describe('as promise: tas.cancel()', function(){
 		});
 
 		tas(function(err, data){
-			console.log()
 			tas.cancel(handlers);
-
-			expect(data).to.be.an.instanceof(Object);
+			expect(data instanceof Object).toBe(true);
 			done();
 		});
 	});

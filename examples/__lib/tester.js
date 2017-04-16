@@ -5,36 +5,8 @@
  * Released under the MIT License.
  */
 
-// Thanks David Calhoun
-// Reference: What Is AMD, CommonJS, and UMD?
-// http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
-(function (root, factory) {
+(function(r,f){if(typeof process==='object'&&process.title==="node"){module.exports=f(r);return;}if(typeof define==='function'&&define.amd){define(function(){return f(r,r.document)});return}if(typeof exports==='object'){module.exports=r.document?f(r,r.document):function(w){return f(w,w.document)};return}f(r,r.document)}(typeof window!=="undefined"?window:this,function(window, document){
 
-	if (typeof process === 'object' && process.title === "node") { // NodeJS
-		module.exports = factory(root);
-		return;
-	}
-
-	if (typeof define === 'function' && define.amd) { // Web AMD
-		define(function () {
-			return factory(root, root.document);
-		});
-		return;
-	}
-
-	if (typeof exports === 'object') { // Web CMD
-		module.exports = root.document ? factory(root, root.document) : function (window) {
-			return factory(window, window.document);
-		};
-		return;
-	}
-
-	// Web
-	root.tester = factory(root, root.document);
-
-}(typeof window !== "undefined" ? window : this, function (window, document) {
-
-	// Tester of examples of Tas.js
 	var tester = {
 		data: [],
 
@@ -101,5 +73,8 @@
 
 	};
 
-	return (tester);
+	typeof window === 'object' && typeof define !== 'function' &&
+	typeof exports !== 'object' && (window.tester = tester);
+
+	return tester;
 }));
