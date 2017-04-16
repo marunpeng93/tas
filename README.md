@@ -1,4 +1,12 @@
-# Tas.js
+
+<p>
+<a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://travis-ci.org/tasjs/tas.svg?branch=master' /></a>
+<a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' /></a>
+<a href='https://www.npmjs.com/package/tas' target='_blank'><img src='https://img.shields.io/npm/v/tas.svg' /></a>
+<a href='https://www.npmjs.com/package/tas' target='_blank'><img src='https://img.shields.io/npm/l/tas.svg' /></a>
+</p>
+
+# Tas.js 
 
 Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
