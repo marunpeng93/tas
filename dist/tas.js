@@ -66,7 +66,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(30),
+		__webpack_require__(29),
 		__webpack_require__(9),
 		__webpack_require__(19)
 	)})
@@ -137,7 +137,7 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(3),
 		__webpack_require__(24),
 		__webpack_require__(26),
-		__webpack_require__(30)
+		__webpack_require__(29)
 	)})
 
 	(function(core, async, promise, util){
@@ -244,10 +244,6 @@ function(module, exports, __webpack_require__) {
 				tasks.do(args);
 			},
 
-			next: function(args){
-				tasks.next(args);
-			},
-
 			break: function(err){
 				tasks.break(err);
 			},
@@ -283,12 +279,12 @@ function(module, exports, __webpack_require__) {
 			},
 
 			break: function(err){
-				err && console.log(err);
+				err && /* istanbul ignore next */ console.log(err);
 				units.break();
 			},
 
 			abort: function(err){
-				err && console.log(err);
+				err && /* istanbul ignore next */ console.log(err);
 				global.isAbort.set();
 			},
 
@@ -339,6 +335,7 @@ function(module, exports, __webpack_require__) {
 					args.forEach(function(obj, index){
 						id.add();
 
+						/* istanbul ignore else */
 						if (!obj.name) {
 							obj.name = utils.getObjName(describe, args, id.get(), index);
 						}
@@ -361,12 +358,7 @@ function(module, exports, __webpack_require__) {
 			getObjName: function (describe, args, id, index) {
 				var name = "";
 				if (describe) {
-					if (args.length === 1) {
-						name = describe;
-					}
-					else {
-						name = describe + "[" + (index + 1) + "]";
-					}
+					name = describe;
 				}
 				else {
 					name = 'Tasks[' + id + ']';
@@ -497,10 +489,6 @@ function(module, exports, __webpack_require__) {
 
 			break: function(){
 				status.isBreak.set();
-			},
-
-			abort: function(){
-				global.isAbort.set();
 			}
 		};
 
@@ -558,6 +546,8 @@ function(module, exports) {
 				var i;
 
 				for (i = 0; i < arr.length; i++) {
+
+					/* istanbul ignore else */
 					if (arr[i].root === root) {
 						arr.splice(i, 1);
 						i--;
@@ -775,6 +765,8 @@ function(module, exports, __webpack_require__) {
 		var exec = {
 			do: function(units, layer){
 				var func, result, isBreak;
+
+				/* istanbul ignore if */
 				if (checker.isAbortTas()) return;
 
 				while(func = data.getNextFunc(layer)) {
@@ -805,6 +797,7 @@ function(module, exports, __webpack_require__) {
 						continue;
 					}
 
+					/* istanbul ignore else */
 					if (checker.isAwaitTasksFunc(func)) {
 						global.isAbort.set();
 						break;
@@ -911,6 +904,7 @@ function(module, exports, __webpack_require__) {
 				pass.saveArguments(args);
 				status.isGoNext.set();
 
+				/* istanbul ignore else */
 				if (global.isAbort.get()) {
 					async.resume();
 				}
@@ -1054,13 +1048,9 @@ function(module, exports) {
 	})();
 },
 
-function(module, exports, __webpack_require__) {
+function(module, exports) {
 
-	(function(){arguments[0](
-		__webpack_require__(29)
-	)})
-
-	(function(canceler){
+	(function(){
 
 		var race = {
 			do: function(tasks, promise){
@@ -1068,11 +1058,7 @@ function(module, exports, __webpack_require__) {
 
 				tasks.done = function(err, data, handlers){
 					if (++count === 1) {
-						if (handlers && typeof handlers === 'object') {
-							if (canceler.doWithCustomize(handlers) === false) {
-								canceler.doWithDefault(handlers);
-							}
-						}
+						race.cancel(handlers);
 						promise.done([err, data]);
 					}
 				};
@@ -1080,75 +1066,45 @@ function(module, exports, __webpack_require__) {
 				promise.exec(tasks);
 			},
 
-			cancel: function(args){
-				canceler.cancel(args);
-			}
-		};
+			cancel: function(handlers){
+				if (!handlers || !(handlers instanceof Array)) return;
 
-		module.exports = (race);
-	});
-},
+				handlers.forEach(function(handle){
 
-function(module, exports) {
+					/* istanbul ignore next */
 
-	(function(){
-
-		var canceler = {
-			getAbortFunc: function(obj){
-				if (typeof obj.abort !== 'undefined' && obj.abort instanceof Function){
-					return obj.abort;
-				}
-			},
-
-			doWithCustomize: function(handlers){
-				var func = canceler.getAbortFunc(handlers);
-				func && func();
-				return typeof func !== 'undefined';
-			},
-
-			doWithDefault: function(handlers){
-				handlers.forEach(function(hdl){
-					var func;
-
-					// Only valid for web.
-					if (typeof XMLHttpRequest !== "undefined" && hdl instanceof XMLHttpRequest) {
-						if (hdl.readyState !== XMLHttpRequest.UNSENT) {
-							hdl.abort();
+					// For web
+					if (typeof XMLHttpRequest !== "undefined" && handle instanceof XMLHttpRequest) {
+						if (handle.readyState !== XMLHttpRequest.UNSENT) {
+							handle.abort();
 						}
 					}
 					else {
 						// The ajax or request object has abort() method, such as
 						// Superagent (one of Node.js third-party modules).
-						func = canceler.getAbortFunc(hdl);
-						if (func) {
-							func();
+						if (typeof handle.abort !== 'undefined' && handle.abort instanceof Function) {
+							handle.abort();
 						}
 						else {
 							// Valid for NodeJS and web.
-							clearTimeout(hdl);
+							// Whatever the value of handle is, clearTimeout() will not go wrong,
+							// so we do not need to determine the type of handle or use try..catch.
+							clearTimeout(handle);
 						}
 					}
-				});
-			},
-
-			cancel: function(handlers){
-				if (!handlers || !(handlers instanceof Array)) return;
-
-				handlers.forEach(function(hdl){
-					hdl.abort && hdl.abort instanceof Function && hdl.abort();
 				});
 			}
 		};
 
-		module.exports = (canceler);
+		module.exports = (race);
 	})();
 },
 
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(31),
-		string: __webpack_require__(32)
+		object: __webpack_require__(30),
+		string: __webpack_require__(31)
 	};
 },
 
@@ -1159,16 +1115,17 @@ function(module, exports) {
 		var object = {
 			extend: function () {
 				var args = [].slice.call(arguments);
-				var target = args.length > 1 ? args.shift() : {};
+				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
 
 				var extend = {
 					do: function(target, source){
 						Object.keys(source).forEach(function (key) {
 
-							if (typeof source[key] === 'object' && typeof target[key] === 'object') {
-								extend.do(target[key], source[key]);
-							}
+							//if (typeof source[key] === 'object' && typeof target[key] === 'object') {
+							//	extend.do(target[key], source[key]);
+							//}
 
+							/* istanbul ignore else */
 							if (typeof target[key] === 'undefined') {
 								target[key] = source[key];
 							}
