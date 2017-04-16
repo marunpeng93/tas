@@ -9,35 +9,35 @@ var tas = require('../../../lib');
 var expect = require('chai').expect;
 
 describe('pass the data: via this', function(){
-    it('should return 5', function(){
+	it('should return 5', function(){
 
-        var a = 1;
+		var a = 1;
 
-        tas({
-            t1: function(){
-                this.a = 1;
-            },
+		tas({
+			t1: function(){
+				this.a = 1;
+			},
 
-            t2: {
-                t3: function(){
-                    this.a ++; // 2
-                },
+			t2: {
+				t3: function(){
+					this.a ++; // 2
+				},
 
-                t4: function(){
-                    [1].forEach(function(){
-                        this.a ++; // 3
-                    }.bind(this)); // bind this, important!
+				t4: function(){
+					[1].forEach(function(){
+						this.a ++; // 3
+					}.bind(this)); // bind this, important!
 
-                    this.a ++; // 4
-                }
-            },
+					this.a ++; // 4
+				}
+			},
 
-            t5: function(){
+			t5: function(){
 				this.a ++; // 5
-                a = this.a;
-            }
-        });
+				a = this.a;
+			}
+		});
 
-        expect(tas.a).to.be.equal(5);
-    });
+		expect(tas.a).to.be.equal(5);
+	});
 });

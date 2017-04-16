@@ -8,20 +8,22 @@
 var tas = require('../../../lib');
 var expect = require('chai').expect;
 
-describe('break the flow: return "ignore"', function(){
-    it('should return 2', function(){
+describe('break the flow: tas.break()', function(){
+	it('should return 2', function(){
 
 		tas(function(){
 			var a = 1;
 
-			tas(function () {
-				return "ignore";
-				a ++; // skipped
-			});
+			tas({
+				t1: function(){
+					[1].forEach(function(){
+						tas.break();
+					});
+				},
 
-			tas.await(function () {
-				return "ignore";
-				a ++; // skipped
+				t2: function(){
+					a ++; // skipped
+				}
 			});
 
 			tas(function(){
@@ -30,5 +32,5 @@ describe('break the flow: return "ignore"', function(){
 
 			expect(a).to.be.equal(2);
 		});
-    });
+	});
 });

@@ -6,12 +6,13 @@
  */
 
 var tas = require('../../../lib');
+var config = require('../config');
 var expect = require('chai').expect;
 
 describe('async tasks: return "await"', function(){
-    it('should return 5', function(done){
+	it('should return 5', function(done){
 
-        var a = 1;
+		var a = 1;
 
 		tas({
 			t1: function(){
@@ -25,7 +26,7 @@ describe('async tasks: return "await"', function(){
 					a ++; // 4
 
 					tas.next();
-				}, 500);
+				}, config.time);
 
 				return "await";
 			},
@@ -35,10 +36,10 @@ describe('async tasks: return "await"', function(){
 			}
 		});
 
-        tas(function(){
-            expect(a).to.be.equal(5);
-            done();
-        });
-    });
+		tas(function(){
+			expect(a).to.be.equal(5);
+			done();
+		});
+	});
 });
 

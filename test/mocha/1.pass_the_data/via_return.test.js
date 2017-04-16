@@ -9,34 +9,34 @@ var tas = require('../../../lib');
 var expect = require('chai').expect;
 
 describe('pass the data: via return', function(){
-    it('should return 15', function(){
+	it('should return 15', function(){
 
-        var a = 1;
+		var a = 1;
 
-        tas({
-            t1: function(){
-                return [2];
-            },
+		tas({
+			t1: function(){
+				return [2];
+			},
 
-            t2: function(arg){
-                a += arg; // 3
-                return [4];
-            }
-        });
+			t2: function(arg){
+				a += arg; // 3
+				return [4];
+			}
+		});
 
-        tas({
-            t3: {
-                t4: function(arg){
-                    a += arg; // 7
-                    return [8];
-                }
-            }
-        });
+		tas({
+			t3: {
+				t4: function(arg){
+					a += arg; // 7
+					return [8];
+				}
+			}
+		});
 
-        tas(function(arg){
-            a += arg; // 15
-        });
+		tas(function(arg){
+			a += arg; // 15
+		});
 
-        expect(a).to.be.equal(15);
-    });
+		expect(a).to.be.equal(15);
+	});
 });

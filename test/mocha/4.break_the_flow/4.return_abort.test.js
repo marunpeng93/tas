@@ -8,15 +8,16 @@
 var tas = require('../../../lib');
 var expect = require('chai').expect;
 
-describe('break the flow: return "break"', function(){
-    it('should return 2', function(){
+describe('break the flow: return "abort"', function(){
+	it('should return 1', function(){
 
+		var a = 1;
+		
 		tas(function(){
-			var a = 1;
 
 			tas({
 				t1: function(){
-					return 'break';
+					return 'abort';
 				},
 
 				t2: function(){
@@ -25,10 +26,10 @@ describe('break the flow: return "break"', function(){
 			});
 
 			tas(function(){
-				a ++; // 2
+				a ++; // skipped
 			});
-
-			expect(a).to.be.equal(2);
 		});
-    });
+
+		expect(a).to.be.equal(1);
+	});
 });

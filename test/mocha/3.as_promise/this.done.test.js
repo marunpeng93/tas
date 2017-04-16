@@ -6,19 +6,20 @@
  */
 
 var tas = require('../../../lib');
+var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('as promise: this.done', function(){
-    it('should return an object', function(done){
+	it('should return an object', function(done){
 
-        tas.promise(function(){
-            request.get('https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json').end(this.done);
-        });
+		tas.promise("tas promise", function(){
+			request.get(config.root + 'examples/__res/pics/a.json').end(this.done);
+		});
 
-        tas(function(err, data){
-            expect(data).to.be.an.instanceof(Object);
-            done();
-        });
-    });
-});        
+		tas(function(err, data){
+			expect(data).to.be.an.instanceof(Object);
+			done();
+		});
+	});
+});
