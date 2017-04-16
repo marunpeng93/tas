@@ -1,4 +1,4 @@
-# Tas.js
+# Tas.js ![](https://travis-ci.org/tasjs/tas.svg?branch=master)
 
 Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
