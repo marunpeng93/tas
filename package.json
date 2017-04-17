@@ -1,13 +1,13 @@
 {
   "name": "tas",
   "version": "1.2.2",
-  "description": "",
+  "description": "Make code simple and easy to maintain, and is better than Promise.",
   "main": "main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/tasjs/tas"
   },
-  "keywords": [],
+  "keywords": ["tas","tasjs", "promise", "code", "code structure", "code maintenance"],
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcov -- -R spec && codecov -t 59abf604-36e3-4d18-989d-7fb997b28809"
   },
