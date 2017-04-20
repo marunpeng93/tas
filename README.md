@@ -2,7 +2,7 @@
 
 [![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
-## Make code simple and easy to maintain
+# Make code simple and easy to maintain
 
 [![Linux Build][travis-image]][travis-url]
 [![Test Coverage][codecov-image]][codecov-url]
@@ -11,12 +11,13 @@
 [![License][license-image]][license-url]
 
 [![SauceLabs][saucelabs-image]][saucelabs-url]
+
 </div>
 
 
 # Tas.js 
 
-Make code simple and easy to maintain. Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
+Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
