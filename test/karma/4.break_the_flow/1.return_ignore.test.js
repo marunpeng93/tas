@@ -8,24 +8,27 @@
 describe('break the flow: return "ignore"', function(){
 	it('should return 2', function(){
 
+		var a = 1;
+
+		tas(function () {
+			return "ignore";
+			a ++; // skipped
+		});
+
+		tas.await(function () {
+			return "ignore";
+			a ++; // skipped
+		});
+
 		tas(function(){
-			var a = 1;
+			a ++; // 2
+		});
 
-			tas(function () {
-				return "ignore";
-				a ++; // skipped
-			});
-
-			tas.await(function () {
-				return "ignore";
-				a ++; // skipped
-			});
-
-			tas(function(){
-				a ++; // 2
-			});
-
-			expect(a).toBe(2);
+		tas(function(){
+			var exp = 2;
+			var val = a;
+			tester.test('break the flow: return "ignore"', tas, exp, val, true);
+			expect(val).toBe(exp);
 		});
 	});
 });

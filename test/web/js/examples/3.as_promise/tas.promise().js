@@ -10,7 +10,8 @@ var tasPromise = function() {
 	var data;
 
 	tas.promise(function () {
-		request.get('https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json').end(this.done);
+		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
+		request.get(url).end(this.done);
 	});
 
 	tas(function (err, d) {

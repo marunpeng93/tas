@@ -6,7 +6,7 @@
  */
 
 var tas = require('../../../lib');
-var config = require('../../config');
+var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
@@ -15,23 +15,23 @@ describe('as promise: tas.race()', function(){
 
 		tas.race({
 			t1: function(){
-				var url = config.root + 'examples/__res/pics/a.json';
+				var url = config.res[0];
 				request.get(url).end(this.done);
 			},
 
 			t2: function(){
-				var url = config.root + 'examples/__res/pics/b.json';
+				var url = config.res[1];
 				request.get(url).end(this.done);
 			},
 
 			t3: function(){
-				var url = config.root + 'examples/__res/pics/c.json';
+				var url = config.res[2];
 				request.get(url).end(this.done);
 			}
 		});
 
 		tas(function(err, data){
-			expect(data).to.be.an.instanceof(Object);
+			expect(data instanceof Object).to.be.equal(true);
 			done();
 		});
 	});

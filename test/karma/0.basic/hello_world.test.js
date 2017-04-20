@@ -20,6 +20,11 @@ describe('basic: hello world', function(){
 			}
 		});
 
-		expect(a).toBe(3);
+		tas(function(){
+			var exp = 3;
+			var val = a;
+			tester.test('basic: hello world', tas, exp, val, true);
+			expect(val).toBe(exp);
+		});
 	});
 });

@@ -8,26 +8,29 @@
 describe('break the flow: tas.break()', function(){
 	it('should return 2', function(){
 
+		var a = 1;
+
+		tas({
+			t1: function(){
+				[1].forEach(function(){
+					tas.break();
+				});
+			},
+
+			t2: function(){
+				a ++; // skipped
+			}
+		});
+
 		tas(function(){
-			var a = 1;
+			a ++; // 2
+		});
 
-			tas({
-				t1: function(){
-					[1].forEach(function(){
-						tas.break();
-					});
-				},
-
-				t2: function(){
-					a ++; // skipped
-				}
-			});
-
-			tas(function(){
-				a ++; // 2
-			});
-
-			expect(a).toBe(2);
+		tas(function(){
+			var exp = 2;
+			var val = a;
+			tester.test('break the flow: tas.break()', tas, exp, val, true);
+			expect(val).toBe(exp);
 		});
 	});
 });

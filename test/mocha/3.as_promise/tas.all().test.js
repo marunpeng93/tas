@@ -6,7 +6,7 @@
  */
 
 var tas = require('../../../lib');
-var config = require('../../config');
+var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
@@ -15,20 +15,23 @@ describe('as promise: tas.all()', function(){
 
 		tas.all({
 			t1: function(){
-				request.get(config.root + 'examples/__res/pics/a.json').end(this.done);
+				var url = config.res[0];
+				request.get(url).end(this.done);
 			},
 
 			t2: function(){
-				request.get(config.root + 'examples/__res/pics/b.json').end(this.done);
+				var url = config.res[1];
+				request.get(url).end(this.done);
 			},
 
 			t3: function(){
-				request.get(config.root + 'examples/__res/pics/c.json').end(this.done);
+				var url = config.res[2];
+				request.get(url).end(this.done);
 			}
 		});
 
 		tas(function(err, data){
-			expect(data).to.be.an.instanceof(Array);
+			expect(data instanceof Array).to.be.equal(true);
 			done();
 		});
 	});

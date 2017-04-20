@@ -19,6 +19,11 @@ describe('basic: simplify', function(){
 			}
 		);
 
-		expect(a).toBe(3);
+		tas(function(){
+			var exp = 3;
+			var val = a;
+			tester.test('basic: simplify', tas, exp, val, true);
+			expect(val).toBe(exp);
+		});
 	});
 });

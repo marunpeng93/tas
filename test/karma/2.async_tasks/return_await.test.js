@@ -22,7 +22,7 @@ describe('async tasks: return "await"', function(){
 					a ++; // 4
 
 					tas.next();
-				}, config.time);
+				}, config.waitTime);
 
 				return "await";
 			},
@@ -33,7 +33,10 @@ describe('async tasks: return "await"', function(){
 		});
 
 		tas(function(){
-			expect(a).toBe(5);
+			var exp = 5;
+			var val = a;
+			tester.test('async tasks: return "await"', tas, exp, val, true);
+			expect(val).toBe(exp);
 			done();
 		});
 	});

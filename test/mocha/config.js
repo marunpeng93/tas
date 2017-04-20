@@ -8,19 +8,29 @@
 // Thanks David Calhoun: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
 (function(r,f){if(typeof process==='object'&&process.title.indexOf("node")>=0){module.exports=f(r);return;}if(typeof define==='function'&&define.amd){define(function(){return f(r,r.document)});return}if(typeof exports==='object'){module.exports=r.document?f(r,r.document):function(w){return f(w,w.document)};return}f(r,r.document)}(typeof window!=="undefined"?window:this,function(window, document){
 
-	var config = {
+	var isLocalTest = 0;
 
-		// root path:
-		// http://localhost:9876/
+	var defaultCfg = {
 		res: [
-			'/socket.io/socket.io.js',
-			'/karma.js',
-			'/debug.html'
+			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json',
+			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/b.json',
+			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/c.json'
 		],
-		waitTime: 0,
-		netTimeout: 1000,
-		isKarma: true
+		waitTime: 1000,
+		netTimeout: 3*60*1000
 	};
+
+	var localCfg = {
+		res: [
+			'/mynodejs/tas/examples/__res/pics/a.json',
+			'/mynodejs/tas/examples/__res/pics/b.json',
+			'/mynodejs/tas/examples/__res/pics/c.json'
+		],
+		waitTime: 1000,
+		netTimeout: 3*60*1000
+	};
+
+	var config = isLocalTest ? localCfg : defaultCfg;
 
 	typeof window === 'object' && typeof define !== 'function' &&
 	typeof exports !== 'object' && (window.config = config);

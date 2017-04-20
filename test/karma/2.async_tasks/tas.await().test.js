@@ -16,11 +16,14 @@ describe('async tasks: tas.await()', function(){
 			setTimeout(function(){
 				a ++; // 3
 				tas.next();
-			}, config.time);
+			}, config.waitTime);
 		});
 
 		tas(function(){
-			expect(a).toBe(3);
+			var exp = 3;
+			var val = a;
+			tester.test('async tasks: tas.await()', tas, exp, val, true);
+			expect(val).toBe(exp);
 			done();
 		});
 	});

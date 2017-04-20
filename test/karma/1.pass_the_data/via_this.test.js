@@ -35,6 +35,11 @@ describe('pass the data: via this', function(){
 			}
 		});
 
-		expect(tas.a).toBe(5);
+		tas(function(){
+			var exp = 5;
+			var val = a;
+			tester.test('pass the data: via this', tas, exp, val, true);
+			expect(val).toBe(exp);
+		});
 	});
 });

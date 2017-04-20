@@ -38,6 +38,11 @@
 
 		// root = test/nodejs
 		data: [
+			'0.basic/hello_world.js',
+			'0.basic/hello_world.test.js',
+			'0.basic/simplify.js',
+			'0.basic/simplify.test.js',
+
 			'1.pass_the_data/via_return.js',
 			'1.pass_the_data/via_return.test.js',
 			'1.pass_the_data/via_tas.js',
@@ -63,14 +68,10 @@
 			'3.as_promise/this.done.js',
 			'3.as_promise/this.done.test.js',
 
-			//'4.break_the_flow/return_abort.js',
-			//'4.break_the_flow/return_abort.test.js',
 			'4.break_the_flow/return_break.js',
 			'4.break_the_flow/return_break.test.js',
 			'4.break_the_flow/return_ignore.js',
 			'4.break_the_flow/return_ignore.test.js',
-			//'4.break_the_flow/tas.abort().js',
-			//'4.break_the_flow/tas.abort().test.js',
 			'4.break_the_flow/tas.break().js',
 			'4.break_the_flow/tas.break().test.js',
 		'']

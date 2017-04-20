@@ -6,26 +6,33 @@
  */
 
 describe('as promise: tas.all()', function(){
-	it('should return an array', function(done){
+	it('should return true', function(done){
 
 		var request = superagent;
+		jasmine.getEnv().defaultTimeoutInterval = config.netTimeout;
 
 		tas.all({
 			t1: function(){
-				request.get(config.root + 'examples/__res/pics/a.json').end(this.done);
+				var url = config.res[0];
+				request.get(url).end(this.done);
 			},
 
 			t2: function(){
-				request.get(config.root + 'examples/__res/pics/b.json').end(this.done);
+				var url = config.res[1];
+				request.get(url).end(this.done);
 			},
 
 			t3: function(){
-				request.get(config.root + 'examples/__res/pics/c.json').end(this.done);
+				var url = config.res[2];
+				request.get(url).end(this.done);
 			}
 		});
 
 		tas(function(err, data){
-			expect(data instanceof Array).toBe(true);
+			var exp = true;
+			var val = data instanceof Array;
+			tester.test('as promise: tas.all()', tas, exp, val, true);
+			expect(val).toBe(exp);
 			done();
 		});
 	});

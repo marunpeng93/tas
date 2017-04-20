@@ -30,7 +30,6 @@ describe('break the flow: tas.abort()', function(){
 			tas(function(){
 				a ++; // skipped
 			});
-
 		});
 
 		expect(a).to.be.equal(1);

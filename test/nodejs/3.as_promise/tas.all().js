@@ -11,15 +11,18 @@ var data;
 
 tas.all({
 	t1: function(){
-		request.get('https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json').end(this.done);
+		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
+		request.get(url).end(this.done);
 	},
 
 	t2: function(){
-		request.get('https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/b.json').end(this.done);
+		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/b.json';
+		request.get(url).end(this.done);
 	},
 
 	t3: function(){
-		request.get('https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/c.json').end(this.done);
+		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/c.json';
+		request.get(url).end(this.done);
 	}
 });
 

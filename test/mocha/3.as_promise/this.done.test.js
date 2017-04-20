@@ -6,7 +6,7 @@
  */
 
 var tas = require('../../../lib');
-var config = require('../../config');
+var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
@@ -14,11 +14,12 @@ describe('as promise: this.done', function(){
 	it('should return an object', function(done){
 
 		tas.promise("tas promise", function(){
-			request.get(config.root + 'examples/__res/pics/a.json').end(this.done);
+			var url = config.res[0];
+			request.get(url).end(this.done);
 		});
 
 		tas(function(err, data){
-			expect(data).to.be.an.instanceof(Object);
+			expect(data instanceof Object).to.be.equal(true);
 			done();
 		});
 	});

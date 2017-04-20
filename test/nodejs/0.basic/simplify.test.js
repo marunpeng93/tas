@@ -7,10 +7,10 @@
 
 var tas = require('../../../lib');
 var test = require('../../../examples/__lib/tester').test;
-var runner = require('./hello_world');
+var runner = require('./simplify');
 
 tas(function(){
 	var exp = 3;
 	var val = runner.get();
-	test("0.basic: hello world", tas, exp, val);
+	test("0.basic: simplify", tas, exp, val);
 });

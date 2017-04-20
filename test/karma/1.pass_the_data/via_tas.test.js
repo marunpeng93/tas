@@ -38,6 +38,11 @@ describe('pass the data: via tas', function(){
 			a = tas.a;
 		});
 
-		expect(a).toBe(5);
+		tas(function(){
+			var exp = 5;
+			var val = a;
+			tester.test('pass the data: via tas', tas, exp, val, true);
+			expect(val).toBe(exp);
+		});
 	});
 });
