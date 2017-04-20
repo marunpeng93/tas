@@ -1,3 +1,4 @@
+<div align='center'>
 [![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
   [![Linux Build][travis-image]][travis-url]
@@ -7,6 +8,7 @@
   [![License][license-image]][license-url]
 
   [![SauceLabs][saucelabs-image]][saucelabs-url]
+</div>
 
 
 # Tas.js 
