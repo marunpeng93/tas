@@ -2,7 +2,7 @@
 
 [![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
-# Make code simple and easy to maintain
+# Make Code Simple And Maintainable
 
 　
 
