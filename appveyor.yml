@@ -22,5 +22,5 @@ build: off
 test_script:
   - node --version
   - npm --version
-  - npm run test-ci
+  - mocha
 version: "{build}"
