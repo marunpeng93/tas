@@ -1,10 +1,13 @@
+[![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
-<p>
-<a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://travis-ci.org/tasjs/tas.svg?branch=master' /></a>
-<a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' /></a>
-<a href='https://www.npmjs.com/package/tas' target='_blank'><img src='https://img.shields.io/npm/v/tas.svg' /></a>
-<a href='https://www.npmjs.com/package/tas' target='_blank'><img src='https://img.shields.io/npm/l/tas.svg' /></a>
-</p>
+  [![Linux Build][travis-image]][travis-url]
+  [![Test Coverage][codecov-image]][codecov-url]
+  [![NPM Downloads][downloads-image]][downloads-url]
+  [![NPM Version][npm-image]][npm-url]
+  [![License][license-image]][license-url]
+
+  [![SauceLabs][saucelabs-image]][saucelabs-url]
+
 
 # Tas.js 
 
@@ -159,16 +162,16 @@ var tas = require('tas');
 var a = 2;
 
 tas.await(function(){
-	a ++; // 3
+    a ++; // 3
 
-	setTimeout(function(){
-		a ++; // 4
-		tas.next();
-	}, 500);
+    setTimeout(function(){
+        a ++; // 4
+        tas.next();
+    }, 500);
 });
 
 tas(function(){
-	a ++; // 5
+    a ++; // 5
 })
 
 module.exports = {
@@ -527,3 +530,18 @@ Tas does not use setTimeout or similar methods recommended by the Promise standa
 [MIT](LICENSE)
 
 Copyright (c) 2017, Owen Luke
+
+[npm-image]: https://img.shields.io/npm/v/tas.svg
+[npm-url]: https://npmjs.org/package/tas
+[downloads-image]: https://img.shields.io/npm/dm/tas.svg
+[downloads-url]: https://npmjs.org/package/tas
+[travis-image]: https://img.shields.io/travis/tasjs/tas/master.svg?label=linux
+[travis-url]: https://travis-ci.org/tasjs/tas
+[appveyor-image]: https://img.shields.io/appveyor/ci/tasjs/tas/master.svg?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/tasjs/tas
+[codecov-image]: https://img.shields.io/codecov/c/github/tasjs/tas/master.svg
+[codecov-url]: https://codecov.io/gh/tasjs/tas
+[license-image]: https://img.shields.io/npm/l/tas.svg
+[license-url]: https://npmjs.org/package/tas
+[saucelabs-image]: https://saucelabs.com/browser-matrix/tasjs.svg
+[saucelabs-url]: https://saucelabs.com/u/tasjs
