@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-(function(r,f){if(typeof process==='object'&&process.title==="node"){module.exports=f(r);return;}if(typeof define==='function'&&define.amd){define(function(){return f(r,r.document)});return}if(typeof exports==='object'){module.exports=r.document?f(r,r.document):function(w){return f(w,w.document)};return}f(r,r.document)}(typeof window!=="undefined"?window:this,function(window, document){
+// Thanks David Calhoun: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
+(function(r,f){if(typeof process==='object'&&process.title.indexOf("node")>=0){module.exports=f(r);return;}if(typeof define==='function'&&define.amd){define(function(){return f(r,r.document)});return}if(typeof exports==='object'){module.exports=r.document?f(r,r.document):function(w){return f(w,w.document)};return}f(r,r.document)}(typeof window!=="undefined"?window:this,function(window, document){
 
 	var tester = {
 		data: [],
@@ -14,44 +15,75 @@
 			this.data = data;
 		},
 
-		test: function(describe, tas, exp, val){
-			var result = exp === val ? 'ok' : 'x';
-			var count = tas.count = typeof tas.count === 'undefined' ? 1 : tas.count + 1;
-			count = ('00' + count).substr(-2);
+		test: function(describe, tas, exp, val, isKarma){
+			var result, count;
 
-			console.log('%s %s -- %s -- should return %s', result, count, describe, exp);
-			result === 'x' && tas.abort();
+			({
+			test: function(){
+				result = exp === val ? 'ok' : 'x';
+				count = tas.count = typeof tas.count === 'undefined' ? 1 : tas.count + 1;
+				count = ('00' + count).substr(-2);
+				return this;
+			},
+
+			printLog: function(){
+				var info = '%s %s -- %s -- should return %s';
+				isKarma && karmaDebugger && karmaDebugger.info(info, result, count, describe, exp);
+				console.log(info, result, count, describe, exp);
+				return this;
+			},
+
+			onFailed: function(){
+				result === 'x' && tas.abort();
+				return this;
+			}
+
+			}).test().printLog().onFailed();
 		},
 
 		getFiles: function(options){
-			var getOption = function(options, prop, def){
-				options = options || {};
-				return typeof options[prop] === 'undefined' ? def : options[prop];
-			};
-
-			var isTestFileOnly = getOption(options, 'isTestFileOnly', false);
-			var isNoExtName = getOption(options, 'isNoExtName', false);
-			var prefix = getOption(options, 'prefix', './');
+			var isTestFileOnly, isNoExtName, prefix;
+			var data = this.data;
 			var arr = [];
 
-			prefix.substr(-1) !== '/' && (prefix += '/');
-			this.data.forEach(function(file){
-
-				if (!file) return;
-				if (!isTestFileOnly || /\.test\b/.test(file)) {
-
-					if (isNoExtName) {
-						file = file.replace(/\.js$/, '');
+			({
+			init: function(){
+				var getOptions = {
+					do: function(options, prop, def){
+						options = options || {};
+						return typeof options[prop] === 'undefined' ? def : options[prop];
 					}
+				};
+				
+				isTestFileOnly = getOptions.do(options, 'isTestFileOnly', false);
+				isNoExtName = getOptions.do(options, 'isNoExtName', false);
+				prefix = getOptions.do(options, 'prefix', './');
+				prefix.substr(-1) !== '/' && (prefix += '/');
 
-					if (prefix) {
-						file  = prefix + file;
+				return this;
+			},
+
+			getFiles: function(){
+				data.forEach(function(file){
+
+					if (!file) return;
+					if (!isTestFileOnly || /\.test\b/.test(file)) {
+
+						if (isNoExtName) {
+							file = file.replace(/\.js$/, '');
+						}
+
+						if (prefix) {
+							file  = prefix + file;
+						}
+
+						arr.push(file);
 					}
+				});
+				return this;
+			}
 
-					arr.push(file);
-				}
-			});
-
+			}).init().getFiles();
 			return arr;
 		},
 
