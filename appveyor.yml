@@ -22,5 +22,5 @@ build: off
 test_script:
   - node --version
   - npm --version
-  - npm run test:appVeyor
+  - npm run test:unit
 version: "{build}"
