@@ -7,7 +7,14 @@
     "type": "git",
     "url": "https://github.com/tasjs/tas"
   },
-  "keywords": ["tas","tasjs", "promise", "code", "code structure", "code maintenance"],
+  "keywords": [
+    "tas",
+    "tasjs",
+    "promise",
+    "code",
+    "code structure",
+    "code maintenance"
+  ],
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcov -- -R spec && codecov -t 59abf604-36e3-4d18-989d-7fb997b28809"
   },
@@ -24,9 +31,11 @@
     "istanbul": "^0.4.5",
     "jasmine-core": "^2.5.2",
     "karma": "^1.6.0",
+    "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
     "karma-jasmine": "^1.1.0",
+    "karma-safari-launcher": "^1.0.0",
     "karma-sauce-launcher": "^1.1.0",
     "mocha": "^3.2.0",
     "mocha-multi": "^0.11.0",
