@@ -2,7 +2,7 @@
 
 [![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
-Make code simple and easy to maintain, and is better than Promise.
+## Make code simple and easy to maintain
 
 [![Linux Build][travis-image]][travis-url]
 [![Test Coverage][codecov-image]][codecov-url]
