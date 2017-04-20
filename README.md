@@ -1,13 +1,14 @@
 <div align='center'>
+
 [![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
 
-  [![Linux Build][travis-image]][travis-url]
-  [![Test Coverage][codecov-image]][codecov-url]
-  [![NPM Downloads][downloads-image]][downloads-url]
-  [![NPM Version][npm-image]][npm-url]
-  [![License][license-image]][license-url]
+[![Linux Build][travis-image]][travis-url]
+[![Test Coverage][codecov-image]][codecov-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![NPM Version][npm-image]][npm-url]
+[![License][license-image]][license-url]
 
-  [![SauceLabs][saucelabs-image]][saucelabs-url]
+[![SauceLabs][saucelabs-image]][saucelabs-url]
 </div>
 
 
