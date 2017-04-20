@@ -552,4 +552,4 @@ Copyright (c) 2017, Owen Luke
 [license-image]: https://img.shields.io/npm/l/tas.svg
 [license-url]: https://npmjs.org/package/tas
 [saucelabs-image]: https://saucelabs.com/browser-matrix/tasjs.svg
-[saucelabs-url]: https://saucelabs.com/u/tasjs
+[saucelabs-url]: https://saucelabs.com/beta/builds/c14fda5c87d642e3a908616eaa38856d
