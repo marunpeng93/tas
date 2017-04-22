@@ -5,19 +5,12 @@
  * Released under the MIT License.
  */
 
-(function(){arguments[0](
-	require('./lib')
-)})
+// ----------------------------------------
+// Run the examples:
+//    $ node examples/nodejs/__tas/test.js
+//
+// For debugging with the examples, uncomment the below line:
+//    require('./examples');
+// ----------------------------------------
 
-(function(tas){
-
-	// ----------------------------------------
-	// Run the examples:
-	//    $ node examples/nodejs/__tas/test.js
-	//
-	// For debugging with the examples, uncomment the below line:
-	//    require('./examples');
-	// ----------------------------------------
-
-	module.exports = tas;
-});
+module.exports = require('./lib');
