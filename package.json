@@ -1,7 +1,7 @@
 {
   "name": "tas",
-  "version": "1.2.3",
-  "description": "Make code simple and easy to maintain, and is better than Promise.",
+  "version": "1.2.4",
+  "description": "Make code simple and easy to maintain. Better than Promise.",
   "main": "main.js",
   "repository": {
     "type": "git",

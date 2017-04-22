@@ -1,22 +1,19 @@
-<div align='center'>
+<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://cldup.com/ef7lAFWQPG-150x150.png' /></a></p>
 
-[![tas Logo](https://cldup.com/ef7lAFWQPG-150x150.png)](https://github.com/tasjs/tas)
+<p align='center'><h1>Make Code Simple And Easy To Maintain</h1></p>
 
-# Make Code Simple And Maintainable
+<p align='center'>
+<a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://img.shields.io/travis/tasjs/tas/master.svg?label=linux' alt='Linux Build Status' /></a>
+<a href='https://ci.appveyor.com/project/tasjs/tas' target='_blank'><img src='https://img.shields.io/appveyor/ci/tasjs/tas/master.svg?label=windows' alt='Windows Build Status' /></a>
+<a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' alt='Coverage Status' /></a>
+<a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/dm/tas.svg' alt='Downloads' /></a>
+<a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/v/tas.svg' alt='Version' /></a>
+<a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/l/tas.svg' alt='License' /></a>
+<br />
+<a href='https://saucelabs.com/beta/builds/c14fda5c87d642e3a908616eaa38856d' target='_blank'><img src='https://saucelabs.com/browser-matrix/tasjs.svg' alt='Sauce Test Status' /></a>
+</p>
 
 　
-
-[![Linux Build][travis-image]][travis-url]
-[![Windows Build][appveyor-image]][appveyor-url]
-[![Test Coverage][codecov-image]][codecov-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![NPM Version][npm-image]][npm-url]
-[![License][license-image]][license-url]
-
-[![SauceLabs][saucelabs-image]][saucelabs-url]
-
-</div>
-
 
 # Tas.js 
 
@@ -539,18 +536,3 @@ Tas does not use setTimeout or similar methods recommended by the Promise standa
 [MIT](LICENSE)
 
 Copyright (c) 2017, Owen Luke
-
-[npm-image]: https://img.shields.io/npm/v/tas.svg
-[npm-url]: https://npmjs.org/package/tas
-[downloads-image]: https://img.shields.io/npm/dm/tas.svg
-[downloads-url]: https://npmjs.org/package/tas
-[travis-image]: https://img.shields.io/travis/tasjs/tas/master.svg?label=linux
-[travis-url]: https://travis-ci.org/tasjs/tas
-[appveyor-image]: https://img.shields.io/appveyor/ci/tasjs/tas/master.svg?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/tasjs/tas
-[codecov-image]: https://img.shields.io/codecov/c/github/tasjs/tas/master.svg
-[codecov-url]: https://codecov.io/gh/tasjs/tas
-[license-image]: https://img.shields.io/npm/l/tas.svg
-[license-url]: https://npmjs.org/package/tas
-[saucelabs-image]: https://saucelabs.com/browser-matrix/tasjs.svg
-[saucelabs-url]: https://saucelabs.com/beta/builds/c14fda5c87d642e3a908616eaa38856d
