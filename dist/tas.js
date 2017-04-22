@@ -83,6 +83,10 @@ function(module, exports, __webpack_require__) {
 			// Break Tas from nested function (closures).
 			abort: function(err){
 				app.abort(err);
+			},
+
+			reset: function(){
+				app.reset();
 			}
 		};
 
@@ -167,7 +171,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			next: function(args){
-				async.do(args);
+				async.next(args);
 			}
 		};
 
@@ -250,6 +254,10 @@ function(module, exports, __webpack_require__) {
 
 			abort: function(err){
 				tasks.abort(err);
+			},
+
+			reset: function(){
+				tasks.reset();
 			}
 		};
 
@@ -286,6 +294,10 @@ function(module, exports, __webpack_require__) {
 			abort: function(err){
 				err && /* istanbul ignore next */ console.log(err);
 				global.isAbort.set();
+			},
+
+			reset: function(){
+				global.reset();
 			},
 
 			getNextTasks: function(layer){
@@ -897,21 +909,17 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(15)
 	)})
 
-	(function(resume, global, pass, status){
+	(function(next, global, pass, status){
 
 		var async = {
-			do: function(args){
+			next: function(args){
 				pass.saveArguments(args);
 				status.isGoNext.set();
 
 				/* istanbul ignore else */
 				if (global.isAbort.get()) {
-					async.resume();
+					next.do();
 				}
-			},
-
-			resume: function(){
-				resume.do();
 			}
 		};
 
@@ -931,7 +939,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(global, tas, layer, units, status){
 
-		var resume = {
+		var next = {
 			do: function(){
 				({
 				setState: function(){
@@ -964,7 +972,7 @@ function(module, exports, __webpack_require__) {
 			}
 		};
 
-		module.exports = (resume);
+		module.exports = (next);
 	});
 },
 
@@ -1006,7 +1014,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			done: function(args){
-				async.do(args);
+				async.next(args);
 			},
 
 			cancel: function(args){
