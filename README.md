@@ -1,7 +1,7 @@
 <p align='center'>
 <a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://cldup.com/ef7lAFWQPG-150x150.png' /></a>
 <br />
-<h1>Make Code Simple And Easy To Maintain</h1>
+<h1 align='center'>Make Code Simple And Easy To Maintain</h1>
 </p>
 
 <p align='center'>
