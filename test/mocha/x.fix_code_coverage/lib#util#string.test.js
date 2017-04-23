@@ -8,7 +8,7 @@
 var string = require('../../../lib/util/string');
 var expect = require('chai').expect;
 
-describe('for coverage: lib/my/array.js', function(){
+describe('for coverage: lib/util/string.js', function(){
 	it('string.repeat() should return ~~', function(){
 		expect(string.repeat('~', 2)).to.be.equal('~~');
 	});
