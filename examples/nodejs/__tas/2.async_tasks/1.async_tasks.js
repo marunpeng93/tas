@@ -5,7 +5,6 @@
  * Released under the MIT License.
  */
 
-
 var tas = require('../../../../lib');
 var a  = 0;
 

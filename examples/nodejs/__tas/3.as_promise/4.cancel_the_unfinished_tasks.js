@@ -5,7 +5,6 @@
  * Released under the MIT License.
  */
 
-
 var tas = require('../../../../lib');
 var request = require('superagent');
 var dat;
@@ -18,7 +17,7 @@ tas.race({
 	t1: function(){
 		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
 
-		// 2. Push the hander to the handlers array.
+		// 2. Push the handler to the handlers array.
 		handlers.push(request.get(url).end(this.done));
 	},
 

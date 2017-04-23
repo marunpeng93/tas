@@ -64,6 +64,8 @@
 			'3.as_promise/3.use_tas.race()_as_promise.race().test.js',
 			'3.as_promise/4.cancel_the_unfinished_tasks.js',
 			'3.as_promise/4.cancel_the_unfinished_tasks.test.js',
+			'3.as_promise/5.Perform_a_set_of_tasks_for_each_array_element.js',
+			'3.as_promise/5.Perform_a_set_of_tasks_for_each_array_element.test.js',
 
 			'4.break_the_flow/1.ignore_the_current_function.js',
 			'4.break_the_flow/1.ignore_the_current_function.test.js',
@@ -71,6 +73,8 @@
 			'4.break_the_flow/2.break_the_current_tasks.test.js',
 			'4.break_the_flow/3.abort_tas.js',
 			'4.break_the_flow/3.abort_tas.test.js',
+			'4.break_the_flow/4.reset_tas.js',
+			'4.break_the_flow/4.reset_tas.test.js',
 
 			'5.modularization/1.common_a.js',
 			'5.modularization/1.common_load.test.js',
