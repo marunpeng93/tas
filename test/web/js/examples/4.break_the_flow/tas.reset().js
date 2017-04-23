@@ -5,30 +5,30 @@
  * Released under the MIT License.
  */
 
-define(['../tas'],
-function(tas) {
-
+var tasReset = function() {
 	var a = 1;
 
 	tas({
 		t1: function () {
 			[1].forEach(function () {
 				tas.abort();
+				tas.reset();
 			});
 		},
 
 		t2: function () {
-			a ++; // skipped
+			a ++; // 2
 		}
 	});
 
 	tas(function () {
-		a ++; // skipped
+		a ++; // 3
 	});
 
 	return {
 		get: function () {
-			return a; // 1
+			return a; // 3
 		}
 	};
-});
+
+}();

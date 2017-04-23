@@ -14,7 +14,7 @@ describe('as promise: tas.promise()', function(){
 	it('should return an object', function(done){
 
 		tas.promise(function(){
-			var url = config.res[0];
+			var url = config.res.a;
 			request.get(url).end(this.done);
 		});
 

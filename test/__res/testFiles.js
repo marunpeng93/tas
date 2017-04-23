@@ -67,6 +67,8 @@
 			'3.as_promise/tas.race().test.js',
 			'3.as_promise/this.done.js',
 			'3.as_promise/this.done.test.js',
+			'3.as_promise/tas.forEach().js',
+			'3.as_promise/tas.forEach().test.js',
 
 			'4.break_the_flow/return_break.js',
 			'4.break_the_flow/return_break.test.js',
@@ -74,6 +76,8 @@
 			'4.break_the_flow/return_ignore.test.js',
 			'4.break_the_flow/tas.break().js',
 			'4.break_the_flow/tas.break().test.js',
+			'4.break_the_flow/tas.reset().js',
+			'4.break_the_flow/tas.reset().test.js',
 		'']
 	};
 

@@ -16,12 +16,12 @@ function(tas) {
 		},
 
 		t2: function () {
-			a++; // skipped
+			a ++; // skipped
 		}
 	});
 
 	tas(function () {
-		a++; // skipped
+		a ++; // skipped
 	});
 
 	return {

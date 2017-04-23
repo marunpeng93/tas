@@ -17,17 +17,17 @@ describe('as promise: tas.cancel()', function(){
 
 		tas.race({
 			t1: function(){
-				var url = config.res[0];
+				var url = config.res.a;
 				handlers.push(request.get(url).end(this.done));
 			},
 
 			t2: function(){
-				var url = config.res[1];
+				var url = config.res.b;
 				handlers.push(request.get(url).end(this.done));
 			},
 
 			t3: function(){
-				var url = config.res[2];
+				var url = config.res.c;
 				handlers.push(request.get(url).end(this.done));
 			}
 		});

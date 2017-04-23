@@ -5,15 +5,12 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../config');
-var request = require('superagent');
-var expect = require('chai').expect;
-
 describe('as promise: tas.forEach()', function(){
 	it('should return 3', function(done){
 
 		var a = 0;
+		var request = superagent;
+		jasmine.getEnv().defaultTimeoutInterval = config.netTimeout;
 
 		tas.promise(function(){
 			var url = config.res.array;
@@ -21,7 +18,7 @@ describe('as promise: tas.forEach()', function(){
 		});
 
 		tas(function(err, data){
-			var arr = JSON.parse(data.text).data;
+			var arr = [1, 2];
 			return [arr];
 		});
 
@@ -40,7 +37,10 @@ describe('as promise: tas.forEach()', function(){
 		});
 
 		tas(function(){
-			expect(a).to.be.equal(3);
+			var exp = 3;
+			var val = a;
+			tester.test('as promise: tas.forEach()', tas, exp, val, true);
+			expect(val).toBe(3);
 			done();
 		});
 	});

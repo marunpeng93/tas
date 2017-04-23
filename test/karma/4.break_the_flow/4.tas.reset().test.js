@@ -5,11 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var expect = require('chai').expect;
-
-describe('break the flow: tas.abort()', function(){
-	it('should return 1', function(){
+describe('break the flow: tas.reset()', function(){
+	it('should return 3', function(){
 
 		var a = 1;
 
@@ -19,19 +16,25 @@ describe('break the flow: tas.abort()', function(){
 				t1: function(){
 					[1].forEach(function(){
 						tas.abort();
+						tas.reset();
 					});
 				},
 
 				t2: function(){
-					a ++; // skipped
+					a ++; // 2
 				}
 			});
 
 			tas(function(){
-				a ++; // skipped
+				a ++; // 3
 			});
 		});
 
-		expect(a).to.be.equal(1);
+		tas(function(){
+			var exp = 3;
+			var val = a;
+			tester.test('break the flow: tas.reset()', tas, exp, val, true);
+			expect(val).toBe(exp);
+		});
 	});
 });

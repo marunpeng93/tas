@@ -6,15 +6,19 @@
  */
 
 var tas = require('../../../lib');
-var a = 0;
+var a = 1;
 
-tas.await(function(){
-	a ++; // 1
+tas({
+	t1: function(){
+		[1].forEach(function(){
+			tas.abort();
+			tas.reset();
+		});
+	},
 
-	setTimeout(function(){
+	t2: function(){
 		a ++; // 2
-		tas.next();
-	}, 500);
+	}
 });
 
 tas(function(){

@@ -11,21 +11,25 @@
 	var isLocalTest = 0;
 
 	var defaultCfg = {
-		res: [
-			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json',
-			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/b.json',
-			'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/c.json'
-		],
+		res: {
+			a: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json',
+			b: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/b.json',
+			c: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/c.json',
+			array: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/array.json'
+		},
+
 		waitTime: 1000,
 		netTimeout: 3*60*1000
 	};
 
 	var localCfg = {
-		res: [
-			'/mynodejs/tas/examples/__res/pics/a.json',
-			'/mynodejs/tas/examples/__res/pics/b.json',
-			'/mynodejs/tas/examples/__res/pics/c.json'
-		],
+		res: {
+			a: '/mynodejs/tas/examples/__res/pics/a.json',
+			b: '/mynodejs/tas/examples/__res/pics/b.json',
+			c: '/mynodejs/tas/examples/__res/pics/c.json',
+			array: '/mynodejs/tas/examples/__res/array.json'
+		},
+		
 		waitTime: 1000,
 		netTimeout: 3*60*1000
 	};

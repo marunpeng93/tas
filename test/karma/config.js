@@ -12,11 +12,13 @@
 
 		// root path:
 		// http://localhost:9876/
-		res: [
-			'/socket.io/socket.io.js',
-			'/karma.js',
-			'/debug.html'
-		],
+		res: {
+			a: '/socket.io/socket.io.js',
+			b: '/karma.js',
+			c: '/debug.html',
+			array: '/'
+		},
+
 		waitTime: 0,
 		netTimeout: 1000,
 		isKarma: true

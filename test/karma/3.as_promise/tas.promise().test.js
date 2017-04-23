@@ -12,7 +12,7 @@ describe('as promise: tas.promise()', function(){
 		jasmine.getEnv().defaultTimeoutInterval = config.netTimeout;
 
 		tas.promise(function(){
-			var url = config.res[0];
+			var url = config.res.a;
 			request.get(url).end(this.done);
 		});
 

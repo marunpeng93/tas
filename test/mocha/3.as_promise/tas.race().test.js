@@ -15,17 +15,17 @@ describe('as promise: tas.race()', function(){
 
 		tas.race({
 			t1: function(){
-				var url = config.res[0];
+				var url = config.res.a;
 				request.get(url).end(this.done);
 			},
 
 			t2: function(){
-				var url = config.res[1];
+				var url = config.res.b;
 				request.get(url).end(this.done);
 			},
 
 			t3: function(){
-				var url = config.res[2];
+				var url = config.res.c;
 				request.get(url).end(this.done);
 			}
 		});
