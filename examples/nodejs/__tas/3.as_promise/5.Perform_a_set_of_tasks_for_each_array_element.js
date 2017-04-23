@@ -18,7 +18,7 @@ tas.promise(function(){
 
 tas(function(err, data){
 
-	// Put the data to an array
+	// Put the data into an array
 	var arr = JSON.parse(data.text).data;
 
 	// Pass the array to the next tasks
