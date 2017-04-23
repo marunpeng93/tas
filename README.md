@@ -1,6 +1,8 @@
-<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://cldup.com/ef7lAFWQPG-150x150.png' /></a></p>
-
-<div align='center'><h1 align='center'>Make Code Simple And Easy To Maintain</h1></div>
+<p align='center'>
+<a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://cldup.com/ef7lAFWQPG-150x150.png' /></a>
+<br />
+<h1>Make Code Simple And Easy To Maintain</h1>
+</p>
 
 <p align='center'>
 <a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://img.shields.io/travis/tasjs/tas/master.svg?label=linux' alt='Linux Build Status' /></a>
