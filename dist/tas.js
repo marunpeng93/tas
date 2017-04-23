@@ -52,21 +52,14 @@
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(1)
-	)})
-
-	(function(tas){
-
-		module.exports = tas;
-	});
+	module.exports = __webpack_require__(1);
 },
 
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(29),
+		__webpack_require__(28),
 		__webpack_require__(9),
 		__webpack_require__(19)
 	)})
@@ -118,6 +111,12 @@ function(module, exports, __webpack_require__) {
 			}
 		};
 
+		var array = {
+			forEach: function(){
+				app.forEach([].slice.call(arguments));
+			}
+		};
+
 		// For debugging
 		Object.defineProperty(app.entry, 'layer', {
 			get: function(){
@@ -131,7 +130,7 @@ function(module, exports, __webpack_require__) {
 			}
 		});
 
-		module.exports = util.object.extend(app.entry, basic, async, promise);
+		module.exports = util.object.extend(app.entry, basic, async, promise, array);
 	});
 },
 
@@ -140,11 +139,12 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(3),
 		__webpack_require__(24),
-		__webpack_require__(26),
-		__webpack_require__(29)
+		__webpack_require__(31),
+		__webpack_require__(35),
+		__webpack_require__(28)
 	)})
 
-	(function(core, async, promise, util){
+	(function(core, async, promise, array, util){
 
 		var tas = {
 			entry: function(){
@@ -161,13 +161,16 @@ function(module, exports, __webpack_require__) {
 
 			abort: function(err){
 				core.abort(err);
+			},
+
+			reset: function(){
+				core.reset();
 			}
 		};
 
 		var asy = {
 			await: function(args){
-				args.await = true;
-				tas.do(args);
+				async.await(args);
 			},
 
 			next: function(args){
@@ -177,53 +180,15 @@ function(module, exports, __webpack_require__) {
 
 		var pro = {
 			promise: function(args){
-				pro.convert(args, "promise");
+				promise.convert(args, "promise");
 			},
 
 			all: function(args){
-				pro.convert(args, "all");
+				promise.convert(args, "all");
 			},
 
 			race: function(args){
-				pro.convert(args, "race");
-			},
-
-			convert: function(args, type){
-				var describe = "";
-				var obj = {};
-
-				({
-				setDescribe: function(){
-					typeof args[0] === "string" && (describe = args.shift());
-					return this;
-				},
-
-				convertFuncToObj: function(){
-					var tasks = {};
-					if (args[0] instanceof Function) {
-						args.forEach(function(arg, index){
-							tasks['t' + (index + 1)] = arg;
-						});
-						args = [tasks];
-					}
-					return this;
-				},
-
-				packPromiseTask: function(){
-					obj["Promise " + type] = function(){
-						promise[type](args[0]);
-					};
-					return this;
-				},
-
-				applyToAwait: function(){
-					var tasks = [obj];
-					describe && (tasks.unshift(describe));
-					asy.await(tasks);
-					return this;
-				}
-
-				}).setDescribe().convertFuncToObj().packPromiseTask().applyToAwait();
+				promise.convert(args, "race");
 			},
 
 			cancel: function(args){
@@ -231,7 +196,13 @@ function(module, exports, __webpack_require__) {
 			}
 		};
 
-		module.exports = util.object.extend(tas, asy, pro);
+		var arr = {
+			forEach: function(args){
+				array.forEach(args);
+			}
+		};
+
+		module.exports = util.object.extend(tas, asy, pro, arr);
 	});
 },
 
@@ -322,39 +293,28 @@ function(module, exports, __webpack_require__) {
 
 			add: function(args){
 				var describe;
-				var isAwait = args.await;
+				var obj;
 
 				({
 				saveDescribe: function(){
-					if (typeof args[0] === 'string'){
-						describe = args.shift();
-					}
+					typeof args[0] === 'string' && (describe = args.shift());
+					typeof args[0] === 'object' && (obj = args[0]);
 					return this;
 				},
 
 				packFunctions: function(){
 					if (args[0] instanceof Function) {
-						var obj = {};
+						obj = {};
 						args.forEach(function(func, index){
 							obj['t' + (index + 1)] = func;
 						});
-						args = [obj];
 					}
 					return this;
 				},
 
 				saveTasks: function(){
-					args.forEach(function(obj, index){
-						id.add();
-
-						/* istanbul ignore else */
-						if (!obj.name) {
-							obj.name = utils.getObjName(describe, args, id.get(), index);
-						}
-
-						isAwait && (obj.await = true);
-						sequence.saveTasks(obj);
-					});
+					obj.name = describe ? describe : 'Tasks[' + id.add() + ']';
+					sequence.saveTasks(obj);
 					return this;
 				}
 
@@ -363,19 +323,6 @@ function(module, exports, __webpack_require__) {
 
 			getNextTasks: function(layer){
 				return sequence.getNextTasks(layer);
-			}
-		};
-
-		var utils = {
-			getObjName: function (describe, args, id, index) {
-				var name = "";
-				if (describe) {
-					name = describe;
-				}
-				else {
-					name = 'Tasks[' + id + ']';
-				}
-				return name;
 			}
 		};
 
@@ -409,10 +356,12 @@ function(module, exports) {
 
 			add: function(){
 				this.value ++;
+				return this.value;
 			},
 
 			sub: function(){
 				this.value --;
+				return this.value;
 			},
 
 			set: function(val){
@@ -475,11 +424,10 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(11),
 		__webpack_require__(12),
 		__webpack_require__(20),
-		__webpack_require__(15),
-		__webpack_require__(22)
+		__webpack_require__(15)
 	)})
 
-	(function(data, run, exec, status, global){
+	(function(data, run, exec, status){
 
 		var units = {
 			tas: {},
@@ -837,7 +785,7 @@ function(module, exports, __webpack_require__) {
 
 		var checker = {
 			isAwaitTasksFunc: function(func){
-				return func.root.await;
+				return func.await || func.root.await;
 			},
 
 			isAwaitInSyncFunc: function(result){
@@ -904,22 +852,18 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(25),
-		__webpack_require__(22),
-		__webpack_require__(13),
-		__webpack_require__(15)
+		__webpack_require__(26)
 	)})
 
-	(function(next, global, pass, status){
+	(function(await, next){
 
 		var async = {
-			next: function(args){
-				pass.saveArguments(args);
-				status.isGoNext.set();
+			await: function(args){
+				await.init(args);
+			},
 
-				/* istanbul ignore else */
-				if (global.isAbort.get()) {
-					next.do();
-				}
+			next: function(args){
+				next.do(args);
 			}
 		};
 
@@ -930,45 +874,79 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
+		__webpack_require__(3)
+	)})
+
+	(function(core){
+
+		var await = {
+			init: function(args){
+				this.mark(args);
+				core.do(args);
+			},
+
+			mark: function(args){
+				args.forEach(function(arg){
+					// arg is an Object or a Function
+					arg instanceof Object && (arg.await = true);
+				});
+			}
+		};
+
+		module.exports = (await);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
 		__webpack_require__(22),
 		__webpack_require__(4),
 		__webpack_require__(9),
 		__webpack_require__(10),
-		__webpack_require__(15)
+		__webpack_require__(13),
+		__webpack_require__(15),
+		__webpack_require__(27)
 	)})
 
-	(function(global, tas, layer, units, status){
+	(function(global, tas, layer, units, pass, status, forEach){
 
 		var next = {
-			do: function(){
-				({
-				setState: function(){
+			do: function(args){
+				pass.saveArguments(args);
+				status.isGoNext.set();
+
+				/* istanbul ignore else */
+				if (global.isAbort.get()) {
 					global.isAbort.set(false);
-					return this;
-				},
+					next.resume();
+				}
+			},
 
-				handleTheTasks: function(){
-					var tasks;
-					var lay = status.maxLayer.get();
+			resume: function(){
+				var tasks;
+				var lay = status.maxLayer.get();
 
-					while(lay >= 0) {
-						layer.set(lay);
+				while(lay >= 0) {
+					layer.set(lay);
 
-						// Handle the remain functions
-						units.exec(lay);
+					// Handle the remain functions
+					units.exec(lay);
 
-						// Handle the tasks in sequence
-						while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
-							global.reset();
+					// Handle the tasks in sequence
+					while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
+						global.reset();
+
+						if (tasks.forEach === true) {
+							forEach.do(tas, tasks);
+						}
+						else {
 							units.do(tas, tasks);
 						}
-
-						lay --;
 					}
 
-					return this;
+					lay --;
 				}
-				}).setState().handleTheTasks();
 			}
 		};
 
@@ -979,12 +957,141 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(27),
-		__webpack_require__(28),
+		__webpack_require__(3),
+		__webpack_require__(10),
+		__webpack_require__(13),
+		__webpack_require__(22),
+		__webpack_require__(28)
+	)})
+
+	(function(core, units, pass, global, util){
+
+		var forEach = {
+			init: function(args){
+				this.mark(args);
+				core.do(args);
+			},
+
+			mark: function(args){
+				args.forEach(function(arg){
+					// arg is an Object or a Function
+					arg instanceof Object && (arg.forEach = true);
+				});
+			},
+
+			do: function(tas, tasks){
+				var args = pass.getArguments();
+				/* istanbul ignore next */
+				if (!args || !(args instanceof Array) || !(args[0] instanceof Array)) return;
+
+				var arr = args[0];
+				arr.find(function(arg){
+
+					/* istanbul ignore next */
+					if (global.isAbort.get() === true) {
+						return arg;
+					}
+
+					var thisTasks = util.object.cloneMethods(tasks);
+					/* istanbul ignore else */
+					if (typeof thisTasks.init === 'function') {
+						thisTasks.init(arg);
+						delete thisTasks.init;
+					}
+
+					units.do(tas, thisTasks);
+				});
+			}
+		};
+
+		module.exports = (forEach);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		object: __webpack_require__(29),
+		string: __webpack_require__(30)
+	};
+},
+
+function(module, exports) {
+
+	(function(){
+
+		var extend = {
+			do: function(target, source, checker){
+				Object.keys(source).forEach(function (key) {
+
+					//if (typeof source[key] === 'object' && typeof target[key] === 'object') {
+					//	extend.do(target[key], source[key]);
+					//}
+
+					/* istanbul ignore else */
+					if (typeof target[key] === 'undefined' && (!checker || checker(source, target, key))) {
+						target[key] = source[key];
+					}
+				});
+			}
+		};
+
+		var object = {
+			extend: function () {
+				var args = [].slice.call(arguments);
+				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
+
+				args.forEach(function (source) {
+					extend.do(target, source);
+				});
+
+				return target;
+			},
+
+			cloneMethods: function(){
+				var args = [].slice.call(arguments);
+				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
+
+				var checker = function(source, target, key){
+					return typeof source[key] === 'function';
+				};
+
+				args.forEach(function (source) {
+					extend.do(target, source, checker);
+				});
+
+				return target;
+			}
+		};
+
+		module.exports = (object);
+	})();
+},
+
+function(module, exports) {
+
+	(function(){
+
+		var string = {
+			repeat: function (str, times) {
+				return new Array(times + 1).join(str);
+			}
+		};
+
+		module.exports = (string);
+	})();
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(32),
+		__webpack_require__(33),
+		__webpack_require__(34),
 		__webpack_require__(24)
 	)})
 
-	(function(all, race, async){
+	(function(all, race, convert, async){
 
 		var promise = {
 			promise: function(tasks){
@@ -1019,6 +1126,10 @@ function(module, exports, __webpack_require__) {
 
 			cancel: function(args){
 				race.cancel(args);
+			},
+
+			convert: function(args, type){
+				convert.do(args, type, promise, async);
 			}
 		};
 
@@ -1107,63 +1218,70 @@ function(module, exports) {
 	})();
 },
 
+function(module, exports) {
+
+	(function(){
+
+		var convert = {
+			do: function(args, type, promise, async){
+				var describe = "";
+				var obj = {};
+
+				({
+				setDescribe: function(){
+					typeof args[0] === "string" && (describe = args.shift());
+					return this;
+				},
+
+				convertFuncToObj: function(){
+					var tasks = {};
+					if (args[0] instanceof Function) {
+						args.forEach(function(arg, index){
+							tasks['t' + (index + 1)] = arg;
+						});
+						args = [tasks];
+					}
+					return this;
+				},
+
+				packPromiseTask: function(){
+					obj["promise_" + type] = function(){
+						promise[type](args[0]);
+					};
+					return this;
+				},
+
+				applyToAwait: function(){
+					var tasks = [obj];
+					describe && (tasks.unshift(describe));
+					async.await(tasks);
+					return this;
+				}
+
+				}).setDescribe().convertFuncToObj().packPromiseTask().applyToAwait();
+			}
+		};
+
+		module.exports = (convert);
+	})();
+},
+
 function(module, exports, __webpack_require__) {
 
-	module.exports = {
-		object: __webpack_require__(30),
-		string: __webpack_require__(31)
-	};
-},
+	(function(){arguments[0](
+		__webpack_require__(27)
+	)})
 
-function(module, exports) {
+	(function(forEach){
 
-	(function(){
-
-		var object = {
-			extend: function () {
-				var args = [].slice.call(arguments);
-				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
-
-				var extend = {
-					do: function(target, source){
-						Object.keys(source).forEach(function (key) {
-
-							//if (typeof source[key] === 'object' && typeof target[key] === 'object') {
-							//	extend.do(target[key], source[key]);
-							//}
-
-							/* istanbul ignore else */
-							if (typeof target[key] === 'undefined') {
-								target[key] = source[key];
-							}
-						});
-					}
-				};
-
-				args.forEach(function (source) {
-					extend.do(target, source);
-				});
-
-				return target;
+		var array = {
+			forEach: function(args){
+				forEach.init(args);
 			}
 		};
 
-		module.exports = (object);
-	})();
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var string = {
-			repeat: function (str, times) {
-				return new Array(times + 1).join(str);
-			}
-		};
-
-		module.exports = (string);
-	})();
+		module.exports = (array);
+	});
 }
 
 
