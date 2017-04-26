@@ -59,7 +59,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(28),
+		__webpack_require__(25),
 		__webpack_require__(9),
 		__webpack_require__(19)
 	)})
@@ -138,10 +138,10 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(3),
-		__webpack_require__(24),
+		__webpack_require__(28),
 		__webpack_require__(31),
 		__webpack_require__(35),
-		__webpack_require__(28)
+		__webpack_require__(25)
 	)})
 
 	(function(core, async, promise, array, util){
@@ -241,10 +241,11 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(5),
 		__webpack_require__(10),
-		__webpack_require__(22)
+		__webpack_require__(22),
+		__webpack_require__(24)
 	)})
 
-	(function(data, units, global){
+	(function(data, units, global, forEach){
 
 		var tas = {
 			do: function(args){
@@ -254,7 +255,12 @@ function(module, exports, __webpack_require__) {
 
 			exec: function(){
 				var tasks = data.getNextTasks();
-				units.do(tas, tasks);
+				if (tasks.forEach === true) {
+					forEach.do(tas, tasks);
+				}
+				else {
+					units.do(tas, tasks);
+				}
 			},
 
 			break: function(err){
@@ -851,145 +857,32 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(25),
-		__webpack_require__(26)
-	)})
-
-	(function(await, next){
-
-		var async = {
-			await: function(args){
-				await.init(args);
-			},
-
-			next: function(args){
-				next.do(args);
-			}
-		};
-
-		module.exports = (async);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(3)
-	)})
-
-	(function(core){
-
-		var await = {
-			init: function(args){
-				this.mark(args);
-				core.do(args);
-			},
-
-			mark: function(args){
-				args.forEach(function(arg){
-					// arg is an Object or a Function
-					arg instanceof Object && (arg.await = true);
-				});
-			}
-		};
-
-		module.exports = (await);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(22),
-		__webpack_require__(4),
-		__webpack_require__(9),
-		__webpack_require__(10),
-		__webpack_require__(13),
-		__webpack_require__(15),
-		__webpack_require__(27)
-	)})
-
-	(function(global, tas, layer, units, pass, status, forEach){
-
-		var next = {
-			do: function(args){
-				pass.saveArguments(args);
-				status.isGoNext.set();
-
-				/* istanbul ignore else */
-				if (global.isAbort.get()) {
-					global.isAbort.set(false);
-					next.resume();
-				}
-			},
-
-			resume: function(){
-				var tasks;
-				var lay = status.maxLayer.get();
-
-				while(lay >= 0) {
-					layer.set(lay);
-
-					// Handle the remain functions
-					units.exec(lay);
-
-					// Handle the tasks in sequence
-					while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
-						global.reset();
-
-						if (tasks.forEach === true) {
-							forEach.do(tas, tasks);
-						}
-						else {
-							units.do(tas, tasks);
-						}
-					}
-
-					lay --;
-				}
-			}
-		};
-
-		module.exports = (next);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(3),
 		__webpack_require__(10),
 		__webpack_require__(13),
 		__webpack_require__(22),
-		__webpack_require__(28)
+		__webpack_require__(25)
 	)})
 
-	(function(core, units, pass, global, util){
+	(function(units, pass, global, util){
 
 		var forEach = {
-			init: function(args){
-				this.mark(args);
-				core.do(args);
-			},
-
-			mark: function(args){
-				args.forEach(function(arg){
-					// arg is an Object or a Function
-					arg instanceof Object && (arg.forEach = true);
-				});
-			},
-
 			do: function(tas, tasks){
+
 				var args = pass.getArguments();
 				/* istanbul ignore next */
 				if (!args || !(args instanceof Array) || !(args[0] instanceof Array)) return;
 
 				var arr = args[0];
-				arr.find(function(arg){
+				var i = 0;
+
+				// Use for loop instead of Array.find() to compatible
+				// with versions lower than Node.js 4.0.
+				for (; i < arr.length; i++) {
+					var arg = arr[i];
 
 					/* istanbul ignore next */
 					if (global.isAbort.get() === true) {
-						return arg;
+						break;
 					}
 
 					var thisTasks = util.object.cloneMethods(tasks);
@@ -1000,7 +893,7 @@ function(module, exports, __webpack_require__) {
 					}
 
 					units.do(tas, thisTasks);
-				});
+				}
 			}
 		};
 
@@ -1011,8 +904,8 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(29),
-		string: __webpack_require__(30)
+		object: __webpack_require__(26),
+		string: __webpack_require__(27)
 	};
 },
 
@@ -1085,10 +978,115 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
+		__webpack_require__(29),
+		__webpack_require__(30)
+	)})
+
+	(function(await, next){
+
+		var async = {
+			await: function(args){
+				await.init(args);
+			},
+
+			next: function(args){
+				next.do(args);
+			}
+		};
+
+		module.exports = (async);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(3)
+	)})
+
+	(function(core){
+
+		var await = {
+			init: function(args){
+				this.mark(args);
+				core.do(args);
+			},
+
+			mark: function(args){
+				args.forEach(function(arg){
+					// arg is an Object or a Function
+					arg instanceof Object && (arg.await = true);
+				});
+			}
+		};
+
+		module.exports = (await);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(22),
+		__webpack_require__(4),
+		__webpack_require__(9),
+		__webpack_require__(10),
+		__webpack_require__(13),
+		__webpack_require__(15),
+		__webpack_require__(24)
+	)})
+
+	(function(global, tas, layer, units, pass, status, forEach){
+
+		var next = {
+			do: function(args){
+				pass.saveArguments(args);
+				status.isGoNext.set();
+
+				if (global.isAbort.get()) {
+					global.isAbort.set(false);
+					next.resume();
+				}
+			},
+
+			resume: function(){
+				var tasks;
+				var lay = status.maxLayer.get();
+
+				while(lay >= 0) {
+					layer.set(lay);
+
+					// Handle the remain functions
+					units.exec(lay);
+
+					// Handle the tasks in sequence
+					while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
+						global.reset();
+
+						if (tasks.forEach === true) {
+							forEach.do(tas, tasks);
+						}
+						else {
+							units.do(tas, tasks);
+						}
+					}
+
+					lay --;
+				}
+			}
+		};
+
+		module.exports = (next);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
 		__webpack_require__(32),
 		__webpack_require__(33),
 		__webpack_require__(34),
-		__webpack_require__(24)
+		__webpack_require__(28)
 	)})
 
 	(function(all, race, convert, async){
@@ -1269,7 +1267,7 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(27)
+		__webpack_require__(36)
 	)})
 
 	(function(forEach){
@@ -1281,6 +1279,32 @@ function(module, exports, __webpack_require__) {
 		};
 
 		module.exports = (array);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(3)
+	)})
+
+	(function(core){
+
+		var forEach = {
+			init: function(args){
+				this.mark(args);
+				core.do(args);
+			},
+
+			mark: function(args){
+				args.forEach(function(arg){
+					// arg is an Object or a Function
+					arg instanceof Object && (arg.forEach = true);
+				});
+			}
+		};
+
+		module.exports = (forEach);
 	});
 }
 
