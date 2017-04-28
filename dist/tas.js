@@ -415,7 +415,7 @@ function(module, exports, __webpack_require__) {
 
 			getNextTasks: function(lay){
 				var arr = this.data[lay || layer.get()];
-				return arr ? arr.shift() : null;
+				return arr ? arr.shift() : /* istanbul ignore next */ null;
 			},
 
 			clear: function(){
@@ -525,7 +525,7 @@ function(module, exports) {
 
 			getNextFunc: function(layer){
 				var arr = functions[layer];
-				return arr ? arr.shift() : null;
+				return arr ? arr.shift() : /* istanbul ignore next */ null;
 			},
 
 			clearRemainFunctions: function(func){
@@ -1078,11 +1078,9 @@ function(module, exports, __webpack_require__) {
 			do: function(args){
 				pass.saveArguments(args);
 				status.isGoNext.set();
+				global.isAbort.set(false);
 
-				if (global.isAbort.get()) {
-					global.isAbort.set(false);
-					next.resume();
-				}
+				next.resume();
 			},
 
 			resume: function(){
