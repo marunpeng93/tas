@@ -275,6 +275,8 @@ function(module, exports, __webpack_require__) {
 
 			reset: function(){
 				global.reset();
+				data.clear();
+				units.clear();
 			},
 
 			getNextTasks: function(layer){
@@ -327,6 +329,11 @@ function(module, exports, __webpack_require__) {
 				}).saveDescribe().packFunctions().saveTasks();
 			},
 
+			clear: function(){
+				id.clear();
+				sequence.clear();
+			},
+
 			getNextTasks: function(layer){
 				return sequence.getNextTasks(layer);
 			}
@@ -376,6 +383,10 @@ function(module, exports) {
 
 			save: function(val){
 				this.set(val);
+			},
+
+			clear: function(){
+				this.value = 0;
 			}
 		};
 
@@ -403,7 +414,13 @@ function(module, exports, __webpack_require__) {
 			},
 
 			getNextTasks: function(lay){
-				return this.data[lay || layer.get()].shift();
+				var arr = this.data[lay || layer.get()];
+				return arr ? arr.shift() : null;
+			},
+
+			clear: function(){
+				this.data = {};
+				layer.clear();
 			}
 		};
 
@@ -455,6 +472,10 @@ function(module, exports, __webpack_require__) {
 
 			break: function(){
 				status.isBreak.set();
+			},
+
+			clear: function(){
+				data.clear();
 			}
 		};
 
@@ -503,7 +524,8 @@ function(module, exports) {
 			},
 
 			getNextFunc: function(layer){
-				return functions[layer].shift();
+				var arr = functions[layer];
+				return arr ? arr.shift() : null;
 			},
 
 			clearRemainFunctions: function(func){
@@ -519,6 +541,10 @@ function(module, exports) {
 						i--;
 					}
 				}
+			},
+
+			clear: function(){
+				functions = {};
 			}
 		};
 
@@ -629,6 +655,10 @@ function(module, exports) {
 
 			unshift: function(element){
 				this.data.unshift(element);
+			},
+
+			clear: function(){
+				this.data = [];
 			}
 		};
 
@@ -684,6 +714,10 @@ function(module, exports) {
 
 			reset: function(){
 				this.set(DEFAULT);
+			},
+
+			clear: function(){
+				this.value = DEFAULT;
 			}
 		};
 
@@ -945,12 +979,14 @@ function(module, exports) {
 				var args = [].slice.call(arguments);
 				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
 
-				var checker = function(source, target, key){
-					return typeof source[key] === 'function';
+				var checker = {
+					do: function(source, target, key){
+						return typeof source[key] === 'function';
+					}
 				};
 
 				args.forEach(function (source) {
-					extend.do(target, source, checker);
+					extend.do(target, source, checker.do);
 				});
 
 				return target;
