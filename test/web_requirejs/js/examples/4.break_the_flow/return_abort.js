@@ -10,22 +10,34 @@ function(tas) {
 
 	var a = 1;
 
-	tas({
-		t1: function () {
-			return 'abort';
+	var tasks1 = {
+		t1: function(){
+			return "abort";
 		},
 
-		t2: function () {
+		t2: function(){
 			a ++; // skipped
 		}
-	});
+	};
 
-	tas(function () {
-		a ++; // skipped
-	});
+	var tasks2 = {
+		t1: function(){
+			a ++;
+		},
+
+		t2: function(){
+			a ++;
+		}
+	};
 
 	return {
-		get: function () {
+		get: function(){
+			tas(tasks1);
+			return a; // 1
+		},
+
+		get1: function(){
+			tas(tasks2); // skipped, because Tas has aborted.
 			return a; // 1
 		}
 	};

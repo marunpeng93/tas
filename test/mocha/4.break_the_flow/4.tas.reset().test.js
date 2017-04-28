@@ -17,20 +17,32 @@ describe('break the flow: tas.reset()', function(){
 
 			tas({
 				t1: function(){
-					[1].forEach(function(){
-						tas.abort();
-						tas.reset();
-					});
+					return 'abort';
 				},
 
 				t2: function(){
-					a ++; // 2
+					a ++; // skipped
 				}
 			});
 
 			tas(function(){
-				a ++; // 3
+				a ++; // skipped
 			});
+		});
+
+		tas(function(){
+			a ++; // skipped
+		});
+
+		tas.reset();
+		tas({
+			t1: function(){
+				a ++; // 2
+			},
+
+			t2: function(){
+				a ++; // 3
+			}
 		});
 
 		expect(a).to.be.equal(3);

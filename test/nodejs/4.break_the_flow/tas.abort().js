@@ -8,7 +8,7 @@
 var tas = require('../../../lib');
 var a = 1;
 
-tas({
+var tasks1 = {
 	t1: function(){
 		[1].forEach(function(){
 			tas.abort();
@@ -18,14 +18,26 @@ tas({
 	t2: function(){
 		a ++; // skipped
 	}
-});
+};
 
-tas(function(){
-	a ++; // skipped
-});
+var tasks2 = {
+	t1: function(){
+		a ++;
+	},
+
+	t2: function(){
+		a ++;
+	}
+};
 
 module.exports = {
 	get: function(){
+		tas(tasks1);
+		return a; // 1
+	},
+
+	get1: function(){
+		tas(tasks2); // skipped, because Tas has aborted.
 		return a; // 1
 	}
 };

@@ -8,25 +8,42 @@
 var tasReset = function() {
 	var a = 1;
 
-	tas({
-		t1: function () {
-			[1].forEach(function () {
+	var tasks1 = {
+		t1: function(){
+			[1].forEach(function(){
 				tas.abort();
-				tas.reset();
 			});
 		},
 
-		t2: function () {
-			a ++; // 2
+		t2: function(){
+			a ++; // skipped
 		}
-	});
+	};
 
-	tas(function () {
-		a ++; // 3
-	});
+	var tasks2 = {
+		t1: function(){
+			a ++;
+		},
+
+		t2: function(){
+			a ++;
+		}
+	};
 
 	return {
-		get: function () {
+		get: function(){
+			tas(tasks1);
+			return a; // 1
+		},
+
+		get1: function(){
+			tas(tasks2); // skipped, because Tas has aborted
+			return a; // 1
+		},
+
+		get2: function(){
+			tas.reset();
+			tas(tasks2);
 			return a; // 3
 		}
 	};
