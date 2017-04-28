@@ -25,4 +25,8 @@ describe('for coverage: lib/my/array.js', function(){
 		expect(arr.unshift()).to.be.equal(undefined);
 	});
 
+	it('arr.clear() should return undefined', function(){
+		expect(arr.clear()).to.be.equal(undefined);
+	});
+
 });
