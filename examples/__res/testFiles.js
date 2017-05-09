@@ -73,8 +73,6 @@
 			'4.break_the_flow/2.break_the_current_tasks.test.js',
 			'4.break_the_flow/3.abort_tas.js',
 			'4.break_the_flow/3.abort_tas.test.js',
-			'4.break_the_flow/4.reset_tas.js',
-			'4.break_the_flow/4.reset_tas.test.js',
 
 			'5.modularization/1.common_a.js',
 			'5.modularization/1.common_load.test.js',

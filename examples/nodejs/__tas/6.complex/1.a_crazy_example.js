@@ -36,7 +36,7 @@ var a = 0;
 
 var layer = function(){
 	return tas.layer;
-}
+};
 
 // Use setTimeout to represent asynchronous tasks, such as
 // setTimeout, ajax, XMLHttpRequest, fs.readFile, etc.

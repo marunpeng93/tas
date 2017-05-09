@@ -16,11 +16,12 @@
     "code maintenance"
   ],
   "scripts": {
-    "test": "npm run test:unit",
+    "test": "npm run test:cover && npm run test:coverReport",
     "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcov -- -R spec",
     "test:coverReport": "codecov -t 59abf604-36e3-4d18-989d-7fb997b28809",
     "test:unit": "node ./node_modules/mocha/bin/_mocha",
-    "test:sauce": "karma start karma.sauce.js"
+    "test:sauce": "karma start karma.sauce.js",
+    "appveyor": "npm run test:unit"
   },
   "author": "hi.owen.luke@gmail.com",
   "license": "MIT",

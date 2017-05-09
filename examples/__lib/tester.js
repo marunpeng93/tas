@@ -5,8 +5,8 @@
  * Released under the MIT License.
  */
 
-// Thanks David Calhoun: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
-(function(r,f){if(typeof process==='object'&&process.platform!=='undefined'){module.exports=f(r);return;}if(typeof define==='function'&&define.amd){define(function(){return f(r,r.document)});return}if(typeof exports==='object'){module.exports=r.document?f(r,r.document):function(w){return f(w,w.document)};return}f(r,r.document)}(typeof window!=="undefined"?window:this,function(window, document){
+(function(n,f){if(typeof define==='function'){define(f)}else if(typeof module!=='undefined'&&module.exports){module.exports=f()}else{this[n]=f()}})
+('tester', function(){
 
 	var tester = {
 		data: [],
@@ -54,7 +54,7 @@
 						return typeof options[prop] === 'undefined' ? def : options[prop];
 					}
 				};
-				
+
 				isTestFileOnly = getOptions.do(options, 'isTestFileOnly', false);
 				isNoExtName = getOptions.do(options, 'isNoExtName', false);
 				prefix = getOptions.do(options, 'prefix', './');
@@ -105,8 +105,5 @@
 
 	};
 
-	typeof window === 'object' && typeof define !== 'function' &&
-	typeof exports !== 'object' && (window.tester = tester);
-
-	return tester;
-}));
+	return (tester);
+});

@@ -27,7 +27,7 @@ var abortTas = function(){
 			if (x === 1) {
 				[1].forEach(function(){
 
-					// Use return "abort" to break Tas from nested function(closures).
+					// Use return "abort" to break Tas from nested function(closure).
 					tas.abort();
 				});
 			}

@@ -9,25 +9,28 @@ var resetTas = function(){
 
 	var a  = 1;
 
-	tas({
+	var tasks1 = {
 		t1: function () {
 			tas.abort();
-			tas.reset();
 		},
 
 		t2: function () {
-			a ++; // 2
-		}
-	});
-
-	tas(function(){
-		a ++; // 3
-	});
-
-	return {
-		get: function(){
-			return a; // 3
+			a ++; // skipped
 		}
 	};
 
+	var tasks2 = {
+		t1: function(){
+			a ++;
+		}
+	};
+
+	return {
+		get: function(){
+			tas(tasks1);
+			tas.reset();
+			tas(tasks2);
+			return a; // 2
+		}
+	};
 }();

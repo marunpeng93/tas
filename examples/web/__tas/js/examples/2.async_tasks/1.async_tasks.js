@@ -26,7 +26,7 @@ var asyncTasks = function(){
 	// This task is executed only if the previous async task execution is completed.
 	tas(function(){
 		a ++; // 3
-	})
+	});
 
 	return {
 		get: function(){

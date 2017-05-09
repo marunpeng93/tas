@@ -10,7 +10,7 @@ var test = require('../../../__lib/tester').test;
 var runner = require('./4.reset_tas');
 
 tas(function(){
-	var exp = 3;
+	var exp = 2;
 	var val = runner.get();
 	test("4.break the flow: reset tas", tas, exp, val);
 });

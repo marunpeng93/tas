@@ -26,7 +26,7 @@ var mixTasks = function(){
 	// This task is executed only if the previous async task execution is completed.
 	tas(function(){
 		a ++; // 3
-	})
+	});
 
 	// Another async tasks.
 	tas.await(function(){

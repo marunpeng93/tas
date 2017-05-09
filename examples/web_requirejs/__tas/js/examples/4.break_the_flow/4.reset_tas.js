@@ -11,24 +11,28 @@ function(tas){
 	var a  = 1;
 	var x = 10; // Change the value of x to 0 or 1 to see the different result.
 
-	tas({
+	var tasks1 = {
 		t1: function () {
 			tas.abort();
-			tas.reset();
 		},
 
 		t2: function () {
-			a ++; // 2
+			a ++; // skipped
 		}
-	});
+	};
 
-	tas(function(){
-		a ++; // 3
-	});
+	var tasks2 = {
+		t1: function(){
+			a ++;
+		}
+	};
 
 	return {
 		get: function(){
-			return a; // 3
+			tas(tasks1);
+			tas.reset();
+			tas(tasks2);
+			return a; // 2
 		}
 	};
 });
