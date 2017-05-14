@@ -15,22 +15,11 @@
 
 　
 
-# Tas.js 
-
-Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
+Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell and promise hell, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
 Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
-
-　
-
-## Easy to Use
-
-1. Zero learning costs. Using the basic syntax of JavaScript, you can write the vast majority of tasks.
-2. There is no need to write the tasks in the form of a callback, just in logical order.
-3. Pass the data via return or this to the next function or tasks naturally.
-
 
 　
 
@@ -41,11 +30,63 @@ In Node.js:
 $ npm install tas --save
 ```
 
+Test：
+```bash
+$ npm test
+```
+
 　
 
 In Web / RequireJS:
 
-Download [Tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [Tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
+Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
+
+　
+
+## Demo
+
+Clone the Tas repo first:
+
+```bash
+$ cd /path/to
+$ git clone https://github.com/tasjs/tas.git
+```
+
+　
+
+### 1. Fixing callback hell
+
+![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/fixing-callback-hell-with-tas.png)
+
+Run these demos in Node.js:
+
+```bash
+$ cd /path/to/tas/examples/nodejs/fixing-callback-hell
+$ node callback-hell.js
+$ node fixing-callback-hell.js
+```
+
+　
+
+### 2. Better than Promise
+
+![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/better-than-promise.png)
+
+Run these demos in your browser:
+
+```bash
+$ cd /path/to/tas/examples/web/better-than-promise
+$ open promise.html
+$ open tas.html
+```
+
+　
+
+### 3. Clear code structure
+
+![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/clear-code-structure.png)
+
+See details: [Express examples by Tas](https://github.com/tasjs/express-examples-by-tas)
 
 　
 
@@ -207,7 +248,7 @@ tas(function(){
 
 ## Full Examples
 
-Clone the Tas repo first:
+Clone the Tas repo (if you have not done so yet):
 
 ```bash
 $ cd /path/to
