@@ -5,9 +5,9 @@
 var fs = require('fs');
 var gm = require('gm');
 
-var source = "";
-var dest = "";
-var widths = [];
+var source = "./images/";
+var dest = "./images-resize/";
+var widths = [100, 200];
 
 fs.readdir(source, function (err, files) {
   if (err) {

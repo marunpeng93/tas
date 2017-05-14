@@ -44,6 +44,4 @@ tas.forEach("files", {
 	}
 });
 
-tas(function(){
-	console.log('done');
-});
+tas("Done");
