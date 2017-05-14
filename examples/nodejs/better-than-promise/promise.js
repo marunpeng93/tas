@@ -38,14 +38,6 @@ function testPromise() {
 		') Promise made (<small>Sync code terminated</small>)<br/>');
 }
 
-/*
-Result (not good):
-1) Started (Sync code started)
-1) Promise started (Async code started)
-1) Promise made (Sync code terminated)
-1) Promise fulfilled (Async code terminated)
-*/
-
 if ("Promise" in window) {
 	var btn = document.getElementById("btn");
 	btn.addEventListener("click",testPromise);

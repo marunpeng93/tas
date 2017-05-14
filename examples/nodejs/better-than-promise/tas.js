@@ -33,14 +33,6 @@ var btnOnClick = {
 	}
 };
 
-/*
-Result (perfect):
-1) Sync code started
-1) Async code started
-1) Async code terminated
-1) Sync code terminated
-*/
-
 var log = function(count, str){
 	var log = document.getElementById('log');
 	var html = count + ') ' + str + '<br/>';
