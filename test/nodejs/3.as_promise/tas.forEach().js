@@ -24,17 +24,37 @@ tas.forEach({
 		//console.log(element);
 	},
 
+	async: function(){
+		setTimeout(function(){
+			a ++; // 2 times.
+			tas.next();
+		}, 200);
+		return "await";
+	},
+
 	calc: function(){
+		a ++; // 2 times.
+	},
+
+	async2: function(){
+		setTimeout(function(){
+			a ++; // 2 times.
+			tas.next();
+		}, 200);
+		return "await";
+	},
+
+	calc2: function(){
 		a ++; // 2 times.
 	}
 });
 
 tas(function(){
-	a ++; // 3
+	a ++; // 9
 });
 
 module.exports = {
 	get: function(){
-		return a; // 3
+		return a; // 9
 	}
 };

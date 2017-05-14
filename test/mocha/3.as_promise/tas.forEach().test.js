@@ -11,7 +11,7 @@ var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('as promise: tas.forEach()', function(){
-	it('should return 3', function(done){
+	it('should return 9', function(done){
 
 		var a = 0;
 
@@ -30,17 +30,37 @@ describe('as promise: tas.forEach()', function(){
 				//console.log(element);
 			},
 
+			async: function(){
+				setTimeout(function(){
+					a ++; // 2 times.
+					tas.next();
+				}, 200);
+				return "await";
+			},
+
 			calc: function(){
+				a ++; // 2 times.
+			},
+
+			async2: function(){
+				setTimeout(function(){
+					a ++; // 2 times.
+					tas.next();
+				}, 200);
+				return "await";
+			},
+
+			calc2: function(){
 				a ++; // 2 times.
 			}
 		});
 
 		tas(function(){
-			a ++; // 3
+			a ++; // 9
 		});
 
 		tas(function(){
-			expect(a).to.be.equal(3);
+			expect(a).to.be.equal(9);
 			done();
 		});
 	});

@@ -10,7 +10,7 @@ var test = require('../../../examples/__lib/tester').test;
 var runner = require('./tas.forEach()');
 
 tas(function(){
-	var exp = 3;
+	var exp = 9;
 	var val = runner.get();
 	test("3.as promise: tas.forEach()", tas, exp, val);
 });
