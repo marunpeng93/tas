@@ -15,7 +15,7 @@
 
 　
 
-Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell and promise hell, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
+Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / callback pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
@@ -126,7 +126,7 @@ tas("My Second tasks", {
 
 ### Async Tasks
 
-With Tas, we can write async code like writing sync code, easily avoiding callback hell / pyramid. All async tasks and sync tasks will be executed in the order we have written.
+With Tas, we can write async code like writing sync code, easily avoiding callback hell / callback pyramid. All async tasks and sync tasks will be executed in the order we have written.
 
 ```js
 var a = 0;
@@ -174,7 +174,7 @@ tas(function (err, data) {
 
 ### Modularization
 
-With Tas, when all dependencies (even including async module) execution are completed, the current module will get theire results. Everything becomes sync execution, no callback hell / pyramid. 
+With Tas, when all dependencies (even including async module) execution are completed, the current module will get theire results. Everything becomes sync execution, no callback hell / callback pyramid. 
 
 a.js (dependency)
 
