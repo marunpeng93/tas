@@ -40,7 +40,6 @@ tas.forEach("files", {
 				if (err) console.log('Error writing file: ' + err);
 			})
 		});
-		return "continue";
 	}
 });
 
