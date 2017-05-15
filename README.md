@@ -1,5 +1,5 @@
-<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://cldup.com/ef7lAFWQPG-150x150.png' /></a><br />
-<img height='30' src='https://cldup.com/FxBkoxyDAt-3000x3000.png' />
+<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/logo/logo_icon_150.png' /></a><br />
+<img height='30' src='https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/logo/slogon.png' />
 </p>
 
 <p align='center'>
