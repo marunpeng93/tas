@@ -61,7 +61,7 @@ $ git clone https://github.com/tasjs/tas.git
 Run these demos in Node.js:
 
 ```bash
-$ cd /path/to/tas/examples/nodejs/fixing-callback-hell
+$ cd /path/to/tas/examples/general/fixing-callback-hell
 $ node callback-hell.js
 $ node fixing-callback-hell.js
 ```
@@ -75,7 +75,7 @@ $ node fixing-callback-hell.js
 Run these demos in your browser:
 
 ```bash
-$ cd /path/to/tas/examples/web/better-than-promise
+$ cd /path/to/tas/examples/general/better-than-promise
 $ open promise.html
 $ open tas.html
 ```
