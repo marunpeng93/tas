@@ -616,3 +616,4 @@ Tas does not use setTimeout or similar methods recommended by the Promise standa
 [MIT](LICENSE)
 
 Copyright (c) 2017, Owen Luke
+
