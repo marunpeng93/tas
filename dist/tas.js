@@ -59,7 +59,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(28),
+		__webpack_require__(30),
 		__webpack_require__(8),
 		__webpack_require__(21)
 	)})
@@ -114,6 +114,10 @@ function(module, exports, __webpack_require__) {
 		var array = {
 			forEach: function(){
 				app.forEach([].slice.call(arguments));
+			},
+
+			continue: function(){
+				app.continue();
 			}
 		};
 
@@ -138,10 +142,10 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(3),
-		__webpack_require__(32),
-		__webpack_require__(35),
-		__webpack_require__(39),
-		__webpack_require__(28)
+		__webpack_require__(34),
+		__webpack_require__(37),
+		__webpack_require__(41),
+		__webpack_require__(30)
 	)})
 
 	(function(core, async, promise, array, util){
@@ -199,6 +203,10 @@ function(module, exports, __webpack_require__) {
 		var arr = {
 			forEach: function(args){
 				array.forEach(args);
+			},
+
+			continue: function(){
+				array.continue();
 			}
 		};
 
@@ -242,7 +250,7 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(5),
 		__webpack_require__(10),
 		__webpack_require__(24),
-		__webpack_require__(31)
+		__webpack_require__(33)
 	)})
 
 	(function(data, units, global, forEach){
@@ -408,6 +416,10 @@ function(module, exports) {
 
 			clear: function(){
 				this.value = 0;
+			},
+
+			reset: function(){
+				this.clear();
 			}
 		};
 
@@ -691,6 +703,10 @@ function(module, exports) {
 
 			clear: function(){
 				this.data = [];
+			},
+
+			reset: function(){
+				this.clear();
 			}
 		};
 
@@ -728,6 +744,14 @@ function(module, exports) {
 
 			save: function(str){
 				this.set(str);
+			},
+
+			clear: function(){
+				this.data = "";
+			},
+
+			reset: function(){
+				this.clear();
 			}
 		};
 
@@ -781,12 +805,12 @@ function(module, exports) {
 				this.value = val;
 			},
 
-			reset: function(){
-				this.set(DEFAULT);
-			},
-
 			clear: function(){
 				this.value = DEFAULT;
+			},
+
+			reset: function(){
+				this.clear();
 			}
 		};
 
@@ -833,15 +857,16 @@ function(module, exports, __webpack_require__) {
 
 		var exec = {
 			do: function(units, layer){
-				var func, result, isBreakTask, isContinue;
+				var func, result, isBreakTask, isLoop, isContinue;
 
 				/* istanbul ignore if */
 				if (checker.isAbortTas()) return;
 
 				while(func = data.getNextFunc(layer)) {
+					global.currentFunc.save(func);
 
 					if (checker.isForEachFunc(func) && func.isLast === true) {
-						isContinue = true;
+						isLoop = true;
 					}
 
 					status.reset();
@@ -866,6 +891,11 @@ function(module, exports, __webpack_require__) {
 						break;
 					}
 
+					if (checker.isContinue(result)) {
+						isContinue = true;
+						break;
+					}
+
 					if (checker.isSyncTasksFunc(func) || checker.isGoNext()) {
 						continue;
 					}
@@ -880,9 +910,10 @@ function(module, exports, __webpack_require__) {
 				if (isBreakTask) {
 					data.clearRemainFunctions(func);
 				}
-				else if (isContinue) {
-					var loop = __webpack_require__(26);
-					loop.do();
+
+				if (isLoop || isContinue) {
+					var loop = __webpack_require__(28);
+					loop.continue(isLoop);
 				}
 			}
 		};
@@ -931,6 +962,10 @@ function(module, exports, __webpack_require__) {
 
 			isForEachFunc: function(func) {
 				return func.root.forEach === true;
+			},
+
+			isContinue: function(result){
+				return result === 'continue';
 			}
 		};
 
@@ -941,16 +976,19 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(25)
+		__webpack_require__(25),
+		__webpack_require__(26)
 	)})
 
-	(function(isAbort){
+	(function(isAbort, currentFunc){
 
 		module.exports = {
 			isAbort: isAbort,
+			currentFunc: currentFunc,
 
 			reset: function(){
-				isAbort.reset();
+				isAbort.reset && isAbort.reset();
+				currentFunc.reset && currentFunc.reset();
 			}
 		};
 	});
@@ -972,13 +1010,59 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(27),
-		__webpack_require__(24),
-		__webpack_require__(10),
-		__webpack_require__(28)
+		__webpack_require__(27)
 	)})
 
-	(function(data, global, units, util){
+	(function(object){
+
+		var currentFunc = Object.create(object);
+		module.exports = (currentFunc);
+	});
+},
+
+function(module, exports) {
+
+	(function(){
+
+		var object = {
+			data: {},
+			
+			get: function(prop){
+				return typeof prop === 'undefined' ? this.data : this.data[prop];
+			},
+
+			set: function(data, prop){
+				typeof prop === 'undefined' ? (this.data = data) : (this.data[prop] = data);
+			},
+
+			save: function(data, prop){
+				this.set(data, prop);
+			},
+
+			clear: function(){
+				this.data = {};
+			},
+
+			reset: function(){
+				this.clear();
+			}
+		};
+
+		module.exports = (object);
+	})();
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(29),
+		__webpack_require__(24),
+		__webpack_require__(10),
+		__webpack_require__(11),
+		__webpack_require__(30)
+	)})
+
+	(function(data, global, units, udata, util){
 
 		var loop = {
 			do: function(){
@@ -989,15 +1073,14 @@ function(module, exports, __webpack_require__) {
 				}
 
 				var elements = data.getElements();
+				var element = elements.shift();
+				if (!element) return;
+
 				var tas = data.getTas();
 				var tasks = data.getTasks();
 				var index = data.getIndex();
 
-				var element = elements.shift();
-				if (!element) return;
-
 				var thisTasks = util.object.extend(tasks);
-
 				/* istanbul ignore else */
 				if (typeof thisTasks.init === 'function') {
 					thisTasks.init(element, index, elements);
@@ -1005,6 +1088,17 @@ function(module, exports, __webpack_require__) {
 				}
 
 				units.do(tas, thisTasks);
+			},
+
+			continue: function(isNoNeedToClear){
+				global.isAbort.set(false);
+
+				if (!isNoNeedToClear) {
+					var func = global.currentFunc.get();
+					udata.clearRemainFunctions(func);
+				}
+
+				loop.do();
 			}
 		};
 
@@ -1068,8 +1162,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(29),
-		string: __webpack_require__(30)
+		object: __webpack_require__(31),
+		string: __webpack_require__(32)
 	};
 },
 
@@ -1144,8 +1238,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(26),
-		__webpack_require__(27),
+		__webpack_require__(28),
+		__webpack_require__(29),
 		__webpack_require__(13)
 	)})
 
@@ -1161,6 +1255,10 @@ function(module, exports, __webpack_require__) {
 				var elements = args[0];
 				data.save(elements, tas, tasks);
 				loop.do();
+			},
+
+			continue: function(){
+				loop.continue();
 			}
 		};
 
@@ -1171,8 +1269,8 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(33),
-		__webpack_require__(34)
+		__webpack_require__(35),
+		__webpack_require__(36)
 	)})
 
 	(function(await, next){
@@ -1226,7 +1324,7 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(10),
 		__webpack_require__(13),
 		__webpack_require__(17),
-		__webpack_require__(31)
+		__webpack_require__(33)
 	)})
 
 	(function(global, tas, layer, units, pass, status, forEach){
@@ -1274,10 +1372,10 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(36),
-		__webpack_require__(37),
 		__webpack_require__(38),
-		__webpack_require__(32)
+		__webpack_require__(39),
+		__webpack_require__(40),
+		__webpack_require__(34)
 	)})
 
 	(function(all, race, convert, async){
@@ -1458,14 +1556,19 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(40)
+		__webpack_require__(42),
+		__webpack_require__(33)
 	)})
 
-	(function(forEach){
+	(function(forEach, forEachDo){
 
 		var array = {
 			forEach: function(args){
 				forEach.init(args);
+			},
+
+			continue: function(){
+				forEachDo.continue();
 			}
 		};
 
