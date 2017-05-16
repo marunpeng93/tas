@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = tasForEach;
+	var runner = returnContinue;
 
-	var exp = 9;
+	var exp = 2;
 	var val = runner.get();
-	test("3.as promise: tas.forEach()", tas, exp, val);
+	test('4.forEach tasks: return "continue"', tas, exp, val);
 });

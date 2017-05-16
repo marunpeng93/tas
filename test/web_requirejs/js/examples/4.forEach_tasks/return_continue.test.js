@@ -5,12 +5,12 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './tas.forEach()'],
+define(['../tas', '../tester', './return_continue'],
 function(tas, tester, runner) {
 
 	tas(function () {
-		var exp = 9;
+		var exp = 2;
 		var val = runner.get();
-		tester.test("3.as promise: tas.forEach()", tas, exp, val);
+		tester.test('4.forEach tasks: return "continue"', tas, exp, val);
 	});
 });

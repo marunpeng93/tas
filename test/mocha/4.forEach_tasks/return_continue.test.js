@@ -10,10 +10,11 @@ var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
-describe('as promise: tas.forEach() with sync', function(){
-	it('should return 3', function(done){
+describe('forEach tasks: return "continue"', function(){
+	it('should return 2', function(done){
 
 		var a = 0;
+		var flag = 0;
 
 		tas(function(){
 			var arr = [1, 2];
@@ -25,17 +26,24 @@ describe('as promise: tas.forEach() with sync', function(){
 				//console.log(element);
 			},
 
+			check: function(){
+				if (flag === 0) {
+					flag = 1;
+					return "continue";
+				}
+			},
+
 			calc: function(){
-				a ++; // 2 times.
+				a ++; // 1 times.
 			}
 		});
 
 		tas(function(){
-			a ++; // 3
+			a ++; // 2
 		});
 
 		tas(function(){
-			expect(a).to.be.equal(3);
+			expect(a).to.be.equal(2);
 			done();
 		});
 	});

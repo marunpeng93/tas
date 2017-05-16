@@ -67,15 +67,20 @@
 			'3.as_promise/tas.race().test.js',
 			'3.as_promise/this.done.js',
 			'3.as_promise/this.done.test.js',
-			'3.as_promise/tas.forEach().js',
-			'3.as_promise/tas.forEach().test.js',
 
-			'4.break_the_flow/return_break.js',
-			'4.break_the_flow/return_break.test.js',
-			'4.break_the_flow/return_ignore.js',
-			'4.break_the_flow/return_ignore.test.js',
-			'4.break_the_flow/tas.break().js',
-			'4.break_the_flow/tas.break().test.js',
+			'4.forEach_tasks/return_continue.js',
+			'4.forEach_tasks/return_continue.test.js',
+			'4.forEach_tasks/tas.continue().js',
+			'4.forEach_tasks/tas.continue().test.js',
+			'4.forEach_tasks/tas.forEach().js',
+			'4.forEach_tasks/tas.forEach().test.js',
+
+			'5.break_the_flow/return_break.js',
+			'5.break_the_flow/return_break.test.js',
+			'5.break_the_flow/return_ignore.js',
+			'5.break_the_flow/return_ignore.test.js',
+			'5.break_the_flow/tas.break().js',
+			'5.break_the_flow/tas.break().test.js',
 		'']
 	};
 

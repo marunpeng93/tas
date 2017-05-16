@@ -7,10 +7,10 @@
 
 var tas = require('../../../lib');
 var test = require('../../../examples/__lib/tester').test;
-var runner = require('./tas.forEach()');
+var runner = require('./return_continue');
 
 tas(function(){
-	var exp = 9;
+	var exp = 2;
 	var val = runner.get();
-	test("3.as promise: tas.forEach()", tas, exp, val);
+	test('4.forEach tasks: return "continue"', tas, exp, val);
 });
