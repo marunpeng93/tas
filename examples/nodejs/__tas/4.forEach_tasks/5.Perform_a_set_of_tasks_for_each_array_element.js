@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../../lib');
+var tas = require('../../../../lib/index');
 var log = require('../../../__lib/util').log;
 var request = require('superagent');
 var a = 0;

@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './5.Perform_a_set_of_tasks_for_each_array_element'],
+define(['../tas', '../tester', './5.Perform_a_set_of_tasks_for_each_array_element.js'],
 function(tas, tester, useTasForEach) {
 
 	tas(function () {
