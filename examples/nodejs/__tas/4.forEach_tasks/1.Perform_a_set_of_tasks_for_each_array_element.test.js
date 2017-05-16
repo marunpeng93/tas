@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../../lib/index');
+var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
 var runner = require('./1.Perform_a_set_of_tasks_for_each_array_element');
 

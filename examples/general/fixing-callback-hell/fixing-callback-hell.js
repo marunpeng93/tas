@@ -1,4 +1,4 @@
-var tas = require('../../../lib/index');
+var tas = require('../../../lib');
 var fs = require('fs');
 var gm = require('gm');
 
