@@ -29,4 +29,7 @@ describe('for coverage: lib/my/array.js', function(){
 		expect(arr.clear()).to.be.equal(undefined);
 	});
 
+	it('arr.reset() should return undefined', function(){
+		expect(arr.reset()).to.be.equal(undefined);
+	});
 });

@@ -13,4 +13,7 @@ describe('for coverage: lib/my/boolean.js', function(){
 		expect(bool.clear()).to.be.equal(undefined);
 	});
 
+	it('bool.reset() should return undefined', function(){
+		expect(bool.reset()).to.be.equal(undefined);
+	});
 });

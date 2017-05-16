@@ -17,4 +17,7 @@ describe('for coverage: lib/my/array.js', function(){
 		expect(num.get()).to.be.equal(1);
 	});
 
+	it('num.reset() should return undefined', function(){
+		expect(num.reset()).to.be.equal(undefined);
+	});
 });
