@@ -71,7 +71,9 @@ var customLaunchers = {
 	sl_linux_firefox: creator.do('firefox', 'linux'),
 
 	// Edge
-	sl_edge: creator.do('MicrosoftEdge', 'Windows 10'),
+	sl_edge_15: creator.do('MicrosoftEdge', 'Windows 10', '15'),
+	sl_edge_14: creator.do('MicrosoftEdge', 'Windows 10', '14'),
+	sl_edge_13: creator.do('MicrosoftEdge', 'Windows 10', '13'),
 
 	// IE
 	sl_ie_11_win_10: creator.do('internet explorer', 'Windows 10', '11'),
@@ -84,7 +86,7 @@ var customLaunchers = {
 	sl_mac10_11_safari: creator.do('safari', 'OS X 10.11'),
 	sl_mac10_10_safari: creator.do('safari', 'OS X 10.10'),
 	sl_mac10_9_safari: creator.do('safari', 'OS X 10.9'),
-	sl_mac10_8_safari: creator.do('safari', 'OS X 10.8'),
+	sl_mac10_8_safari: creator.do('safari', 'OS X 10.8')
 };
 
 // Karma Options
