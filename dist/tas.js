@@ -80,6 +80,10 @@ function(module, exports, __webpack_require__) {
 
 			reset: function(){
 				app.reset();
+			},
+
+			done: function(){
+				app.reset();
 			}
 		};
 
