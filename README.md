@@ -6,7 +6,6 @@
 <a href='https://travis-ci.org/tasjs/tas' target='_blank'><img src='https://img.shields.io/travis/tasjs/tas/master.svg?label=linux' alt='Linux Build Status' /></a>
 <a href='https://ci.appveyor.com/project/tasjs/tas' target='_blank'><img src='https://img.shields.io/appveyor/ci/tasjs/tas/master.svg?label=windows' alt='Windows Build Status' /></a>
 <a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' alt='Coverage Status' /></a>
-<a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/dm/tas.svg' alt='Downloads' /></a>
 <a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/v/tas.svg' alt='Version' /></a>
 <a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/l/tas.svg' alt='License' /></a>
 <br />
@@ -30,11 +29,6 @@ In Node.js:
 $ npm install tas --save
 ```
 
-Test：
-```bash
-$ npm test
-```
-
 　
 
 In Web / RequireJS:
@@ -43,7 +37,7 @@ Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js
 
 　
 
-## Demo
+## Test
 
 Clone the Tas repo first:
 
@@ -51,6 +45,30 @@ Clone the Tas repo first:
 $ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
 ```
+
+Install the development dependencies:
+```bash
+$ cd /path/to/tas
+$ npm install
+```
+
+Then run tests in Node.js:
+```bash
+$ cd /path/to/tas
+$ npm test
+```
+
+Or run tests in your browser:
+```bash
+$ cd /path/to/tas
+$ open test/web/test.html
+```
+
+　
+
+## Demo
+
+To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
 
 　
 
