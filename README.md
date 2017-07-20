@@ -163,6 +163,10 @@ tas.await(function(){
 tas(function(){
     a ++ ; // 3
     console.log(a); // 3
+
+    // At the end of the tasks, use tas.done() to end Tas 
+    // because Tas does not know when the async task is stopped.
+    tas.done();
 })
 ```
 
@@ -185,6 +189,12 @@ tas(function (err, data) {
     else {
         console.log(data);
     }
+});
+
+tas(function(){
+    // At the end of the tasks, use tas.done() to end Tas 
+    // because Tas does not know when the async task is stopped.
+    tas.done();
 });
 ```
 
@@ -256,9 +266,14 @@ var mb = require('./b');
 
 // This task will be executed after all tasks are completed.
 tas(function(){
+
     var a = ma.get(); // 3
     var b = mb.get(); // 5
     console.log(a + b); // 8
+    
+    // At the end of the tasks, use tas.done() to end Tas 
+    // because Tas does not know when the async task is stopped.
+    tas.done();
 });
 ```
 
@@ -446,6 +461,7 @@ Break The Flow
 | tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).test.js) |
 | tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).test.js) |
 | tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).test.js) |
+| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
 
 　
 
@@ -503,6 +519,7 @@ Break The Flow
 | tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.break\(\).test.js) |
 | tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.abort\(\).test.js) |
 | tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.reset\(\).test.js) |
+| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
 
 　
 
@@ -560,56 +577,7 @@ Break The Flow
 | tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.break\(\).test.js) |
 | tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.abort\(\).test.js) |
 | tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.reset\(\).test.js) |
-
-　
-
-## <a name='test'>Test</a>
-
-Clone the Tas repo (if you have not done so yet):
-
-```bash
-$ cd /path/to
-$ git clone https://github.com/tasjs/tas.git
-```
-
-　
-
-#### With Mocha
-
-```bash
-$ cd /path/to/tas
-$ npm test
-```
-
-　
-
-#### In Node.JS
-
-Test with Node.js
-```bash
-$ cd /path/to/tas/test
-$ node nodejs/test.js
-```
-
-　
-
-#### In Web
-
-Test in your browser:
-```bash
-$ cd /path/to/tas/test
-$ open web/test.html
-```
-
-　
-
-#### In Web RequireJS
-
-Test in your browser:
-```bash
-$ cd /path/to/tas/test
-$ open web_requirejs/test.html
-```
+| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
 
 　
 
