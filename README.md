@@ -136,6 +136,16 @@ tas("My Second tasks", {
         }
     }
 });
+
+tas(function(){
+
+    // At the end of the tasks, use tas.done() to end Tas 
+    // because Tas does not know when the async task is stopped.
+    
+    // In this case, there is no async tasks.
+    // But it is a good practice to use tas.done() at the end of tasks.
+    tas.done();
+});
 ```
 
 　
