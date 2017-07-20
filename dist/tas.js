@@ -59,7 +59,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(30),
+		__webpack_require__(31),
 		__webpack_require__(8),
 		__webpack_require__(21)
 	)})
@@ -83,7 +83,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			done: function(){
-				app.reset();
+				app.done();
 			}
 		};
 
@@ -146,10 +146,10 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(3),
-		__webpack_require__(34),
-		__webpack_require__(37),
-		__webpack_require__(41),
-		__webpack_require__(30)
+		__webpack_require__(35),
+		__webpack_require__(38),
+		__webpack_require__(42),
+		__webpack_require__(31)
 	)})
 
 	(function(core, async, promise, array, util){
@@ -173,6 +173,10 @@ function(module, exports, __webpack_require__) {
 
 			reset: function(){
 				core.reset();
+			},
+
+			done: function(){
+				core.done();
 			}
 		};
 
@@ -241,6 +245,10 @@ function(module, exports, __webpack_require__) {
 
 			reset: function(){
 				tasks.reset();
+			},
+
+			done: function(){
+				tasks.done();
 			}
 		};
 
@@ -253,8 +261,8 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(5),
 		__webpack_require__(10),
-		__webpack_require__(24),
-		__webpack_require__(33)
+		__webpack_require__(22),
+		__webpack_require__(34)
 	)})
 
 	(function(data, units, global, forEach){
@@ -262,6 +270,7 @@ function(module, exports, __webpack_require__) {
 		var tas = {
 			do: function(args){
 				data.add(args);
+				global.isDone.set(false);
 				!global.isAbort.get() && tas.exec();
 			},
 
@@ -289,6 +298,11 @@ function(module, exports, __webpack_require__) {
 				global.reset();
 				data.clear();
 				units.clear();
+			},
+
+			done: function(){
+				tas.reset();
+				global.isDone.set();
 			},
 
 			getNextTasks: function(layer){
@@ -483,7 +497,7 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(11),
 		__webpack_require__(12),
-		__webpack_require__(22),
+		__webpack_require__(27),
 		__webpack_require__(17)
 	)})
 
@@ -624,10 +638,11 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(13),
 		__webpack_require__(15),
 		__webpack_require__(17),
+		__webpack_require__(22),
 		__webpack_require__(8)
 	)})
 
-	(function(pass, flag, status, layer){
+	(function(pass, flag, status, global, layer){
 
 		var run = {
 			do: function(func){
@@ -637,6 +652,11 @@ function(module, exports, __webpack_require__) {
 
 				// Bind the current tasks object to "this".
 				var result = func.apply(func.root, pass.getArguments());
+
+				// Abort Tas
+				if (global.isDone.get()) {
+					return;
+				}
 
 				// If the result is an Array, save it
 				// to pass to the next function or tasks.
@@ -852,9 +872,104 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(23),
+		__webpack_require__(24),
+		__webpack_require__(25)
+	)})
+
+	(function(isAbort, isDone, currentFunc){
+
+		module.exports = {
+			isAbort: isAbort,
+			isDone: isDone,
+			currentFunc: currentFunc,
+
+			reset: function(){
+				isAbort.reset && isAbort.reset();
+				isDone.reset && isDone.reset();
+				currentFunc.reset && currentFunc.reset();
+			}
+		};
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(19)
+	)})
+
+	(function(boolean){
+
+		var isAbort = Object.create(boolean);
+		module.exports = (isAbort);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(19)
+	)})
+
+	(function(boolean){
+
+		var isDone = Object.create(boolean);
+		module.exports = (isDone);
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(26)
+	)})
+
+	(function(object){
+
+		var currentFunc = Object.create(object);
+		module.exports = (currentFunc);
+	});
+},
+
+function(module, exports) {
+
+	(function(){
+
+		var object = {
+			data: {},
+			
+			get: function(prop){
+				return typeof prop === 'undefined' ? this.data : this.data[prop];
+			},
+
+			set: function(data, prop){
+				typeof prop === 'undefined' ? (this.data = data) : (this.data[prop] = data);
+			},
+
+			save: function(data, prop){
+				this.set(data, prop);
+			},
+
+			clear: function(){
+				this.data = {};
+			},
+
+			reset: function(){
+				this.clear();
+			}
+		};
+
+		module.exports = (object);
+	})();
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(28),
 		__webpack_require__(11),
 		__webpack_require__(17),
-		__webpack_require__(24)
+		__webpack_require__(22)
 	)})
 
 	(function(checker, data, status, global){
@@ -875,6 +990,10 @@ function(module, exports, __webpack_require__) {
 
 					status.reset();
 					result = units.run(func);
+
+					if (global.isDone.get()) {
+						break;
+					}
 
 					if (checker.isAbortTas(result)) {
 						global.isAbort.set();
@@ -916,7 +1035,7 @@ function(module, exports, __webpack_require__) {
 				}
 
 				if (isLoop || isContinue) {
-					var loop = __webpack_require__(28);
+					var loop = __webpack_require__(29);
 					loop.continue(isLoop);
 				}
 			}
@@ -930,7 +1049,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(17),
-		__webpack_require__(24)
+		__webpack_require__(22)
 	)})
 
 	(function(status, global){
@@ -980,90 +1099,11 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(25),
-		__webpack_require__(26)
-	)})
-
-	(function(isAbort, currentFunc){
-
-		module.exports = {
-			isAbort: isAbort,
-			currentFunc: currentFunc,
-
-			reset: function(){
-				isAbort.reset && isAbort.reset();
-				currentFunc.reset && currentFunc.reset();
-			}
-		};
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isAbort = Object.create(boolean);
-		module.exports = (isAbort);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(27)
-	)})
-
-	(function(object){
-
-		var currentFunc = Object.create(object);
-		module.exports = (currentFunc);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var object = {
-			data: {},
-			
-			get: function(prop){
-				return typeof prop === 'undefined' ? this.data : this.data[prop];
-			},
-
-			set: function(data, prop){
-				typeof prop === 'undefined' ? (this.data = data) : (this.data[prop] = data);
-			},
-
-			save: function(data, prop){
-				this.set(data, prop);
-			},
-
-			clear: function(){
-				this.data = {};
-			},
-
-			reset: function(){
-				this.clear();
-			}
-		};
-
-		module.exports = (object);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(29),
-		__webpack_require__(24),
+		__webpack_require__(30),
+		__webpack_require__(22),
 		__webpack_require__(10),
 		__webpack_require__(11),
-		__webpack_require__(30)
+		__webpack_require__(31)
 	)})
 
 	(function(data, global, units, udata, util){
@@ -1166,8 +1206,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(31),
-		string: __webpack_require__(32)
+		object: __webpack_require__(32),
+		string: __webpack_require__(33)
 	};
 },
 
@@ -1242,8 +1282,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(28),
 		__webpack_require__(29),
+		__webpack_require__(30),
 		__webpack_require__(13)
 	)})
 
@@ -1273,8 +1313,8 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(35),
-		__webpack_require__(36)
+		__webpack_require__(36),
+		__webpack_require__(37)
 	)})
 
 	(function(await, next){
@@ -1322,13 +1362,13 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(24),
+		__webpack_require__(22),
 		__webpack_require__(4),
 		__webpack_require__(8),
 		__webpack_require__(10),
 		__webpack_require__(13),
 		__webpack_require__(17),
-		__webpack_require__(33)
+		__webpack_require__(34)
 	)})
 
 	(function(global, tas, layer, units, pass, status, forEach){
@@ -1376,10 +1416,10 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(38),
 		__webpack_require__(39),
 		__webpack_require__(40),
-		__webpack_require__(34)
+		__webpack_require__(41),
+		__webpack_require__(35)
 	)})
 
 	(function(all, race, convert, async){
@@ -1560,8 +1600,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(42),
-		__webpack_require__(33)
+		__webpack_require__(43),
+		__webpack_require__(34)
 	)})
 
 	(function(forEach, forEachDo){
