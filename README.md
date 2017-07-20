@@ -70,8 +70,6 @@ $ open test/web/test.html
 
 To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
 
-　
-
 ### 1. Fixing callback hell
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/fixing-callback-hell-with-tas.png)
