@@ -30,6 +30,10 @@ var btnOnClick = {
 
 	syncEnd: function(){
 		log(this.count, 'Sync code terminated');
+	},
+
+	done: function(){
+		tas.done();
 	}
 };
 

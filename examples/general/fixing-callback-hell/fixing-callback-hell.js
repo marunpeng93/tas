@@ -5,7 +5,6 @@ var gm = require('gm');
 var source = "./images/";
 var dest = "./images-resize/";
 var widths = [100, 200];
-
 var filename;
 
 tas.await(function(){
@@ -43,4 +42,6 @@ tas.forEach("files", {
 	}
 });
 
-tas("Done");
+tas(function(){
+	tas.done();
+});
