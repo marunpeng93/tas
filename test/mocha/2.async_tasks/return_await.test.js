@@ -39,6 +39,7 @@ describe('async tasks: return "await"', function(){
 		tas(function(){
 			expect(a).to.be.equal(5);
 			done();
+			tas.done();
 		});
 	});
 });
