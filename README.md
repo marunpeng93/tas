@@ -296,7 +296,7 @@ $ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
 ```
 
-Then see the examples folder, or see the test cases.　
+Then see the examples folder, or see the test cases.
 All examples and tests include Node.js, Web, and Web / RequireJS.
 
 　
