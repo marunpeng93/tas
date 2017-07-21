@@ -79,8 +79,6 @@
 			'5.break_the_flow/return_break.test.js',
 			'5.break_the_flow/return_ignore.js',
 			'5.break_the_flow/return_ignore.test.js',
-			'5.break_the_flow/tas.break().js',
-			'5.break_the_flow/tas.break().test.js',
 		'']
 	};
 

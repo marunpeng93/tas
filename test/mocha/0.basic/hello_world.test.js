@@ -23,8 +23,6 @@ describe('basic: hello world', function(){
 			}
 		});
 
-		tas("done");
-
 		expect(a).to.be.equal(3);
 	});
 });
