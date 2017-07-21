@@ -78,10 +78,6 @@ function(module, exports, __webpack_require__) {
 				app.abort(err);
 			},
 
-			reset: function(){
-				app.reset();
-			},
-
 			done: function(){
 				app.done();
 			}
@@ -171,10 +167,6 @@ function(module, exports, __webpack_require__) {
 				core.abort(err);
 			},
 
-			reset: function(){
-				core.reset();
-			},
-
 			done: function(){
 				core.done();
 			}
@@ -243,10 +235,6 @@ function(module, exports, __webpack_require__) {
 				tasks.abort(err);
 			},
 
-			reset: function(){
-				tasks.reset();
-			},
-
 			done: function(){
 				tasks.done();
 			}
@@ -294,14 +282,10 @@ function(module, exports, __webpack_require__) {
 				global.isAbort.set();
 			},
 
-			reset: function(){
+			done: function(){
 				global.reset();
 				data.clear();
 				units.clear();
-			},
-
-			done: function(){
-				tas.reset();
 				global.isDone.set();
 			},
 
@@ -342,6 +326,7 @@ function(module, exports, __webpack_require__) {
 				},
 
 				packLog: function(){
+					/* istanbul ignore next */
 					if (args.length === 0) {
 						var log = describe;
 						args[0] = function(){console.log(log)};
