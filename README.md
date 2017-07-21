@@ -296,116 +296,8 @@ $ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
 ```
 
-　
-
-### For Node.js
-
-Run the test of examples in Node.js:
-
-```bash
-$ cd /path/to/tas/examples
-$ node nodejs/__tas/test.js
-```
-
-Or view the source code of the examples online:
-
-| Folder            | Topic                               | Example                                  | Test                                     |
-| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/1.hello_world.test.js) |
-| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/2.via_return.test.js) |
-| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/3.via_this.test.js) |
-| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/1.pass_the_data/4.via_tas.test.js) |
-| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/1.async_tasks.test.js) |
-| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/2.mix_tasks.test.js) |
-| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/3.the_order_of_tasks.test.js) |
-| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
-| 3. As Promise     | 1. Easier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/1.easier_to_use_than_promise.test.js) |
-| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
-| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
-| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
-| 4. ForEach tasks  | 1. Use tas.forEach()                | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.test.js) |
-| 5. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/1.ignore_the_current_function.test.js) |
-| 5. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/2.break_the_current_tasks.test.js) |
-| 5. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/3.abort_tas.test.js) |
-| 5. Break the flow | 4. Reset Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/4.reset_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/5.break_the_flow/4.reset_tas.test.js) |
-| 6. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/1.common_load.test.js) |
-| 6. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/2.multiple_load.test.js) |
-| 6. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/6.modularization/3.chain_load.test.js) |
-| 7. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/7.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/nodejs/__tas/7.complex/1.a_crazy_example.test.js) |
-
-　
-
-### For Web
-
-Run the test of examples in your browser:
-
-```bash
-$ cd /path/to/tas/examples
-$ open web/__tas/test.html
-```
-
-Or view the source code of the examples online:
-
-| Folder            | Topic                               | Example                                  | Test                                     |
-| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/1.hello_world.test.js) |
-| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/2.via_return.test.js) |
-| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/3.via_this.test.js) |
-| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/1.pass_the_data/4.via_tas.test.js) |
-| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/1.async_tasks.test.js) |
-| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/2.mix_tasks.test.js) |
-| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/3.the_order_of_tasks.test.js) |
-| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
-| 3. As Promise     | 1. Easier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/1.easier_to_use_than_promise.test.js) |
-| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
-| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
-| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
-| 4. ForEach tasks  | 1. Use tas.forEach()                | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.test.js) |
-| 5. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/1.ignore_the_current_function.test.js) |
-| 5. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/2.break_the_current_tasks.test.js) |
-| 5. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/3.abort_tas.test.js) |
-| 5. Break the flow | 4. Reset Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/4.reset_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/5.break_the_flow/4.reset_tas.test.js) |
-| 6. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/1.common_load.test.js) |
-| 6. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/2.multiple_load.test.js) |
-| 6. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/6.modularization/3.chain_load.test.js) |
-| 7. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/7.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web/__tas/js/examples/7.complex/1.a_crazy_example.test.js) |
-
-　
-
-### For Web RequireJS
-
-Run the test of examples in your browser:
-
-```bash
-$ cd /path/to/tas/examples
-$ open web_requirejs/__tas/test.html
-```
-
-Or view the source code of the examples online:
-
-| Folder            | Topic                               | Example                                  | Test                                     |
-| ----------------- | ----------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| 1. Pass the data  | 1. Hello world                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/1.hello_world.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/1.hello_world.test.js) |
-| 1. Pass the data  | 2. Via return                       | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/2.via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/2.via_return.test.js) |
-| 1. Pass the data  | 3. Via this                         | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/3.via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/3.via_this.test.js) |
-| 1. Pass the data  | 4. Via tas                          | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/4.via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/1.pass_the_data/4.via_tas.test.js) |
-| 2. Async tasks    | 1. Async tasks                      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/1.async_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/1.async_tasks.test.js) |
-| 2. Async tasks    | 2. Mix tasks                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/2.mix_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/2.mix_tasks.test.js) |
-| 2. Async tasks    | 3. The order of tasks               | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/3.the_order_of_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/3.the_order_of_tasks.test.js) |
-| 2. Async tasks    | 4. Fix callback hell (pyramid)      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/4.fix_callback_hell_\(pyramid\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/2.async_tasks/4.fix_callback_hell_\(pyramid\).test.js) |
-| 3. As Promise     | 1. Easier to use than Promise       | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/1.easier_to_use_than_promise.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/1.easier_to_use_than_promise.test.js) |
-| 3. As Promise     | 2. Use tas.all() as Promise.all()   | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/2.use_tas.all\(\)_as_promise.all\(\).test.js) |
-| 3. As Promise     | 3. Use tas.race() as Promise.race() | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/3.use_tas.race\(\)_as_promise.race\(\).test.js) |
-| 3. As Promise     | 4. Cancel the unfinished tasks      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/4.cancel_the_unfinished_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/3.as_promise/4.cancel_the_unfinished_tasks.test.js) |
-| 4. ForEach tasks  | 1. Use tas.forEach()                | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.test.js) |
-| 5. Break the flow | 1. Ignore the current function      | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/1.ignore_the_current_function.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/1.ignore_the_current_function.test.js) |
-| 5. Break the flow | 2. Break the current tasks          | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/2.break_the_current_tasks.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/2.break_the_current_tasks.test.js) |
-| 5. Break the flow | 3. Abort Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/3.abort_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/3.abort_tas.test.js) |
-| 5. Break the flow | 4. Reset Tas                        | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/4.reset_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/5.break_the_flow/4.reset_tas.test.js) |
-| 6. Modularization | 1. Common module                    | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/1.common_a.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/1.common_load.test.js) |
-| 6. Modularization | 2. Multiple modules                 | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/2.multiple_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/2.multiple_b.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/2.multiple_load.test.js) |
-| 6. Modularization | 3. Dependent chain                  | [A.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/3.chain_a.js), [B.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/3.chain_b.js), [C.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/3.chain_c.js), [D.js](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/3.chain_d.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/6.modularization/3.chain_load.test.js) |
-| 7. Complex        | 1. A crazy example                  | [Example](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/7.complex/1.a_crazy_example.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/web_requirejs/__tas/js/examples/7.complex/1.a_crazy_example.test.js) |
+Then see the examples folder, or see the test cases.　
+All examples and tests include Node.js, Web, and Web / RequireJS.
 
 　
 
@@ -413,21 +305,8 @@ Or view the source code of the examples online:
 
 Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
 
-　
 
-### For Node.js 
-
-Pass The Data
-
-| API                | Functions                                | Example                                  | Test                                     |
-| ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_return.test.js) |
-| this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_this.test.js) |
-| tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/1.pass_the_data/via_tas.test.js) |
-
-　
-
-Async Tasks
+### Async Tasks
 
 | API            | Functions                                | Example                                  | Test                                     |
 | -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -437,7 +316,7 @@ Async Tasks
 
 　
 
-As Promise
+### As Promise
 
 | API           | Functions                                | Example                                  | Test                                     |
 | ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -449,7 +328,7 @@ As Promise
 
 　
 
-ForEach Tasks
+### ForEach Tasks
 
 | API               | Functions                                | Example                                  | Test                                     |
 | ----------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -459,7 +338,7 @@ ForEach Tasks
 
 　
 
-Break The Flow
+### Break The Flow
 
 | API             | Functions                                | Example                                  | Test                                     |
 | --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -469,122 +348,6 @@ Break The Flow
 | tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).test.js) |
 | tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).test.js) |
 | tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).test.js) |
-| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
-
-　
-
-### For Web
-
-Pass The Data
-
-| API                | Functions                                | Example                                  | Test                                     |
-| ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_return.test.js) |
-| this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_this.test.js) |
-| tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/1.pass_the_data/via_tas.test.js) |
-
-　
-
-Async Tasks
-
-| API            | Functions                                | Example                                  | Test                                     |
-| -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/return_await.test.js) |
-| tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.await\(\).test.js) |
-| tas.next()     | Jump to the next function or tasks to continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.next\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/2.async_tasks/tas.next\(\).test.js) |
-
-　
-
-As Promise
-
-| API           | Functions                                | Example                                  | Test                                     |
-| ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.promsise\(\).test.js) |
-| tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.all\(\).test.js) |
-| tas.race()    | As long as one of tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.race\(\).test.js) |
-| tas.cancel()  | Manually cancel the unfinished task(s).  | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.cancel\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/tas.cancel\(\).test.js) |
-| this.done     | Pass the data received from promise to the next task. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/this.done.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/3.as_promise/this.done.test.js) |
-
-　
-
-ForEach Tasks
-
-| API               | Functions                                | Example                                  | Test                                     |
-| ----------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.forEach()     | Perform a set of tasks for each array element. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/tas.forEach\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/tas.forEach\(\).test.js) |
-| tas.continue()    | Go to the next loop (in closures).       | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/tas.continue\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/tas.continue\(\).test.js) |
-| return "continue" | Go to the next loop.                     | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/return_continue.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/4.forEach_tasks/return_continue.test.js) |
-
-　
-
-Break The Flow
-
-| API             | Functions                                | Example                                  | Test                                     |
-| --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_ignore.test.js) |
-| return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_break.test.js) |
-| return "abort"  | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_abort.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/return_abort.test.js) |
-| tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.break\(\).test.js) |
-| tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.abort\(\).test.js) |
-| tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web/js/examples/5.break_the_flow/tas.reset\(\).test.js) |
-| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
-
-　
-
-### For Web RequireJS 
-
-Pass The Data
-
-| API                | Functions                                | Example                                  | Test                                     |
-| ------------------ | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return \[1, 2, 3\] | Pass 1, 2, 3 to the next function or tasks. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_return.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_return.test.js) |
-| this.foo = "bar"   | The data is valid for the functions in the current task object. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_this.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_this.test.js) |
-| tas.foo = "bar"    | The data is valid for the functions in all tasks and modules. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_tas.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/1.pass_the_data/via_tas.test.js) |
-
-　
-
-Async Tasks
-
-| API            | Functions                                | Example                                  | Test                                     |
-| -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/return_await.test.js) |
-| tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.await\(\).test.js) |
-| tas.next()     | Jump to the next function or tasks to continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.next\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/2.async_tasks/tas.next\(\).test.js) |
-
-　
-
-As Promise
-
-| API           | Functions                                | Example                                  | Test                                     |
-| ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.promsise\(\).test.js) |
-| tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.all\(\).test.js) |
-| tas.race()    | As long as one of tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.race\(\).test.js) |
-| tas.cancel()  | Manually cancel the unfinished task(s).  | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.cancel\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/tas.cancel\(\).test.js) |
-| this.done     | Pass the data received from promise to the next task. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/this.done.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/3.as_promise/this.done.test.js) |
-
-　
-
-ForEach Tasks
-
-| API               | Functions                                | Example                                  | Test                                     |
-| ----------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.forEach()     | Perform a set of tasks for each array element. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/tas.forEach\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/tas.forEach\(\).test.js) |
-| tas.continue()    | Go to the next loop (in closures).       | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/tas.continue\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/tas.continue\(\).test.js) |
-| return "continue" | Go to the next loop.                     | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/return_continue.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/4.forEach_tasks/return_continue.test.js) |
-
-　
-
-Break The Flow
-
-| API             | Functions                                | Example                                  | Test                                     |
-| --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_ignore.test.js) |
-| return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_break.test.js) |
-| return "abort"  | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_abort.js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/return_abort.test.js) |
-| tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.break\(\).test.js) |
-| tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.abort\(\).test.js) |
-| tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/web_requirejs/js/examples/5.break_the_flow/tas.reset\(\).test.js) |
 | tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
 
 　
