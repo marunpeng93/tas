@@ -70,7 +70,7 @@ $ open test/web/test.html
 
 To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
 
-### 1. Fixing callback hell
+### Fixing callback hell
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/fixing-callback-hell-with-tas.png)
 
@@ -84,7 +84,7 @@ $ node fixing-callback-hell.js
 
 　
 
-### 2. Better than Promise
+### Better than Promise
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/better-than-promise.png)
 
@@ -98,7 +98,7 @@ $ open tas.html
 
 　
 
-### 3. Clear code structure
+### Clear code structure
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/demo/clear-code-structure.png)
 
@@ -289,22 +289,15 @@ tas(function(){
 
 ## Full Examples
 
-Clone the Tas repo (if you have not done so yet):
+To run all examples, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
 
-```bash
-$ cd /path/to
-$ git clone https://github.com/tasjs/tas.git
-```
-
-Then see the examples folder, or see the test cases.
-All examples and tests include Node.js, Web, and Web / RequireJS.
+Then see the examples folder, or see the test cases. Of course, all examples and tests are categorized according to Node.js, Web, and Web / RequireJS.
 
 　
 
-## API Examples
+## API
 
 Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
-
 
 ### Async Tasks
 
@@ -340,15 +333,13 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Break The Flow
 
-| API             | Functions                                | Example                                  | Test                                     |
-| --------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "ignore" | Ignore the current function.             | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_ignore.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_ignore.test.js) |
-| return "break"  | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_break.test.js) |
-| return "abort"  | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_abort.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_abort.test.js) |
-| tas.break()     | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).test.js) |
-| tas.abort()     | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).test.js) |
-| tas.reset()     | Reset the status of Tas for running again. | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.reset\(\).test.js) |
-| tas.done()      | End Tas at the end of the tasks.         |                                          |                                          |
+| API            | Functions                                | Example                                  | Test                                     |
+| -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| return "break" | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_break.test.js) |
+| return "abort" | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_abort.js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/return_abort.test.js) |
+| tas.break()    | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.break\(\).test.js) |
+| tas.abort()    | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/test/nodejs/5.break_the_flow/tas.abort\(\).test.js) |
+| tas.done()     | End Tas at the end of the tasks.         |                                          |                                          |
 
 　
 
