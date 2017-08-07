@@ -5,12 +5,12 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './tas.continue()'],
+define(['../tas', '../tester', './hello_world'],
 function(tas, tester, runner) {
 
 	tas(function () {
-		var exp = 5;
+		var exp = 3;
 		var val = runner.get();
-		tester.test('4.forEach tasks: tas.continue()', tas, exp, val);
+		tester.test("1.sync tasks: hello world", tas, exp, val);
 	});
 });

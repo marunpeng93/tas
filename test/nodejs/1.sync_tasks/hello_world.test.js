@@ -7,14 +7,10 @@
 
 var tas = require('../../../lib');
 var test = require('../../../examples/__lib/tester').test;
-var runner = require('./return_abort');
+var runner = require('./hello_world');
 
 tas(function(){
-
-	var exp = 1;
+	var exp = 3;
 	var val = runner.get();
-
-	var exp1 = 1;
-	var val1 = runner.get1();
-	test('5.break the flow: return abort', tas, exp1, val1);
+	test("1.sync tasks: hello world", tas, exp, val);
 });

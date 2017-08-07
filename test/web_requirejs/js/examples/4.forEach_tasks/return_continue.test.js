@@ -9,7 +9,7 @@ define(['../tas', '../tester', './return_continue'],
 function(tas, tester, runner) {
 
 	tas(function () {
-		var exp = 2;
+		var exp = 5;
 		var val = runner.get();
 		tester.test('4.forEach tasks: return "continue"', tas, exp, val);
 	});

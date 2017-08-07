@@ -11,6 +11,6 @@ function(tas, tester, runner) {
 	tas(function () {
 		var exp = 2;
 		var val = runner.get();
-		tester.test("break the flow: tas.break()", tas, exp, val);
+		tester.test("5.break the flow: tas.break()", tas, exp, val);
 	});
 });

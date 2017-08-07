@@ -5,13 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../config');
-var request = require('superagent');
-var expect = require('chai').expect;
-
 describe('forEach tasks: return "continue"', function(){
-	it('should return 5', function(done){
+	it('should return 2', function(done){
 
 		var a = 0;
 		var flag = 0;
@@ -24,7 +19,6 @@ describe('forEach tasks: return "continue"', function(){
 		tas.forEach({
 			init: function(element){
 				//console.log(element);
-				a += element;
 			},
 
 			check: function(){
@@ -40,11 +34,14 @@ describe('forEach tasks: return "continue"', function(){
 		});
 
 		tas(function(){
-			a ++; // 5
+			a ++; // 2
 		});
 
 		tas(function(){
-			expect(a).to.be.equal(5);
+			var exp = 2;
+			var val = a;
+			tester.test('forEach tasks: return "continue"', tas, exp, val, true);
+			expect(val).toBe(exp);
 			done();
 		});
 	});

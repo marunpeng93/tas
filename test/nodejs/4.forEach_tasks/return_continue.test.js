@@ -10,7 +10,7 @@ var test = require('../../../examples/__lib/tester').test;
 var runner = require('./return_continue');
 
 tas(function(){
-	var exp = 2;
+	var exp = 5;
 	var val = runner.get();
 	test('4.forEach tasks: return "continue"', tas, exp, val);
 });

@@ -38,17 +38,12 @@
 
 		// root = test/nodejs
 		data: [
-			'0.basic/hello_world.js',
-			'0.basic/hello_world.test.js',
-			'0.basic/simplify.js',
-			'0.basic/simplify.test.js',
-
-			'1.pass_the_data/via_return.js',
-			'1.pass_the_data/via_return.test.js',
-			'1.pass_the_data/via_tas.js',
-			'1.pass_the_data/via_tas.test.js',
-			'1.pass_the_data/via_this.js',
-			'1.pass_the_data/via_this.test.js',
+			'1.sync_tasks/hello_world.js',
+			'1.sync_tasks/hello_world.test.js',
+			'1.sync_tasks/pass_data.js',
+			'1.sync_tasks/pass_data.test.js',
+			'1.sync_tasks/simplify.js',
+			'1.sync_tasks/simplify.test.js',
 
 			'2.async_tasks/return_await.js',
 			'2.async_tasks/return_await.test.js',
@@ -77,9 +72,7 @@
 
 			'5.break_the_flow/return_break.js',
 			'5.break_the_flow/return_break.test.js',
-			'5.break_the_flow/return_ignore.js',
-			'5.break_the_flow/return_ignore.test.js',
-		'']
+			'']
 	};
 
 	return (testFiles);

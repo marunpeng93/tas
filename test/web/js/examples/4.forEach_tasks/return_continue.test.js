@@ -10,7 +10,7 @@ tas(function(){
 	var test = tester.test;
 	var runner = returnContinue;
 
-	var exp = 2;
+	var exp = 5;
 	var val = runner.get();
 	test('4.forEach tasks: return "continue"', tas, exp, val);
 });

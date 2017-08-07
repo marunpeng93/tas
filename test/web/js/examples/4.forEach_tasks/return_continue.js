@@ -18,6 +18,7 @@ var returnContinue = function() {
 	tas.forEach({
 		init: function (element) {
 			//console.log(element);
+			a += element;
 		},
 
 		check: function () {
@@ -33,12 +34,12 @@ var returnContinue = function() {
 	});
 
 	tas(function () {
-		a++; // 2
+		a++; // 5
 	});
 
 	return {
 		get: function () {
-			return a; // 2
+			return a; // 5
 		}
 	};
 

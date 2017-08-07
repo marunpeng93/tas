@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = tasBreak;
+	var runner = simplify;
 
-	var exp = 2;
+	var exp = 3;
 	var val = runner.get();
-	test("5.break the flow: tas.break()", tas, exp, val);
+	test("1.sync tasks: simplify", tas, exp, val);
 });

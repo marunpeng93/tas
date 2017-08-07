@@ -18,6 +18,7 @@ tas(function(){
 tas.forEach({
 	init: function(element){
 		//console.log(element);
+		a += element;
 	},
 
 	check: function(){
@@ -36,11 +37,11 @@ tas.forEach({
 });
 
 tas(function(){
-	a ++; // 2
+	a ++; // 5
 });
 
 module.exports = {
 	get: function(){
-		return a; // 2
+		return a; // 5
 	}
 };

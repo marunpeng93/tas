@@ -16,5 +16,5 @@ tas(function(){
 
 	var exp1 = 1;
 	var val1 = runner.get1();
-	test('4.break the flow: tas.abort()', tas, exp1, val1);
+	test('5.break the flow: tas.abort()', tas, exp1, val1);
 });
