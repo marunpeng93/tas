@@ -5,17 +5,17 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './4.via_tas'],
-function(tas, tester, viaTas) {
+define(['../tas', '../tester', './3.pass_data'],
+function(tas, tester, passData) {
 
 	tas(function(){
 
 		var test = tester.test;
-		var runner = viaTas;
+		var runner = passData;
 
-		var exp = 7;
+		var exp = 81;
 		var val = runner.get();
 
-		test("1.pass the data: via tas", tas, exp, val);
+		test("1.sync tasks: pass data", tas, exp, val);
 	});
 });

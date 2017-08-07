@@ -7,10 +7,10 @@
 
 var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
-var runner = require('./2.via_return');
+var runner = require('./2.abort_tas.js');
 
 tas(function(){
-	var exp = 81;
+	var exp = 3;
 	var val = runner.get();
-	test("1.pass the data: via return", tas, exp, val);
+	test("4.break the flow: abort tas", tas, exp, val);
 });

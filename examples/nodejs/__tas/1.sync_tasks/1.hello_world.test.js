@@ -7,10 +7,10 @@
 
 var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
-var runner = require('./4.reset_tas');
+var runner = require('./1.hello_world');
 
 tas(function(){
-	var exp = 2;
+	var exp = 5;
 	var val = runner.get();
-	test("4.break the flow: reset tas", tas, exp, val);
+	test("1.sync tasks: hello world", tas, exp, val);
 });

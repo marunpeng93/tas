@@ -5,17 +5,17 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './4.reset_tas'],
-function(tas, tester, resetTas) {
+define(['../tas', '../tester', './2.abort_tas'],
+function(tas, tester, abortTas) {
 
 	tas(function(){
 
 		var test = tester.test;
-		var runner = resetTas;
+		var runner = abortTas;
 
 		var exp = 3;
 		var val = runner.get();
 
-		test("4.break the flow: reset tas", tas, exp, val);
+		test("4.break the flow: abort tas", tas, exp, val);
 	});
 });

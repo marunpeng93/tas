@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = viaTas;
+	var runner = viaReturn;
 
-	var exp = 7;
+	var exp = 81;
 	var val = runner.get();
-	test("1.pass the data: via tas", tas, exp, val);
+	test("1.sync tasks: pass data", tas, exp, val);
 });

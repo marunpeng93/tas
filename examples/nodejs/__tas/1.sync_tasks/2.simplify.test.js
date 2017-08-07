@@ -7,10 +7,10 @@
 
 var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
-var runner = require('./3.abort_tas');
+var runner = require('./2.simplify');
 
 tas(function(){
 	var exp = 3;
 	var val = runner.get();
-	test("4.break the flow: abort tas", tas, exp, val);
+	test("1.sync tasks: simplify", tas, exp, val);
 });

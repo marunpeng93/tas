@@ -5,17 +5,17 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './3.abort_tas'],
-function(tas, tester, abortTas) {
+define(['../tas', '../tester', './2.simplify'],
+function(tas, tester, simplify){
 
 	tas(function(){
 
 		var test = tester.test;
-		var runner = abortTas;
+		var runner = simplify;
 
 		var exp = 3;
 		var val = runner.get();
 
-		test("4.break the flow: abort tas", tas, exp, val);
+		test("1.sync tasks: simplify", tas, exp, val);
 	});
 });

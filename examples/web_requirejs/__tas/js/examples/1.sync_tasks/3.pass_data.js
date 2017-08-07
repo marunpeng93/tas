@@ -54,7 +54,7 @@ function(tas){
 
 		t2: function(b, c, d){
 			a ++; // 81
-		},
+		}
 	});
 
 	return {

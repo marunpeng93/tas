@@ -38,14 +38,12 @@
 
 		// root = examples/nodejs/__tas
 		data: [
-			'1.pass_the_data/1.hello_world.js',
-			'1.pass_the_data/1.hello_world.test.js',
-			'1.pass_the_data/2.via_return.js',
-			'1.pass_the_data/2.via_return.test.js',
-			'1.pass_the_data/3.via_this.js',
-			'1.pass_the_data/3.via_this.test.js',
-			'1.pass_the_data/4.via_tas.js',
-			'1.pass_the_data/4.via_tas.test.js',
+			'1.sync_tasks/1.hello_world.js',
+			'1.sync_tasks/1.hello_world.test.js',
+			'1.sync_tasks/2.simplify.js',
+			'1.sync_tasks/2.simplify.test.js',
+			'1.sync_tasks/3.pass_data.js',
+			'1.sync_tasks/3.pass_data.test.js',
 
 			'2.async_tasks/1.async_tasks.js',
 			'2.async_tasks/1.async_tasks.test.js',
@@ -68,12 +66,10 @@
 			'4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.js',
 			'4.forEach_tasks/1.Perform_a_set_of_tasks_for_each_array_element.test.js',
 
-			'5.break_the_flow/1.ignore_the_current_function.js',
-			'5.break_the_flow/1.ignore_the_current_function.test.js',
-			'5.break_the_flow/2.break_the_current_tasks.js',
-			'5.break_the_flow/2.break_the_current_tasks.test.js',
-			'5.break_the_flow/3.abort_tas.js',
-			'5.break_the_flow/3.abort_tas.test.js',
+			'5.break_the_flow/1.break_the_current_tasks.js',
+			'5.break_the_flow/1.break_the_current_tasks.test.js',
+			'5.break_the_flow/2.abort_tas.js',
+			'5.break_the_flow/2.abort_tas.test.js',
 
 			'6.modularization/1.common_a.js',
 			'6.modularization/1.common_load.test.js',

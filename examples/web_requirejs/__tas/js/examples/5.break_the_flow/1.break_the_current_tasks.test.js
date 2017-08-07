@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './2.break_the_current_tasks'],
+define(['../tas', '../tester', './1.break_the_current_tasks'],
 function(tas, tester, breakTheCurrentTasks) {
 
 	tas(function(){

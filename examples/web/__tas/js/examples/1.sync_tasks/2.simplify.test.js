@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = helloWorld;
+	var runner = simplify;
 
-	var exp = 5;
+	var exp = 3;
 	var val = runner.get();
-	test("1.pass the data: hello world", tas, exp, val);
+	test("1.sync tasks: simplify", tas, exp, val);
 });

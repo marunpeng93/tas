@@ -7,10 +7,10 @@
 
 var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
-var runner = require('./1.hello_world');
+var runner = require('./1.break_the_current_tasks.js');
 
 tas(function(){
-	var exp = 5;
+	var exp = 2;
 	var val = runner.get();
-	test("1.pass the data: hello world", tas, exp, val);
+	test("4.break the flow: break the current tasks", tas, exp, val);
 });

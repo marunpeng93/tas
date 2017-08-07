@@ -16,6 +16,6 @@ function(tas, tester, helloWorld){
 		var exp = 5;
 		var val = runner.get();
 
-		test("1.pass the data: hello world", tas, exp, val);
+		test("1.sync tasks: hello world", tas, exp, val);
 	});
 });
