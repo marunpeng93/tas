@@ -119,11 +119,11 @@ module.exports = function (config) {
 			'./test/karma/config.js',
 			'./test/karma/karmaDebugger.js',
 
-			'./test/karma/0.basic/*.js',
-			'./test/karma/1.pass_the_data/*.js',
+			'./test/karma/1.sync_tasks/*.js',
 			'./test/karma/2.async_tasks/*.js',
 			'./test/karma/3.as_promise/*.js',
-			'./test/karma/4.break_the_flow/*.js'
+			'./test/karma/4.forEach_tasks/*.js',
+			'./test/karma/5.break_the_flow/*.js'
 		],
 
 		reporters: ['saucelabs'],
