@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-define(['../tas', '../tester', './tas.abort()'],
+define(['../tas', '../tester', './return_abort'],
 function(tas, tester, runner) {
 
 	tas(function () {
@@ -13,8 +13,8 @@ function(tas, tester, runner) {
 		var exp = 1;
 		var val = runner.get();
 
-		var exp1 = 1;
+		var exp1 = 3;
 		var val1 = runner.get1();
-		tester.test('5.break the flow: tas.abort()', tas, exp1, val1);
+		tester.test('5.break the flow: return "abort"', tas, exp1, val1);
 	});
 });

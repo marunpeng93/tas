@@ -32,7 +32,7 @@ global = {isDisabledLog: true};
 		},
 
 		initFiles: function(){
-			files = tester.getFiles({prefix: 'js/examples'});
+			files = tester.getFiles({prefix: 'js/src'});
 			total = tester.getNumber(files);
 			console.log('Testing 1..%d', total);
 		},

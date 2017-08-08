@@ -34,7 +34,7 @@ function (tas, tester, testFiles){
 		},
 
 		initFiles: function(){
-			files = tester.getFiles({prefix: 'examples', isTestFileOnly: true, isNoExtName: true});
+			files = tester.getFiles({prefix: 'src', isTestFileOnly: true, isNoExtName: true});
 			total = tester.getNumber(files);
 			console.log('Testing 1..%d', total);
 		},

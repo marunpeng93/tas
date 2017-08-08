@@ -32,12 +32,12 @@ var tasks2 = {
 
 module.exports = {
 	get: function(){
-		tas(tasks1);
+		tas(tasks1); // abort
 		return a; // 1
 	},
 
 	get1: function(){
-		tas(tasks2); // skipped, because Tas has aborted.
-		return a; // 1
+		tas(tasks2); // The new tasks is not affected by the previous abort.
+		return a; // 3
 	}
 };
