@@ -259,7 +259,7 @@ function(module, exports, __webpack_require__) {
 			do: function(args){
 				data.add(args);
 				global.isDone.set(false);
-				!global.isAbort.get() && tas.exec();
+				!global.isAwait.get() && tas.exec();
 			},
 
 			exec: function(){
@@ -278,11 +278,12 @@ function(module, exports, __webpack_require__) {
 			},
 
 			abort: function(err){
-				err && /* istanbul ignore next */ console.log(err);
-				global.isAbort.set();
+				tas.done(err);
 			},
 
-			done: function(){
+			done: function(msg){
+				msg && /* istanbul ignore next */ console.log(msg);
+
 				global.reset();
 				data.clear();
 				units.clear();
@@ -638,8 +639,8 @@ function(module, exports, __webpack_require__) {
 				// Bind the current tasks object to "this".
 				var result = func.apply(func.root, pass.getArguments());
 
-				// Abort Tas
-				if (global.isDone.get()) {
+				// End Tas, or async await
+				if (global.isDone.get() || global.isAwait.get()) {
 					return;
 				}
 
@@ -653,6 +654,7 @@ function(module, exports, __webpack_require__) {
 				}
 
 				layer.sub();
+
 				return result;
 			}
 		};
@@ -861,15 +863,15 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(25)
 	)})
 
-	(function(isAbort, isDone, currentFunc){
+	(function(isAwait, isDone, currentFunc){
 
 		module.exports = {
-			isAbort: isAbort,
+			isAwait: isAwait,
 			isDone: isDone,
 			currentFunc: currentFunc,
 
 			reset: function(){
-				isAbort.reset && isAbort.reset();
+				isAwait.reset && isAwait.reset();
 				isDone.reset && isDone.reset();
 				currentFunc.reset && currentFunc.reset();
 			}
@@ -885,8 +887,8 @@ function(module, exports, __webpack_require__) {
 
 	(function(boolean){
 
-		var isAbort = Object.create(boolean);
-		module.exports = (isAbort);
+		var isAwait = Object.create(boolean);
+		module.exports = (isAwait);
 	});
 },
 
@@ -964,7 +966,10 @@ function(module, exports, __webpack_require__) {
 				var func, result, isBreakTask, isLoop, isContinue;
 
 				/* istanbul ignore if */
-				if (checker.isAbortTas()) return;
+				if (checker.isAbortTas()) {
+					units.tas.done();
+					return;
+				}
 
 				while(func = data.getNextFunc(layer)) {
 					global.currentFunc.save(func);
@@ -981,7 +986,7 @@ function(module, exports, __webpack_require__) {
 					}
 
 					if (checker.isAbortTas(result)) {
-						global.isAbort.set();
+						units.tas.done();
 						break;
 					}
 
@@ -990,12 +995,8 @@ function(module, exports, __webpack_require__) {
 						break;
 					}
 
-					if (checker.isIgnoreThisFunc(result)) {
-						status.isGoNext.set();
-					}
-
 					if (checker.isAwaitInSyncFunc(result)) {
-						global.isAbort.set();
+						global.isAwait.set();
 						break;
 					}
 
@@ -1010,7 +1011,7 @@ function(module, exports, __webpack_require__) {
 
 					/* istanbul ignore else */
 					if (checker.isAwaitTasksFunc(func)) {
-						global.isAbort.set();
+						global.isAwait.set();
 						break;
 					}
 				}
@@ -1053,11 +1054,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			isAbortTas: function(result){
-				return result === "abort" || global.isAbort.get();
-			},
-
-			isIgnoreThisFunc: function(result){
-				return result === 'ignore';
+				return result === "abort";
 			},
 
 			isSyncTasksFunc: function(func){
@@ -1097,7 +1094,7 @@ function(module, exports, __webpack_require__) {
 			do: function(){
 
 				/* istanbul ignore next */
-				if (global.isAbort.get() === true) {
+				if (global.isAwait.get() === true) {
 					return;
 				}
 
@@ -1120,7 +1117,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			continue: function(isNoNeedToClear){
-				global.isAbort.set(false);
+				global.isAwait.set(false);
 
 				if (!isNoNeedToClear) {
 					var func = global.currentFunc.get();
@@ -1362,7 +1359,7 @@ function(module, exports, __webpack_require__) {
 			do: function(args){
 				pass.saveArguments(args);
 				status.isGoNext.set();
-				global.isAbort.set(false);
+				global.isAwait.set(false);
 
 				next.resume();
 			},
@@ -1378,7 +1375,7 @@ function(module, exports, __webpack_require__) {
 					units.exec(lay);
 
 					// Handle the tasks in sequence
-					while (!global.isAbort.get() && (tasks = tas.getNextTasks(lay))) {
+					while (!global.isAwait.get() && (tasks = tas.getNextTasks(lay))) {
 						global.reset();
 
 						if (tasks.forEach === true) {
