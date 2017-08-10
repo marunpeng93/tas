@@ -2,8 +2,8 @@ var tas = require('../../../lib');
 var fs = require('fs');
 var gm = require('gm');
 
-var source = "./images/";
-var dest = "./images-resize/";
+var source = __dirname + "/images/";
+var dest = __dirname + "/images-resize/";
 var widths = [100, 200];
 var filename;
 
