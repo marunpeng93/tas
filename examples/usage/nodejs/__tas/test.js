@@ -66,4 +66,4 @@ var test = function(){
 	});
 };
 
-runTest(test, repeatTimes);
+runTest.do(test, repeatTimes);

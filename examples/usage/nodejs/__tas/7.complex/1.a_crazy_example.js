@@ -55,14 +55,14 @@ tas.await({
 						a ++; // 3
 						log(layer(), 't3');
 
-						//log(layer(), 'wait 0.5 seconds...', 1);
-						//setTimeout(function(){
-						//	a ++; // 4
-						//
-						//	log(tas.maxLayer, 'continue...', 1);
-						//	tas.next();
-						//
-						//}, 500);
+						log(layer(), 'wait 0.5 seconds...', 1);
+						setTimeout(function(){
+							a ++; // 4
+
+							log(tas.maxLayer, 'continue...', 1);
+							tas.next();
+
+						}, 500);
 						tas.next();
 					},
 
