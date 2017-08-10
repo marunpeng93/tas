@@ -63,7 +63,6 @@ tas.await({
 							tas.next();
 
 						}, 500);
-						tas.next();
 					},
 
 					t4: function(){
