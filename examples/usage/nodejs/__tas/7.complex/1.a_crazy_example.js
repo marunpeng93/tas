@@ -6,8 +6,8 @@
  */
 
 var tas = require('../../../../../lib');
-var logLine = require('../../../../__lib/util').log;
-var log = require('../../../../__lib/util').tree;
+var log = require('../../../../__lib/util').log;
+var tree = require('../../../../__lib/util').tree;
 
 var a = 0;
 
@@ -43,23 +43,23 @@ var layer = function(){
 tas.await({
 	t1: function(){
 		a ++; // 1
-		log(layer(), 't1');
+		tree(layer(), 't1');
 
 		tas.await({
 			t2: function(){
 				a ++; // 2
-				log(layer(), 't2');
+				tree(layer(), 't2');
 
 				tas.await({
 					t3: function(){
 						a ++; // 3
-						log(layer(), 't3');
+						tree(layer(), 't3');
 
-						log(layer(), 'wait 0.5 seconds...', 1);
+						tree(layer(), 'wait 0.5 seconds...', 1);
 						setTimeout(function(){
 							a ++; // 4
 
-							log(tas.maxLayer, 'continue...', 1);
+							tree(tas.maxLayer, 'continue...', 1);
 							tas.next();
 
 						}, 500);
@@ -68,7 +68,7 @@ tas.await({
 
 					t4: function(){
 						a ++; // 5
-						log(layer(), 't4');
+						tree(layer(), 't4');
 						debugger;
 						tas.next();
 					}
@@ -77,17 +77,17 @@ tas.await({
 				tas({
 					t5: function(){
 						a ++; // 6
-						log(layer(), 't5');
+						tree(layer(), 't5');
 
 						tas({
 							t6: function(){
 								a ++; // 7
-								log(layer(), 't6');
+								tree(layer(), 't6');
 							},
 
 							t7: function(){
 								a ++; // 8
-								log(layer(), 't7');
+								tree(layer(), 't7');
 							}
 						});
 
@@ -95,27 +95,27 @@ tas.await({
 
 					t8: function(){
 						a ++; // 9
-						log(layer(), 't8');
+						tree(layer(), 't8');
 					}
 				});
 
 				tas({
 					t9: function(){
 						a ++; // 10
-						log(layer(), 't9');
+						tree(layer(), 't9');
 					}
 				});
 			},
 
 			t10: function(){
 				a ++; // 11
-				log(layer(), 't10');
+				tree(layer(), 't10');
 				tas.next();
 			},
 
 			t11: function(){
 				a ++; // 12
-				log(layer(), 't11');
+				tree(layer(), 't11');
 				tas.next();
 			}
 		});
@@ -123,43 +123,43 @@ tas.await({
 		tas({
 			t12: function(){
 				a ++; // 13
-				log(layer(), 't12');
+				tree(layer(), 't12');
 			},
 
 			t13: function(){
 				a ++; // 14
-				log(layer(), 't13');
+				tree(layer(), 't13');
 
 				tas({
 					t14: function(){
 						a ++; // 15
-						log(layer(), 't14');
+						tree(layer(), 't14');
 					},
 
 					t15: function(){
 						a ++; // 16
-						log(layer(), 't15');
+						tree(layer(), 't15');
 					}
 				});
 			},
 
 			t16: function(){
 				a ++; // 17
-				log(layer(), 't16');
+				tree(layer(), 't16');
 			}
 		});
 
 		tas({
 			t17: function(){
 				a ++; // 18
-				log(layer(), 't17');
+				tree(layer(), 't17');
 			}
 		});
 	},
 
 	t18: function(){
 		a ++; // 19
-		log(layer(), 't18');
+		tree(layer(), 't18');
 		tas.next();
 	}
 });
@@ -167,40 +167,40 @@ tas.await({
 tas(function(){
 	a ++; // 20
 	debugger;
-	log(layer(), 't20');
+	tree(layer(), 't20');
 });
 
 tas({
 	t30: function(){
 		a ++; // 21
-		log(layer(), 't30');
+		tree(layer(), 't30');
 
 		tas({
 			t31: function () {
 				a ++; // 22
-				log(layer(), 't31');
+				tree(layer(), 't31');
 
 				tas({
 					t32: function(){
 						a ++; // 23
-						log(layer(), 't32');
+						tree(layer(), 't32');
 
 						tas({
 							t33: function(){
 								a ++; // 24
-								log(layer(), 't33');
+								tree(layer(), 't33');
 							},
 
 							t34: function(){
 								a ++; // 25
-								log(layer(), 't34');
+								tree(layer(), 't34');
 							}
 						});
 					},
 
 					t35: function(){
 						a ++; // 26
-						log(layer(), 't35');
+						tree(layer(), 't35');
 					}
 				});
 			}
@@ -209,17 +209,17 @@ tas({
 		tas({
 			t36: function(){
 				a ++; // 27
-				log(layer(), 't36');
+				tree(layer(), 't36');
 
 				tas({
 					t37: function(){
 						a ++; // 28
-						log(layer(), 't37');
+						tree(layer(), 't37');
 					},
 
 					t38: function(){
 						a ++; // 29
-						log(layer(), 't38');
+						tree(layer(), 't38');
 					}
 				});
 			}
@@ -228,7 +228,7 @@ tas({
 		tas({
 			t39: function(){
 				a ++; // 30
-				log(layer(), 't39');
+				tree(layer(), 't39');
 			}
 		});
 
@@ -237,19 +237,19 @@ tas({
 
 tas(function(){
 	a ++; // 31
-	log(layer(), 't40');
+	tree(layer(), 't40');
 });
 
 tas.await({
 	t50: function(){
 		a ++; // 32
-		log(layer(), 't50');
+		tree(layer(), 't50');
 
-		log(layer(), 'wait 0.5 seconds...', 1);
+		tree(layer(), 'wait 0.5 seconds...', 1);
 		setTimeout(function(){
 			a ++; // 33
 
-			log(tas.maxLayer, 'continue...', 1);
+			tree(tas.maxLayer, 'continue...', 1);
 			tas.next();
 
 		}, 500);
@@ -257,36 +257,36 @@ tas.await({
 
 	t51: function(){
 		a ++; // 34
-		log(layer(), 't51');
+		tree(layer(), 't51');
 		tas.next();
 	}
 });
 
 tas(function(){
 	a ++; // 35
-	log(layer(), 't60');
+	tree(layer(), 't60');
 });
 
 tas.await({
 	t70: function(){
 		a ++; // 36
-		log(layer(), 't70');
+		tree(layer(), 't70');
 
 		tas.await({
 			t71: function(){
 				a ++; // 37
-				log(layer(), 't71');
+				tree(layer(), 't71');
 
 				tas.await({
 					t72: function(){
 						a ++; // 38
-						log(layer(), 't72');
+						tree(layer(), 't72');
 
-						log(layer(), 'wait 0.5 seconds...', 1);
+						tree(layer(), 'wait 0.5 seconds...', 1);
 						setTimeout(function(){
 							a ++; // 39
 
-							log(tas.maxLayer, 'continue...', 1);
+							tree(tas.maxLayer, 'continue...', 1);
 							tas.next();
 
 						}, 500);
@@ -295,19 +295,19 @@ tas.await({
 
 				tas(function(){
 					a ++; // 40
-					log(layer(), 't73');
+					tree(layer(), 't73');
 				});
 
 				tas.await({
 					t74: function(){
 						a ++; // 41
-						log(layer(), 't74');
+						tree(layer(), 't74');
 
-						log(layer(), 'wait 0.5 seconds...', 1);
+						tree(layer(), 'wait 0.5 seconds...', 1);
 						setTimeout(function(){
 							a ++; // 42
 
-							log(tas.maxLayer, 'continue...', 1);
+							tree(tas.maxLayer, 'continue...', 1);
 							tas.next();
 
 						}, 500);
@@ -315,26 +315,26 @@ tas.await({
 
 					t75: function(){
 						a ++; // 43
-						log(layer(), 't75');
+						tree(layer(), 't75');
 						tas.next();
 					}
 				});
 
 				tas(function(){
 					a ++; // 44
-					log(layer(), 't76');
+					tree(layer(), 't76');
 				});
 
 				tas.await({
 					t77: function(){
 						a ++; // 45
-						log(layer(), 't77');
+						tree(layer(), 't77');
 
-						log(layer(), 'wait 0.5 seconds...', 1);
+						tree(layer(), 'wait 0.5 seconds...', 1);
 						setTimeout(function(){
 							a ++; // 46
 
-							log(tas.maxLayer, 'continue...', 1);
+							tree(tas.maxLayer, 'continue...', 1);
 							tas.next();
 
 						}, 500);
@@ -342,7 +342,7 @@ tas.await({
 
 					t78: function(){
 						a ++; // 47
-						log(layer(), 't78');
+						tree(layer(), 't78');
 						tas.next();
 					}
 				});
@@ -350,20 +350,20 @@ tas.await({
 
 			t79: function(){
 				a ++; // 48
-				log(layer(), 't79');
+				tree(layer(), 't79');
 				tas.next();
 			}
 		});
 
 		tas(function(){
 			a ++; // 49
-			log(layer(), 't80');
+			tree(layer(), 't80');
 		});
 	},
 
 	t1: function(){
 		a ++; // 50
-		log(layer(), 't90');
+		tree(layer(), 't90');
 		tas.next();
 	}
 });
@@ -371,12 +371,12 @@ tas.await({
 tas({
 	t100: function(){
 		a ++; // 51
-		log(layer(), 't100');
+		tree(layer(), 't100');
 	}
 });
 
 tas(function(){
-	logLine(a); // 51
+	log(a); // 51
 });
 
 module.exports = {
