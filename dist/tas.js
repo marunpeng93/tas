@@ -59,7 +59,7 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(2),
-		__webpack_require__(31),
+		__webpack_require__(32),
 		__webpack_require__(8),
 		__webpack_require__(21)
 	)})
@@ -142,10 +142,10 @@ function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
 		__webpack_require__(3),
-		__webpack_require__(35),
-		__webpack_require__(38),
-		__webpack_require__(42),
-		__webpack_require__(31)
+		__webpack_require__(36),
+		__webpack_require__(39),
+		__webpack_require__(43),
+		__webpack_require__(32)
 	)})
 
 	(function(core, async, promise, array, util){
@@ -250,7 +250,7 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(5),
 		__webpack_require__(10),
 		__webpack_require__(22),
-		__webpack_require__(34)
+		__webpack_require__(35)
 	)})
 
 	(function(data, units, global, forEach){
@@ -259,7 +259,10 @@ function(module, exports, __webpack_require__) {
 			do: function(args){
 				data.add(args);
 				global.isDone.set(false);
-				!global.isAwait.get() && tas.exec();
+
+				if (!global.isAbort.get() && !global.isAwait.get()) {
+					tas.exec();
+				}
 			},
 
 			exec: function(){
@@ -278,16 +281,27 @@ function(module, exports, __webpack_require__) {
 			},
 
 			abort: function(err){
-				tas.done(err);
+				err && /* istanbul ignore next */ console.log(err);
+
+				tas.reset();
+				global.isAbort.set();
+
+				setTimeout(function(){
+					global.isAbort.set(false);
+				}, 0);
 			},
 
 			done: function(msg){
 				msg && /* istanbul ignore next */ console.log(msg);
 
+				tas.reset();
+				global.isDone.set();
+			},
+
+			reset: function(){
 				global.reset();
 				data.clear();
 				units.clear();
-				global.isDone.set();
 			},
 
 			getNextTasks: function(layer){
@@ -483,7 +497,7 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(11),
 		__webpack_require__(12),
-		__webpack_require__(27),
+		__webpack_require__(28),
 		__webpack_require__(17)
 	)})
 
@@ -639,9 +653,9 @@ function(module, exports, __webpack_require__) {
 				// Bind the current tasks object to "this".
 				var result = func.apply(func.root, pass.getArguments());
 
-				// End Tas, or async await
-				if (global.isDone.get() || global.isAwait.get()) {
-					return;
+				// Abort Tas
+				if (global.isDone.get() || result === 'abort') {
+					return result;
 				}
 
 				// If the result is an Array, save it
@@ -654,7 +668,6 @@ function(module, exports, __webpack_require__) {
 				}
 
 				layer.sub();
-
 				return result;
 			}
 		};
@@ -860,22 +873,38 @@ function(module, exports, __webpack_require__) {
 	(function(){arguments[0](
 		__webpack_require__(23),
 		__webpack_require__(24),
-		__webpack_require__(25)
+		__webpack_require__(25),
+		__webpack_require__(26)
 	)})
 
-	(function(isAwait, isDone, currentFunc){
+	(function(isAbort, isAwait, isDone, currentFunc){
 
 		module.exports = {
+			isAbort: isAbort,
 			isAwait: isAwait,
 			isDone: isDone,
 			currentFunc: currentFunc,
 
 			reset: function(){
+				isAbort.reset && isAbort.reset();
 				isAwait.reset && isAwait.reset();
 				isDone.reset && isDone.reset();
 				currentFunc.reset && currentFunc.reset();
 			}
 		};
+	});
+},
+
+function(module, exports, __webpack_require__) {
+
+	(function(){arguments[0](
+		__webpack_require__(19)
+	)})
+
+	(function(boolean){
+
+		var isAbort = Object.create(boolean);
+		module.exports = (isAbort);
 	});
 },
 
@@ -908,7 +937,7 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(26)
+		__webpack_require__(27)
 	)})
 
 	(function(object){
@@ -953,7 +982,7 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(28),
+		__webpack_require__(29),
 		__webpack_require__(11),
 		__webpack_require__(17),
 		__webpack_require__(22)
@@ -964,10 +993,14 @@ function(module, exports, __webpack_require__) {
 		var exec = {
 			do: function(units, layer){
 				var func, result, isBreakTask, isLoop, isContinue;
+				var tas = units.tas;
 
-				/* istanbul ignore if */
-				if (checker.isAbortTas()) {
-					units.tas.done();
+				if (checker.isReturnAbort()) {
+					tas.abort();
+					return;
+				}
+
+				if (global.isAwait.get()) {
 					return;
 				}
 
@@ -985,8 +1018,8 @@ function(module, exports, __webpack_require__) {
 						break;
 					}
 
-					if (checker.isAbortTas(result)) {
-						units.tas.done();
+					if (checker.isReturnAbort(result)) {
+						tas.abort();
 						break;
 					}
 
@@ -995,12 +1028,12 @@ function(module, exports, __webpack_require__) {
 						break;
 					}
 
-					if (checker.isAwaitInSyncFunc(result)) {
+					if (checker.isReturnAwait(result)) {
 						global.isAwait.set();
 						break;
 					}
 
-					if (checker.isContinue(result)) {
+					if (checker.isReturnContinue(result)) {
 						isContinue = true;
 						break;
 					}
@@ -1021,7 +1054,7 @@ function(module, exports, __webpack_require__) {
 				}
 
 				if (isLoop || isContinue) {
-					var loop = __webpack_require__(29);
+					var loop = __webpack_require__(30);
 					loop.continue(isLoop);
 				}
 			}
@@ -1045,15 +1078,15 @@ function(module, exports, __webpack_require__) {
 				return func.await || func.root.await;
 			},
 
-			isAwaitInSyncFunc: function(result){
+			isReturnAwait: function(result){
 				return result === 'await';
 			},
 
 			isBreakCurrentTasks: function(result){
-				return result === "break" || result === false || status.isBreak.get();
+				return result === "break" || status.isBreak.get();
 			},
 
-			isAbortTas: function(result){
+			isReturnAbort: function(result){
 				return result === "abort";
 			},
 
@@ -1069,7 +1102,7 @@ function(module, exports, __webpack_require__) {
 				return func.root.forEach === true;
 			},
 
-			isContinue: function(result){
+			isReturnContinue: function(result){
 				return result === 'continue';
 			}
 		};
@@ -1081,11 +1114,11 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(30),
+		__webpack_require__(31),
 		__webpack_require__(22),
 		__webpack_require__(10),
 		__webpack_require__(11),
-		__webpack_require__(31)
+		__webpack_require__(32)
 	)})
 
 	(function(data, global, units, udata, util){
@@ -1094,7 +1127,7 @@ function(module, exports, __webpack_require__) {
 			do: function(){
 
 				/* istanbul ignore next */
-				if (global.isAwait.get() === true) {
+				if (global.isAbort.get() || global.isAwait.get()) {
 					return;
 				}
 
@@ -1117,6 +1150,7 @@ function(module, exports, __webpack_require__) {
 			},
 
 			continue: function(isNoNeedToClear){
+				global.isAbort.set(false);
 				global.isAwait.set(false);
 
 				if (!isNoNeedToClear) {
@@ -1188,8 +1222,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	module.exports = {
-		object: __webpack_require__(32),
-		string: __webpack_require__(33)
+		object: __webpack_require__(33),
+		string: __webpack_require__(34)
 	};
 },
 
@@ -1264,8 +1298,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(29),
 		__webpack_require__(30),
+		__webpack_require__(31),
 		__webpack_require__(13)
 	)})
 
@@ -1295,8 +1329,8 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(36),
-		__webpack_require__(37)
+		__webpack_require__(37),
+		__webpack_require__(38)
 	)})
 
 	(function(await, next){
@@ -1350,7 +1384,7 @@ function(module, exports, __webpack_require__) {
 		__webpack_require__(10),
 		__webpack_require__(13),
 		__webpack_require__(17),
-		__webpack_require__(34)
+		__webpack_require__(35)
 	)})
 
 	(function(global, tas, layer, units, pass, status, forEach){
@@ -1359,6 +1393,7 @@ function(module, exports, __webpack_require__) {
 			do: function(args){
 				pass.saveArguments(args);
 				status.isGoNext.set();
+				global.isAbort.set(false);
 				global.isAwait.set(false);
 
 				next.resume();
@@ -1375,7 +1410,7 @@ function(module, exports, __webpack_require__) {
 					units.exec(lay);
 
 					// Handle the tasks in sequence
-					while (!global.isAwait.get() && (tasks = tas.getNextTasks(lay))) {
+					while (!global.isAbort.get() && !global.isAwait.get() && (tasks = tas.getNextTasks(lay))) {
 						global.reset();
 
 						if (tasks.forEach === true) {
@@ -1398,10 +1433,10 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(39),
 		__webpack_require__(40),
 		__webpack_require__(41),
-		__webpack_require__(35)
+		__webpack_require__(42),
+		__webpack_require__(36)
 	)})
 
 	(function(all, race, convert, async){
@@ -1582,8 +1617,8 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	(function(){arguments[0](
-		__webpack_require__(43),
-		__webpack_require__(34)
+		__webpack_require__(44),
+		__webpack_require__(35)
 	)})
 
 	(function(forEach, forEachDo){
