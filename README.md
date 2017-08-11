@@ -1,5 +1,5 @@
-<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://raw.githubusercontent.com/tasjs/tas/master/__res/logo_icon_150.png' /></a><br />
-<img height='30' src='https://raw.githubusercontent.com/tasjs/tas/master/__res/logo/slogon.png' />
+<p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='https://raw.githubusercontent.com/tasjs/tas/master/res/logo_icon_150.png' /></a><br />
+<img height='30' src='https://raw.githubusercontent.com/tasjs/tas/master/res/slogon.png' />
 </p>
 
 <p align='center'>
@@ -18,7 +18,7 @@ Tas makes the code structure clear, turning async code to sync, reducing the lev
 
 The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
 
-Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
+Tas is a lightweight JavaScript logic framework (only 4KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
 　
 
@@ -52,16 +52,19 @@ $ cd /path/to/tas
 $ npm install
 ```
 
-Then run tests in Node.js:
+Then run the tests in Node.js:
 ```bash
 $ cd /path/to/tas
 $ npm test
 ```
 
-Or run tests in your browser:
+Or run the tests in your browser:
 ```bash
 $ cd /path/to/tas
-$ open test/web/test.html
+$ open examples/usage/web/test.html
+
+# or
+$ open examples/usage/web_requirejs/test.html
 ```
 
 　
@@ -137,16 +140,6 @@ tas("My Second tasks", {
             console.log(a, b, c); // 7 8 9
         }
     }
-});
-
-tas(function(){
-
-    // At the end of the tasks, use tas.done() to end Tas 
-    // because Tas does not know when the async task is stopped.
-    
-    // In this case, there is no async tasks.
-    // But it is a good practice to use tas.done() at the end of tasks.
-    tas.done();
 });
 ```
 
@@ -293,55 +286,55 @@ tas(function(){
 
 To run all examples, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
 
-Then see the examples folder, or see the test cases. Of course, all examples and tests are categorized according to Node.js, Web, and Web / RequireJS.
+Then see the **examples/usage** folder, or see the test cases. Of course, all examples and tests are categorized according to Node.js, Web, and Web / RequireJS.
 
 　
 
 ## API
 
-Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. 
+Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. See the **examples/api** folder for examples and tests.
 
 ### Async Tasks
 
-| API            | Functions                                | Example                                  | Test                                     |
-| -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "await" | Used in one of a group of sync tasks.    | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/return_await.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/return_await.test.js) |
-| tas.await()    | If the tasks/subtasks contains async code, use it. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/tas.await\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/tas.await\(\).test.js) |
-| tas.next()     | Jump to the next function or tasks to continue. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/tas.next\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/2.async_tasks/tas.next\(\).test.js) |
+| API            | Functions                                |
+| -------------- | ---------------------------------------- |
+| return "await" | Used in one of a group of sync tasks.    |
+| tas.await()    | If the tasks/subtasks contains async code, use it. |
+| tas.next()     | Jump to the next function or tasks to continue. |
 
 　
 
 ### As Promise
 
-| API           | Functions                                | Example                                  | Test                                     |
-| ------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.promise() | After this tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.promsise\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.promsise\(\).test.js) |
-| tas.all()     | After all tasks are completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.all\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.all\(\).test.js) |
-| tas.race()    | As long as one of tasks is completed, continue. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.race\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.race\(\).test.js) |
-| tas.cancel()  | Manually cancel the unfinished task(s).  | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.cancel\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/tas.cancel\(\).test.js) |
-| this.done     | Pass the data received from promise to the next task. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/this.done.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/3.as_promise/this.done.test.js) |
+| API           | Functions                                |
+| ------------- | ---------------------------------------- |
+| tas.promise() | After this tasks is completed, continue. |
+| tas.all()     | After all tasks are completed, continue. |
+| tas.race()    | As long as one of tasks is completed, continue. |
+| tas.cancel()  | Manually cancel the unfinished task(s).  |
+| this.done     | Pass the data received from promise to the next task. |
 
 　
 
 ### ForEach Tasks
 
-| API               | Functions                                | Example                                  | Test                                     |
-| ----------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.forEach()     | Perform a set of tasks for each array element. | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/tas.forEach\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/tas.forEach\(\).test.js) |
-| tas.continue()    | Go to the next loop (in closures).       | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/tas.continue\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/tas.continue\(\).test.js) |
-| return "continue" | Go to the next loop.                     | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/return_continue.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/4.forEach_tasks/return_continue.test.js) |
+| API               | Functions                                |
+| ----------------- | ---------------------------------------- |
+| tas.forEach()     | Perform a set of tasks for each array element. |
+| tas.continue()    | Go to the next loop (in closures).       |
+| return "continue" | Go to the next loop.                     |
 
 　
 
 ### Break The Flow
 
-| API            | Functions                                | Example                                  | Test                                     |
-| -------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| return "break" | Break the current tasks.                 | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/return_break.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/return_break.test.js) |
-| return "abort" | Abort Tas.                               | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/return_abort.js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/return_abort.test.js) |
-| tas.break()    | Break the current tasks from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/tas.break\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/tas.break\(\).test.js) |
-| tas.abort()    | Abort Tas from nested function (closures). | [Example](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/tas.abort\(\).js) | [Test](https://github.com/tasjs/tas/tree/master/examples/api/nodejs/5.break_the_flow/tas.abort\(\).test.js) |
-| tas.done()     | End Tas at the end of the tasks.         |                                          |                                          |
+| API            | Functions                                |
+| -------------- | ---------------------------------------- |
+| return "break" | Break the current tasks.                 |
+| return "abort" | Abort Tas.                               |
+| tas.break()    | Break the current tasks from nested function (closures). |
+| tas.abort()    | Abort Tas from nested function (closures). |
+| tas.done()     | End Tas at the end of the tasks.         |
 
 　
 
