@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('break the flow: return "break"', function(){
+describe('5.break the flow: return "break"', function(){
 	it('should return 2', function(){
 
 		var a = 1;
@@ -27,7 +27,7 @@ describe('break the flow: return "break"', function(){
 		tas(function(){
 			var exp = 2;
 			var val = a;
-			tester.test('break the flow: return "break"', tas, exp, val, true);
+			tester.test('5.break the flow: return "break"', tas, exp, val, true);
 			expect(val).toBe(exp);
 		});
 	});

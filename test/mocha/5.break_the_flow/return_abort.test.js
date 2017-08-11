@@ -8,18 +8,15 @@
 var tas = require('../../../lib');
 var expect = require('chai').expect;
 
-describe('break the flow: tas.abort()', function(){
+describe('5.break the flow: return "abort"', function(){
 	it('should return 1', function(done){
 
-		var a = 1;
-
-		tas(function(){
+		setTimeout(function(){
+			var a = 1;
 
 			tas({
 				t1: function(){
-					[1].forEach(function(){
-						tas.abort();
-					});
+					return 'abort';
 				},
 
 				t2: function(){
@@ -33,6 +30,6 @@ describe('break the flow: tas.abort()', function(){
 
 			expect(a).to.be.equal(1);
 			done();
-		});
+		}, 0);
 	});
 });

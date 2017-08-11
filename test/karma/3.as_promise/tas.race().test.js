@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('as promise: tas.race()', function(){
+describe('3.as promise: tas.race()', function(){
 	it('should return true', function(done){
 
 		var request = superagent;
@@ -31,7 +31,7 @@ describe('as promise: tas.race()', function(){
 		tas(function(err, data){
 			var exp = true;
 			var val = data instanceof Object;
-			tester.test('as promise: tas.race()', tas, exp, val, true);
+			tester.test('3.as promise: tas.race()', tas, exp, val, true);
 			expect(val).toBe(exp);
 			done();
 		});

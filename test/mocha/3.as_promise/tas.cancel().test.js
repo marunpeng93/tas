@@ -10,7 +10,7 @@ var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
-describe('as promise: tas.cancel()', function(){
+describe('3.as promise: tas.cancel()', function(){
 	it('should return an object', function(done){
 
 		var handlers = [];

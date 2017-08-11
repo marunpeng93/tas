@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('sync tasks: pass data', function(){
+describe('1.sync tasks: pass data', function(){
 	it('should return 15', function(){
 
 		var a = 1;
@@ -37,7 +37,7 @@ describe('sync tasks: pass data', function(){
 		tas(function(){
 			var exp = 15;
 			var val = a;
-			tester.test('pass the data: via return', tas, exp, val, true);
+			tester.test('1.sync tasks: pass data', tas, exp, val, true);
 			expect(val).toBe(exp);
 		});
 	});

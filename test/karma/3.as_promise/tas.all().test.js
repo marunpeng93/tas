@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('as promise: tas.all()', function(){
+describe('3.as promise: tas.all()', function(){
 	it('should return true', function(done){
 
 		var request = superagent;
@@ -31,7 +31,7 @@ describe('as promise: tas.all()', function(){
 		tas(function(err, data){
 			var exp = true;
 			var val = data instanceof Array;
-			tester.test('as promise: tas.all()', tas, exp, val, true);
+			tester.test('3.as promise: tas.all()', tas, exp, val, true);
 			expect(val).toBe(exp);
 			done();
 		});

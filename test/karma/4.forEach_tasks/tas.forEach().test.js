@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('forEach tasks: tas.forEach()', function(){
+describe('4.forEach tasks: tas.forEach()', function(){
 	it('should return 3', function(done){
 
 		var a = 0;
@@ -39,7 +39,7 @@ describe('forEach tasks: tas.forEach()', function(){
 		tas(function(){
 			var exp = 3;
 			var val = a;
-			tester.test('forEach tasks: tas.forEach()', tas, exp, val, true);
+			tester.test('4.forEach tasks: tas.forEach()', tas, exp, val, true);
 			expect(val).toBe(3);
 			done();
 		});

@@ -22,8 +22,8 @@ describe('for coverage: lib/index.js', function(){
 		expect(tas.layer).to.be.equal(0);
 	});
 
-	it('tas.maxLayer should return 2', function(){
-		expect(tas.maxLayer).to.be.equal(2);
+	it('tas.maxLayer should return 1', function(){
+		expect(tas.maxLayer).to.be.equal(1);
 	});
 
 });

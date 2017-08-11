@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('async tasks: return "await"', function(){
+describe('2.async tasks: return "await"', function(){
 	it('should return 5', function(done){
 
 		var a = 1;
@@ -35,7 +35,7 @@ describe('async tasks: return "await"', function(){
 		tas(function(){
 			var exp = 5;
 			var val = a;
-			tester.test('async tasks: return "await"', tas, exp, val, true);
+			tester.test('2.async tasks: return "await"', tas, exp, val, true);
 			expect(val).toBe(exp);
 			done();
 		});

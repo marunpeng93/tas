@@ -10,7 +10,7 @@ var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
-describe('as promise: this.done', function(){
+describe('3.as promise: this.done', function(){
 	it('should return an object', function(done){
 
 		tas.promise("tas promise", function(){

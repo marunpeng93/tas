@@ -9,7 +9,7 @@ var tas = require('../../../lib');
 var config = require('../config');
 var expect = require('chai').expect;
 
-describe('async tasks: return "await"', function(){
+describe('2.async tasks: return "await"', function(){
 	it('should return 5', function(done){
 
 		var a = 1;

@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('sync tasks: simplify', function(){
+describe('1.sync tasks: simplify', function(){
 	it('should return 3', function(){
 
 		var a = 1;
@@ -22,7 +22,7 @@ describe('sync tasks: simplify', function(){
 		tas(function(){
 			var exp = 3;
 			var val = a;
-			tester.test('basic: simplify', tas, exp, val, true);
+			tester.test('1.sync tasks: simplify', tas, exp, val, true);
 			expect(val).toBe(exp);
 		});
 	});

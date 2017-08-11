@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('as promise: this.done', function(){
+describe('3.as promise: this.done', function(){
 	it('should return true', function(done){
 
 		var request = superagent;
@@ -19,7 +19,7 @@ describe('as promise: this.done', function(){
 		tas(function(err, data){
 			var exp = true;
 			var val = data instanceof Object;
-			tester.test('as promise: this.done', tas, exp, val, true);
+			tester.test('3.as promise: this.done', tas, exp, val, true);
 			expect(val).toBe(exp);
 			done();
 		});

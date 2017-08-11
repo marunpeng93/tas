@@ -5,12 +5,11 @@
  * Released under the MIT License.
  */
 
-describe('break the flow: tas.abort()', function(){
-	it('should return 1', function(){
+describe('5.break the flow: tas.abort()', function(){
+	it('should return 1', function(done){
 
-		var a = 1;
-
-		tas(function(){
+		setTimeout(function(){
+			var a = 1;
 
 			tas({
 				t1: function(){
@@ -27,8 +26,13 @@ describe('break the flow: tas.abort()', function(){
 			tas(function(){
 				a ++; // skipped
 			});
-		});
 
-		expect(a).toBe(1);
+			var exp = 1;
+			var val = a;
+			tester.test('5.break the flow: tas.abort()', tas, exp, val, true);
+			expect(val).toBe(exp);
+
+			done();
+		}, 0);
 	});
 });

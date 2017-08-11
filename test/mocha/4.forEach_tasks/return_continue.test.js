@@ -10,7 +10,7 @@ var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
-describe('forEach tasks: return "continue"', function(){
+describe('4.forEach tasks: return "continue"', function(){
 	it('should return 5', function(done){
 
 		var a = 0;

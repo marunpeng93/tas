@@ -8,7 +8,7 @@
 var tas = require('../../../lib');
 var expect = require('chai').expect;
 
-describe('sync tasks: pass data', function(){
+describe('1.sync tasks: pass data', function(){
 	it('should return 15', function(){
 
 		var a = 1;

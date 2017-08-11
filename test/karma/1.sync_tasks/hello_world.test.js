@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-describe('sync tasks: hello world', function(){
+describe('1.sync tasks: hello world', function(){
 	it('should return 3', function(){
 
 		var a = 1;
@@ -23,7 +23,7 @@ describe('sync tasks: hello world', function(){
 		tas(function(){
 			var exp = 3;
 			var val = a;
-			tester.test('basic: hello world', tas, exp, val, true);
+			tester.test('1.sync tasks: hello world', tas, exp, val, true);
 			expect(val).toBe(exp);
 		});
 	});
