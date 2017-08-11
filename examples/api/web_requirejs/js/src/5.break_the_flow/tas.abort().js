@@ -41,7 +41,7 @@ function(tas) {
 
 		get2: function(){
 			a = 1;
-			tas(tasks2); // The new tasks is not affected by the previous abort.
+			tas(tasks2);
 			return a; // 3
 		}
 	};

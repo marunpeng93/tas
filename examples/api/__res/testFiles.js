@@ -10,6 +10,7 @@
 
 	var testFiles = {
 
+		// root = examples/api/nodejs
 		data: [
 			'1.sync_tasks/hello_world.js',
 			'1.sync_tasks/hello_world.test.js',
@@ -47,6 +48,15 @@
 			'5.break_the_flow/return_break.test.js',
 			'5.break_the_flow/tas.break().js',
 			'5.break_the_flow/tas.break().test.js',
+
+			// Because the abort command will exit the remaining tests,
+			// so this does not include the test cases of abort.
+			// You can run the test cases of abort separately.
+
+			//'5.break_the_flow/return_abort.js',
+			//'5.break_the_flow/return_abort.test.js',
+			//'5.break_the_flow/tas_abort.js',
+			//'5.break_the_flow/tas_abort.test.js',
 			'']
 	};
 

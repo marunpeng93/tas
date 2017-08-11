@@ -12,8 +12,8 @@ var breakTheCurrentTasks = function(){
 	tas({
 		t1: function(){
 
-			// Use return false or return "break" or tas.break() to break the current tasks.
-			return 'break'; // return false; // tas.break();
+			// Use return "break" or tas.break() to break the current tasks.
+			return 'break'; // tas.break();
 		},
 
 		t2: function(){

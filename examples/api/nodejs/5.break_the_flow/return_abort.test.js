@@ -11,13 +11,16 @@ var runner = require('./return_abort');
 
 tas(function(){
 
-	var exp1 = 2;
-	var val1 = runner.get1();
+	var exp = 5;
+	var val = 0;
 
-	var exp2 = 3;
-	var val2 = runner.get2();
+	val += runner.get1(); // 2
 
-	var exp = exp1 + exp2;
-	var val = val1 + val2;
-	test('5.break the flow: return "abort"', tas, exp, val);
+	setTimeout(function(){
+
+		// After timeout, the new tasks is not affected by the previous abort.
+		val += runner.get2(); // 5
+
+		test('5.break the flow: tas.abort()', tas, exp, val);
+	}, 0);
 });

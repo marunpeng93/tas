@@ -42,8 +42,13 @@
 
 			'5.break_the_flow/1.break_the_current_tasks.js',
 			'5.break_the_flow/1.break_the_current_tasks.test.js',
-			'5.break_the_flow/2.abort_tas.js',
-			'5.break_the_flow/2.abort_tas.test.js',
+
+			// Because the abort command will exit the remaining tests,
+			// so this does not include the test cases of abort.
+			// You can run the test cases of abort separately.
+
+			//'5.break_the_flow/2.abort_tas.js',
+			//'5.break_the_flow/2.abort_tas.test.js',
 
 			'6.modularization/1.common_a.js',
 			'6.modularization/1.common_load.test.js',

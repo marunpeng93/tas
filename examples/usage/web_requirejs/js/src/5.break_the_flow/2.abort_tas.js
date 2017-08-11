@@ -19,7 +19,7 @@ function(tas){
 		t2: function () {
 			if (x === 0) {
 
-				// Use return "abort" to break Tas.
+				// Use return "abort" to abort Tas.
 				return "abort";
 			}
 		},
@@ -28,7 +28,7 @@ function(tas){
 			if (x === 1) {
 				[1].forEach(function(){
 
-					// Use return "abort" to break Tas from nested function(closure).
+					// Use return "abort" to abort Tas in nested function(closure).
 					tas.abort();
 				});
 			}
@@ -36,12 +36,12 @@ function(tas){
 	});
 
 	tas(function(){
-		a ++; // 3
+		a ++;
 	});
 
 	return {
 		get: function(){
-			return a; // 3
+			return a;
 		}
 	};
 });
