@@ -71,7 +71,9 @@ $ open examples/usage/web_requirejs/test.html
 
 ## Demo
 
-To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
+To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet, see details in section "Test"). Then see the **examples/demo** folder. 
+
+　
 
 ### Fixing callback hell
 
@@ -284,15 +286,15 @@ tas(function(){
 
 ## Full Examples
 
-To run all examples, please clone the Tas repo and Install the development dependencies first (if you have not done it yet). See details in section "Test".
-
-Then see the **examples/usage** folder, or see the test cases. Of course, all examples and tests are categorized according to Node.js, Web, and Web / RequireJS.
+To run all examples, please clone the Tas repo and Install the development dependencies first (if you have not done it yet, see details in section "Test"). Then see the **examples/usage** folder. All examples and tests are categorized according to Node.js, Web and Web-RequireJS.
 
 　
 
 ## API
 
-Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. See the **examples/api** folder for examples and tests.
+Tas provides a small amount of APIs to control the flow, and they are simple and easy to use, so you can focus on the code itself without wasting time on mastering Tas. See the **examples/api** folder. All examples and tests are categorized according to Node.js, Web and Web-RequireJS.
+
+　
 
 ### Async Tasks
 
