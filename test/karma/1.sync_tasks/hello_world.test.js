@@ -8,20 +8,34 @@
 describe('1.sync tasks: hello world', function(){
 	it('should return 3', function(){
 
-		var a = 1;
+		var a = 0;
 
-		tas("hello world", {
+		tas(function(){
+			a ++; // 1
+		});
+
+		tas({
 			t1: function(){
 				a ++; // 2
 			},
 
-			t2: function(){
-				a ++; //3
+			t2: {
+				t3: function(){
+					a ++; // 3
+				},
+
+				t4: function(){
+					a ++; // 4
+				}
+			},
+
+			t5: function(){
+				a ++; // 5
 			}
 		});
 
 		tas(function(){
-			var exp = 3;
+			var exp = 5;
 			var val = a;
 			tester.test('1.sync tasks: hello world', tas, exp, val, true);
 			expect(val).toBe(exp);

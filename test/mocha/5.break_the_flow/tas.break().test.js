@@ -6,31 +6,39 @@
  */
 
 var tas = require('../../../lib');
+var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
 describe('5.break the flow: tas.break()', function(){
-	it('should return 2', function(){
+	it('should return 0,1', function(done){
 
-		tas(function(){
-			var a = 1;
+		var test = function(done, count){
+			var a = 0;
 
 			tas({
-				t1: function(){
+				t1: function (){
 					[1].forEach(function(){
-						tas.break();
+						if (count === 1) {
+							tas.break();
+						}
 					});
 				},
 
-				t2: function(){
-					a ++; // skipped
+				t2: function (){
+					a ++;
 				}
 			});
 
-			tas(function(){
-				a ++; // 2
+			tas(function (){
+				done(count, a);
 			});
+		};
 
-			expect(a).to.be.equal(2);
-		});
+		var check = function(results){
+			expect(results.toString() === '0,1').to.be.equal(true);
+			done();
+		};
+
+		tester.do(test, check);
 	});
 });

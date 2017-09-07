@@ -57,1610 +57,828 @@ function(module, exports, __webpack_require__) {
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(2),
-		__webpack_require__(32),
-		__webpack_require__(8),
-		__webpack_require__(21)
-	)})
+	var runner = __webpack_require__(2);
+	var tasks = __webpack_require__(4);
+	var pass = __webpack_require__(7);
+	var flag = __webpack_require__(6);
+	var abort = __webpack_require__(8);
+	var break_ = __webpack_require__(9);
+	var begin = __webpack_require__(10);
 
-	(function(app, util, layer, maxLayer){
+	var Tas = function(obj, obj2){
+		if (obj === 'begin') {
+			obj = begin.do(obj2);
+		}
+		else if (flag.isAbort()){
+			return;
+		}
 
-		var basic = {
+		tasks.add(obj);
+	};
 
-			// Break the current tasks.
-			break: function(err){
-				app.break(err);
-			},
+	Tas.await = function(obj, obj2){
+		if (obj === 'begin') {
+			obj = begin.do(obj2);
+		}
 
-			// Break Tas from nested function (closures).
-			abort: function(err){
-				app.abort(err);
-			},
+		obj.isAwait = true;
+		flag.setHasAsync(true);
+		tasks.add(obj);
+	};
 
-			done: function(){
-				app.done();
-			}
-		};
+	Tas.promise = function(func, func2){
+		Tas.await(func, func2);
+	};
 
-		var async = {
-			await: function(){
-				app.await([].slice.call(arguments));
-			},
+	Tas.next = function(a0, a1){
+		var len = arguments.length;
 
-			next: function(){
-				app.next([].slice.call(arguments));
-			}
-		};
+		len === 2 ? pass.save2(a0, a1) :
+			len === 1 ? pass.save1(arguments[0]) :
+				len === 0 ? pass.save0() :
+					pass.saveArray([].slice.call(arguments));
 
-		var promise = {
-			promise: function(){
-				app.promise([].slice.call(arguments));
-			},
+		runner.next();
+	};
 
-			all: function(){
-				app.all([].slice.call(arguments));
-			},
+	Tas.resolve = function(err, data){
+		pass.save2(err, data);
+		runner.next();
+	};
 
-			race: function(){
-				app.race([].slice.call(arguments));
-			},
+	Tas.break = function(){
+		break_.do();
+	};
 
-			cancel: function(args){
-				app.cancel(args);
-			}
-		};
+	Tas.abort = function(){
+		abort.do();
+	};
 
-		var array = {
-			forEach: function(){
-				app.forEach([].slice.call(arguments));
-			},
+	/* istanbul ignore next */
+	Tas.printFlags = function(){
+		var data = __webpack_require__(3);
+		console.log(data.flag);
+	};
 
-			continue: function(){
-				app.continue();
-			}
-		};
+	Tas.load = function(){
+		var loader = __webpack_require__(11);
+		loader.init(Tas);
+		loader.load([].slice.call(arguments));
+		return Tas;
+	};
 
-		// For debugging
-		Object.defineProperty(app.entry, 'layer', {
-			get: function(){
-				return layer.get();
-			}
-		});
-
-		Object.defineProperty(app.entry, 'maxLayer', {
-			get: function(){
-				return maxLayer.get() + 1;
-			}
-		});
-
-		module.exports = util.object.extend(app.entry, basic, async, promise, array);
-	});
+	module.exports = Tas;
 },
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(3),
-		__webpack_require__(36),
-		__webpack_require__(39),
-		__webpack_require__(43),
-		__webpack_require__(32)
-	)})
+	var data = __webpack_require__(3);
+	var tasks = __webpack_require__(4);
+	var units = __webpack_require__(5);
+	var pass = __webpack_require__(7);
+	var flag = __webpack_require__(6);
+	var abort = __webpack_require__(8);
+	var break_ = __webpack_require__(9);
 
-	(function(core, async, promise, array, util){
+	var Tas;
+	var forEach;
 
-		var tas = {
-			entry: function(){
-				tas.do([].slice.call(arguments));
-			},
+	var runner = {
+		exec: function(queue, isWithLayer){
+			var flag = data.flag;
 
-			do: function(args){
-				core.do(args);
-			},
+			/* istanbul ignore next */
+			if (flag.isAwait) return;
 
-			break: function(err){
-				core.break(err);
-			},
+			var func;
+			var result;
+			var run = runner[isWithLayer ? 'runFuncWithLayer' : 'runFunc'];
 
-			abort: function(err){
-				core.abort(err);
-			},
+			while(func = queue.shift()) {
+				result = run(func);
 
-			done: function(){
-				core.done();
-			}
-		};
-
-		var asy = {
-			await: function(args){
-				async.await(args);
-			},
-
-			next: function(args){
-				async.next(args);
-			}
-		};
-
-		var pro = {
-			promise: function(args){
-				promise.convert(args, "promise");
-			},
-
-			all: function(args){
-				promise.convert(args, "all");
-			},
-
-			race: function(args){
-				promise.convert(args, "race");
-			},
-
-			cancel: function(args){
-				promise.cancel(args);
-			}
-		};
-
-		var arr = {
-			forEach: function(args){
-				array.forEach(args);
-			},
-
-			continue: function(){
-				array.continue();
-			}
-		};
-
-		module.exports = util.object.extend(tas, asy, pro, arr);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(4)
-	)})
-
-	(function(tasks){
-
-		var core = {
-			do: function(args){
-				tasks.do(args);
-			},
-
-			break: function(err){
-				tasks.break(err);
-			},
-
-			abort: function(err){
-				tasks.abort(err);
-			},
-
-			done: function(){
-				tasks.done();
-			}
-		};
-
-		module.exports = (core);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(5),
-		__webpack_require__(10),
-		__webpack_require__(22),
-		__webpack_require__(35)
-	)})
-
-	(function(data, units, global, forEach){
-
-		var tas = {
-			do: function(args){
-				data.add(args);
-				global.isDone.set(false);
-
-				if (!global.isAbort.get() && !global.isAwait.get()) {
-					tas.exec();
-				}
-			},
-
-			exec: function(){
-				var tasks = data.getNextTasks();
-				if (tasks.forEach === true) {
-					forEach.do(tas, tasks);
-				}
-				else {
-					units.do(tas, tasks);
-				}
-			},
-
-			break: function(err){
-				err && /* istanbul ignore next */ console.log(err);
-				units.break();
-			},
-
-			abort: function(err){
-				err && /* istanbul ignore next */ console.log(err);
-
-				tas.reset();
-				global.isAbort.set();
-
-				setTimeout(function(){
-					global.isAbort.set(false);
-				}, 0);
-			},
-
-			done: function(msg){
-				msg && /* istanbul ignore next */ console.log(msg);
-
-				tas.reset();
-				global.isDone.set();
-			},
-
-			reset: function(){
-				global.reset();
-				data.clear();
-				units.clear();
-			},
-
-			getNextTasks: function(layer){
-				return data.getNextTasks(layer);
-			},
-
-			fixLayer: function(tasks) {
-				data.fixLayer(tasks);
-			}
-		};
-
-		module.exports = (tas);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(6),
-		__webpack_require__(8),
-		__webpack_require__(9)
-	)})
-
-	(function(id, layer, sequence){
-
-		var objects = {
-
-			add: function(args){
-				var describe;
-				var obj;
-
-				({
-				saveDescribe: function(){
-					typeof args[0] === 'string' && (describe = args.shift());
-					typeof args[0] === 'object' && (obj = args[0]);
-					return this;
-				},
-
-				packLog: function(){
-					/* istanbul ignore next */
-					if (args.length === 0) {
-						var log = describe;
-						args[0] = function(){console.log(log)};
-						describe = "";
-					}
-					return this;
-				},
-
-				packFunctions: function(){
-					if (args[0] instanceof Function) {
-						obj = {};
-						args.forEach(function(func, index){
-							obj['t' + (index + 1)] = func;
-						});
-					}
-					return this;
-				},
-
-				saveTasks: function(){
-					obj.name = describe ? describe : 'Tasks[' + id.add() + ']';
-					sequence.saveTasks(obj);
-					return this;
+				if (flag.isAwait) {
+					break;
 				}
 
-				}).saveDescribe().packLog().packFunctions().saveTasks();
-			},
-
-			clear: function(){
-				id.clear();
-				sequence.clear();
-			},
-
-			getNextTasks: function(layer){
-				return sequence.getNextTasks(layer);
-			},
-
-			fixLayer: function(tasks) {
-				/* istanbul ignore next */
-				if (typeof tasks.layer === 'undefined') {
-					tasks.layer = layer.get();
+				if (result === 'await' || func.isAwait === true) {
+					flag.isAwait = true;
+					break;
 				}
 			}
-		};
+		},
 
-		module.exports = (objects);
-	});
-},
+		execFunc: function(func){
+			var flag = data.flag;
 
-function(module, exports, __webpack_require__) {
+			/* istanbul ignore next */
+			if (flag.isAwait) return;
 
-	(function(){arguments[0](
-		__webpack_require__(7)
-	)})
-
-	(function(number){
-
-		var id = Object.create(number);
-		module.exports = (id);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var number = {
-			value: 0,
-			
-			get: function(){
-				return this.value;
-			},
-
-			add: function(){
-				this.value ++;
-				return this.value;
-			},
-
-			sub: function(){
-				this.value --;
-				return this.value;
-			},
-
-			set: function(val){
-				this.value = val;
-			},
-
-			save: function(val){
-				this.set(val);
-			},
-
-			clear: function(){
-				this.value = 0;
-			},
-
-			reset: function(){
-				this.clear();
+			var result = runner.runFuncWithLayer(func);
+			if (result === 'await' || func.isAwait === true) {
+				flag.isAwait = true;
 			}
-		};
+		},
 
-		module.exports = (number);
-	})();
-},
+		runFuncWithLayer: function(func){
+			data.extensions.isLogTreeEnabled && Tas.logTree(func.name);
 
-function(module, exports, __webpack_require__) {
+			data.maxLayer = data.layer;
+			data.layer ++;
 
-	(function(){arguments[0](
-		__webpack_require__(7)
-	)})
+			var result = runner.runFunc(func, true);
+			data.layer > 0 && data.layer --;
 
-	(function(number){
+			return result;
+		},
 
-		var layer = Object.create(number);
-		module.exports = (layer);
-	});
-},
+		runFunc: function(func, isPrintedLogTree){
+			var isForEachEnabled = data.extensions.isForEachEnabled;
+			var isLogTreeEnabled = data.extensions.isLogTreeEnabled;
 
-function(module, exports, __webpack_require__) {
+			!isPrintedLogTree && isLogTreeEnabled && Tas.logTree(func.name);
 
-	(function(){arguments[0](
-		__webpack_require__(8)
-	)})
+			var args = data.pass;
+			var result = args.isHasArgs ? func.apply(null, args) : func();
 
-	(function(layer){
-		
-		var sequence = {
-			data: {},
-			
-			saveTasks: function(obj){
-				var lay = layer.get();
-				obj.layer = lay;
-
-				typeof this.data[lay] === 'undefined' && (this.data[lay] = []);
-				this.data[lay].push(obj);
-			},
-
-			getNextTasks: function(lay){
-				var arr = this.data[lay || layer.get()];
-				return arr ? arr.shift() : /* istanbul ignore next */ null;
-			},
-
-			clear: function(){
-				this.data = {};
-				layer.clear();
+			if (isForEachEnabled && func.isTheLastFunc && func.root.isForEach) {
+				forEach.loop();
 			}
-		};
+			else {
+				result === undefined ? pass.save0() :
+					Array.isArray(result) ? pass.save(result) :
+						result === 'break' ? break_.do() :
+							result === 'abort' ? abort.do() :
+								result === 'continue' ? forEach.continue() :
+									pass.save1(result);
 
-		module.exports = (sequence);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(11),
-		__webpack_require__(12),
-		__webpack_require__(28),
-		__webpack_require__(17)
-	)})
-
-	(function(data, run, exec, status){
-
-		var units = {
-			tas: {},
-
-			do: function(tas, tasks){
-				units.tas = tas;
-
-				tas.fixLayer(tasks);
-				data.add(tasks);
-				units.exec(tasks.layer);
-			},
-
-			exec: function(layer){
-				exec.do(units, layer);
-			},
-
-			run: function(func){
-				return run.do(func);
-			},
-
-			break: function(){
-				status.isBreak.set();
-			},
-
-			clear: function(){
-				data.clear();
-			}
-		};
-
-		module.exports = (units);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var functions = {};
-
-		var data = {
-			add: function(obj){
-				var layer = obj.layer;
-
-				({
-				initThisLayer: function(){
-					typeof functions[layer] === 'undefined' && (functions[layer] = []);
-					return this;
-				},
-
-				addFunctions: function(){
-					utils.getFunctions(layer, obj, obj, obj.name, functions[layer]);
-					return this;
-				},
-
-				setIndex: function(){
-					functions[layer].forEach(function(func, index){
-						func.index = index;
-					});
-					return this;
-				},
-
-				setNext: function(){
-					var arr = functions[layer];
-					arr.forEach(function(func, index){
-						if (index === arr.length - 1) return;
-						func.next = arr[index + 1];
-					});
-					return this;
-				},
-
-				setLast: function(){
-					var arr = functions[layer];
-					arr[arr.length - 1].isLast = true;
-					return this;
-				}
-
-				}).initThisLayer().addFunctions().setIndex().setNext().setLast();
-			},
-
-			getNextFunc: function(layer){
-				var arr = functions[layer];
-				return arr ? arr.shift() : /* istanbul ignore next */ null;
-			},
-
-			clearRemainFunctions: function(func){
-				var root = func.root;
-				var arr = functions[func.layer];
-				var i;
-
-				for (i = 0; i < arr.length; i++) {
-
-					/* istanbul ignore else */
-					if (arr[i].root === root) {
-						arr.splice(i, 1);
-						i--;
-					}
-				}
-			},
-
-			clear: function(){
-				functions = {};
-			}
-		};
-
-		var utils = {
-			getFunctions: function (layer, root, obj, keyPath, arr) {
-				Object.keys(obj).forEach(function (key) {
-					var thisKeyPath = keyPath + "." + key;
-					var prop = obj[key];
-
-					if (typeof prop === 'object') {
-						utils.getFunctions(layer, root, prop, thisKeyPath, arr);
-					}
-
-					if (typeof prop === 'function') {
-						prop.keyPath = thisKeyPath;
-						prop.name = key;
-						prop.parent = obj;
-						prop.root = root;
-						prop.layer = layer;
-						arr.push(prop);
-					}
-				});
-			}
-		};
-
-		module.exports = (data);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(13),
-		__webpack_require__(15),
-		__webpack_require__(17),
-		__webpack_require__(22),
-		__webpack_require__(8)
-	)})
-
-	(function(pass, flag, status, global, layer){
-
-		var run = {
-			do: function(func){
-
-				status.maxLayer.set(layer.get());
-				layer.add();
-
-				// Bind the current tasks object to "this".
-				var result = func.apply(func.root, pass.getArguments());
-
-				// Abort Tas
-				if (global.isDone.get() || result === 'abort') {
-					return result;
-				}
-
-				// If the result is an Array, save it
-				// to pass to the next function or tasks.
-				if (result instanceof Array) {
-					pass.saveArguments(result);
-				}
-				else if (typeof result === 'string'){
-					flag.save(result);
-				}
-
-				layer.sub();
 				return result;
 			}
-		};
+		},
 
-		module.exports = (run);
-	});
-},
+		next: function(){
+			var d = data;
+			var f = d.flag;
+			var isForEachEnabled = d.extensions.isForEachEnabled;
+			
+			var task;
+			var lay = d.maxLayer;
+			var arrTasks;
 
-function(module, exports, __webpack_require__) {
+			f.isAwait = false;
+			while(lay >= 0) {
+				d.layer = lay;
 
-	(function(){arguments[0](
-		__webpack_require__(14)
-	)})
+				// Handle the remain functions
+				d.units[lay] && d.units[lay].length && runner.exec(d.units[lay]);
 
-	(function(array){
+				// Handle the tasks in sequence
+				arrTasks = d.tasks[lay];
 
-		var pass = Object.create(array);
+				// If use tas.next() instead of return in tas(), the arrTasks will be undefined.
+				/* istanbul ignore else */
+				if (typeof arrTasks !== 'undefined') {
 
-		// Alias
-		pass.saveArguments = pass.set;
-		pass.getArguments = pass.get;
+					while (!f.isAwait && (task = arrTasks.shift())) {
+						f.isAwait = false;
 
-		module.exports = (pass);
-	});
-},
+						if (typeof task === 'function') {
+							runner.execFunc(task);
+						}
+						else
+						if (isForEachEnabled && task.isForEach === true) {
+							forEach.exec(task);
+						}
+						else {
+							units.do(task);
+						}
+					}
+				}
 
-function(module, exports) {
-
-	(function(){
-
-		var array = {
-			data: [],
-
-			get: function(){
-				return this.data;
-			},
-
-			set: function(arr){
-				this.data = arr;
-			},
-
-			pop: function(){
-				return this.data.pop();
-			},
-
-			push: function(element){
-				this.data.push(element);
-			},
-
-			shift: function(){
-				return this.data.shift();
-			},
-
-			unshift: function(element){
-				this.data.unshift(element);
-			},
-
-			clear: function(){
-				this.data = [];
-			},
-
-			reset: function(){
-				this.clear();
+				lay --;
 			}
-		};
 
-		module.exports = (array);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(16)
-	)})
-
-	(function(string){
-
-		var flag = Object.create(string);
-		module.exports = (flag);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var string = {
-			data: "",
-
-			get: function(){
-				return this.data;
-			},
-
-			set: function(str){
-				this.data = str;
-			},
-
-			save: function(str){
-				this.set(str);
-			},
-
-			clear: function(){
-				this.data = "";
-			},
-
-			reset: function(){
-				this.clear();
+			// When all tasks done, then restore flag isAwait to false
+			if (!d.tasks[0].length) {
+				flag.setIsAwait(false);
 			}
-		};
+		},
 
-		module.exports = (string);
-	})();
-},
+		saveTas: function(Tas_){
+			Tas = Tas_;
+		},
 
-function(module, exports, __webpack_require__) {
-
-	module.exports = {
-
-		isGoNext: __webpack_require__(18),
-		isBreak: __webpack_require__(20),
-		maxLayer: __webpack_require__(21),
-
-		reset: function(){
-			this.isGoNext.reset();
-			this.isBreak.reset();
+		saveForEach: function(forEach_){
+			forEach = forEach_;
 		}
 	};
-},
 
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isGoNext = Object.create(boolean);
-		module.exports = (isGoNext);
-	});
+	module.exports.__proto__ = runner;
 },
 
 function(module, exports) {
 
-	(function(){
-
-		var DEFAULT = false;
-
-		var boolean = {
-			value: DEFAULT,
-
-			get: function(){
-				return this.value;
-			},
-
-			set: function(val){
-				typeof val === 'undefined' && (val = !DEFAULT);
-				this.value = val;
-			},
-
-			clear: function(){
-				this.value = DEFAULT;
-			},
-
-			reset: function(){
-				this.clear();
-			}
-		};
-
-		module.exports = (boolean);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isBreak = Object.create(boolean);
-		module.exports = (isBreak);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(7)
-	)})
-
-	(function(number){
-
-		var maxLayer = Object.create(number);
-		module.exports = (maxLayer);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(23),
-		__webpack_require__(24),
-		__webpack_require__(25),
-		__webpack_require__(26)
-	)})
-
-	(function(isAbort, isAwait, isDone, currentFunc){
-
-		module.exports = {
-			isAbort: isAbort,
-			isAwait: isAwait,
-			isDone: isDone,
-			currentFunc: currentFunc,
-
-			reset: function(){
-				isAbort.reset && isAbort.reset();
-				isAwait.reset && isAwait.reset();
-				isDone.reset && isDone.reset();
-				currentFunc.reset && currentFunc.reset();
-			}
-		};
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isAbort = Object.create(boolean);
-		module.exports = (isAbort);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isAwait = Object.create(boolean);
-		module.exports = (isAwait);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(19)
-	)})
-
-	(function(boolean){
-
-		var isDone = Object.create(boolean);
-		module.exports = (isDone);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(27)
-	)})
-
-	(function(object){
-
-		var currentFunc = Object.create(object);
-		module.exports = (currentFunc);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var object = {
-			data: {},
-			
-			get: function(prop){
-				return typeof prop === 'undefined' ? this.data : this.data[prop];
-			},
-
-			set: function(data, prop){
-				typeof prop === 'undefined' ? (this.data = data) : (this.data[prop] = data);
-			},
-
-			save: function(data, prop){
-				this.set(data, prop);
-			},
-
-			clear: function(){
-				this.data = {};
-			},
-
-			reset: function(){
-				this.clear();
-			}
-		};
-
-		module.exports = (object);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(29),
-		__webpack_require__(11),
-		__webpack_require__(17),
-		__webpack_require__(22)
-	)})
-
-	(function(checker, data, status, global){
-
-		var exec = {
-			do: function(units, layer){
-				var func, result, isBreakTask, isLoop, isContinue;
-				var tas = units.tas;
-
-				if (checker.isReturnAbort()) {
-					tas.abort();
-					return;
-				}
-
-				if (global.isAwait.get()) {
-					return;
-				}
-
-				while(func = data.getNextFunc(layer)) {
-					global.currentFunc.save(func);
-
-					if (checker.isForEachFunc(func) && func.isLast === true) {
-						isLoop = true;
-					}
-
-					status.reset();
-					result = units.run(func);
-
-					if (global.isDone.get()) {
-						break;
-					}
-
-					if (checker.isReturnAbort(result)) {
-						tas.abort();
-						break;
-					}
-
-					if (checker.isBreakCurrentTasks(result)) {
-						isBreakTask = true;
-						break;
-					}
-
-					if (checker.isReturnAwait(result)) {
-						global.isAwait.set();
-						break;
-					}
-
-					if (checker.isReturnContinue(result)) {
-						isContinue = true;
-						break;
-					}
-
-					if (checker.isSyncTasksFunc(func) || checker.isGoNext()) {
-						continue;
-					}
-
-					/* istanbul ignore else */
-					if (checker.isAwaitTasksFunc(func)) {
-						global.isAwait.set();
-						break;
-					}
-				}
-
-				if (isBreakTask) {
-					data.clearRemainFunctions(func);
-				}
-
-				if (isLoop || isContinue) {
-					var loop = __webpack_require__(30);
-					loop.continue(isLoop);
-				}
-			}
-		};
-
-		module.exports = (exec);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(17),
-		__webpack_require__(22)
-	)})
-
-	(function(status, global){
-
-		var checker = {
-			isAwaitTasksFunc: function(func){
-				return func.await || func.root.await;
-			},
-
-			isReturnAwait: function(result){
-				return result === 'await';
-			},
-
-			isBreakCurrentTasks: function(result){
-				return result === "break" || status.isBreak.get();
-			},
-
-			isReturnAbort: function(result){
-				return result === "abort";
-			},
-
-			isSyncTasksFunc: function(func){
-				return !checker.isAwaitTasksFunc(func);
-			},
-
-			isGoNext: function(){
-				return status.isGoNext.get();
-			},
-
-			isForEachFunc: function(func) {
-				return func.root.forEach === true;
-			},
-
-			isReturnContinue: function(result){
-				return result === 'continue';
-			}
-		};
-
-		module.exports = (checker);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(31),
-		__webpack_require__(22),
-		__webpack_require__(10),
-		__webpack_require__(11),
-		__webpack_require__(32)
-	)})
-
-	(function(data, global, units, udata, util){
-
-		var loop = {
-			do: function(){
-
-				/* istanbul ignore next */
-				if (global.isAbort.get() || global.isAwait.get()) {
-					return;
-				}
-
-				var elements = data.getElements();
-				var element = elements.shift();
-				if (!element) return;
-
-				var tas = data.getTas();
-				var tasks = data.getTasks();
-				var index = data.getIndex();
-
-				var thisTasks = util.object.extend(tasks);
-				/* istanbul ignore else */
-				if (typeof thisTasks.init === 'function') {
-					thisTasks.init(element, index, elements);
-					delete thisTasks.init;
-				}
-
-				units.do(tas, thisTasks);
-			},
-
-			continue: function(isNoNeedToClear){
-				global.isAbort.set(false);
-				global.isAwait.set(false);
-
-				if (!isNoNeedToClear) {
-					var func = global.currentFunc.get();
-					udata.clearRemainFunctions(func);
-				}
-
-				loop.do();
-			}
-		};
-
-		module.exports = (loop);
-	});
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var loop = {
-			data: {},
-			currentId: null,
-
-			save: function(elements, tas, tasks){
-				var id = Date.now();
-
-				this.currentId = id;
-				this.data[id] = {
-					elements: elements,
-					tas: tas,
-					tasks: tasks,
-					index: -1
-				};
-
-				return id;
-			},
-
-			get: function(id, ename){
-				return this.data[id || this.currentId][ename];
-			},
-
-			set: function(id, ename, value){
-				return this.data[id || this.currentId][ename] = value;
-			},
-
-			getElements: function(id) {
-				return this.get(id, 'elements');
-			},
-
-			getTas: function(id) {
-				return this.get(id, 'tas');
-			},
-
-			getTasks: function(id) {
-				return this.get(id, 'tasks');
-			},
-
-			getIndex: function(id) {
-				var val = this.get(id, 'index');
-				this.set(id, 'index', val ++);
-				return val;
-			}
-		};
-
-		module.exports = (loop);
-	})();
-},
-
-function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		object: __webpack_require__(33),
-		string: __webpack_require__(34)
+	var data = {
+		layer: 0,
+		maxLayer: 0,
+
+		tasks: {},
+		units: {},
+		pass: [],
+
+		flag: {
+			hasAsync: false,
+			isAwait: false,
+			isAbort: false
+		},
+
+		extensions: {
+			isPromiseAllEnabled: false,
+			isPromiseRaceEnabled: false,
+			isForEachEnaboed: false,
+			isLogTreeEnabled: false
+		},
+
+		currentTask: {
+			layer: 0,
+			root: null
+		}
 	};
-},
 
-function(module, exports) {
-
-	(function(){
-
-		var extend = {
-			do: function(target, source, checker){
-				Object.keys(source).forEach(function (key) {
-
-					//if (typeof source[key] === 'object' && typeof target[key] === 'object') {
-					//	extend.do(target[key], source[key]);
-					//}
-
-					/* istanbul ignore else */
-					if (typeof target[key] === 'undefined' && (!checker || checker(source, target, key))) {
-						target[key] = source[key];
-					}
-				});
-			}
-		};
-
-		var object = {
-			extend: function () {
-				var args = [].slice.call(arguments);
-				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
-
-				args.forEach(function (source) {
-					extend.do(target, source);
-				});
-
-				return target;
-			},
-
-			cloneMethods: function(){
-				var args = [].slice.call(arguments);
-				var target = args.length > 1 ? args.shift() : /* istanbul ignore next */ {};
-
-				var checker = {
-					do: function(source, target, key){
-						return typeof source[key] === 'function';
-					}
-				};
-
-				args.forEach(function (source) {
-					extend.do(target, source, checker.do);
-				});
-
-				return target;
-			}
-		};
-
-		module.exports = (object);
-	})();
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var string = {
-			repeat: function (str, times) {
-				return new Array(times + 1).join(str);
-			}
-		};
-
-		module.exports = (string);
-	})();
+	module.exports.__proto__ = data;
 },
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(30),
-		__webpack_require__(31),
-		__webpack_require__(13)
-	)})
+	var data = __webpack_require__(3);
+	var runner = __webpack_require__(2);
+	var units = __webpack_require__(5);
+	var flag = __webpack_require__(6);
 
-	(function(loop, data, pass){
+	var tasks = {
+		add: function(obj){
+			var d = data;
+			var flag = d.flag;
+			var type = typeof obj;
 
-		var forEach = {
-			do: function(tas, tasks){
-				var args = pass.getArguments();
-
-				/* istanbul ignore next */
-				if (!args || !(args instanceof Array) || !(args[0] instanceof Array)) return;
-
-				var elements = args[0];
-				data.save(elements, tas, tasks);
-				loop.do();
-			},
-
-			continue: function(){
-				loop.continue();
+			// A function
+			if (type === 'function' && !d.layer && !flag.isAwait) {
+				runner.execFunc(obj);
 			}
-		};
-
-		module.exports = (forEach);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(37),
-		__webpack_require__(38)
-	)})
-
-	(function(await, next){
-
-		var async = {
-			await: function(args){
-				await.init(args);
-			},
-
-			next: function(args){
-				next.do(args);
+			else {
+				// An object (a set of functions)
+				type === 'object' && !obj.isTheLastFunctionMarked && (this.markTheLastFunction(obj));
+				this.addToLayer(obj);
+				!flag.isAwait && units.do(d.tasks[d.layer].shift());
 			}
-		};
+		},
 
-		module.exports = (async);
-	});
-},
+		addToLayer: function(obj){
+			var d = data;
+			var layer = d.layer;
+			var tasks = d.tasks;
 
-function(module, exports, __webpack_require__) {
+			obj.layer = layer;
 
-	(function(){arguments[0](
-		__webpack_require__(3)
-	)})
+			typeof tasks[layer] === 'undefined' && (tasks[layer] = []);
+			tasks[layer].push(obj);
+		},
 
-	(function(core){
+		markTheLastFunction: function(task){
+			var keys = Object.keys(task);
+			var func;
 
-		var await = {
-			init: function(args){
-				this.mark(args);
-				core.do(args);
-			},
-
-			mark: function(args){
-				args.forEach(function(arg){
-					// arg is an Object or a Function
-					arg instanceof Object && (arg.await = true);
-				});
-			}
-		};
-
-		module.exports = (await);
-	});
-},
-
-function(module, exports, __webpack_require__) {
-
-	(function(){arguments[0](
-		__webpack_require__(22),
-		__webpack_require__(4),
-		__webpack_require__(8),
-		__webpack_require__(10),
-		__webpack_require__(13),
-		__webpack_require__(17),
-		__webpack_require__(35)
-	)})
-
-	(function(global, tas, layer, units, pass, status, forEach){
-
-		var next = {
-			do: function(args){
-				pass.saveArguments(args);
-				status.isGoNext.set();
-				global.isAbort.set(false);
-				global.isAwait.set(false);
-
-				next.resume();
-			},
-
-			resume: function(){
-				var tasks;
-				var lay = status.maxLayer.get();
-
-				while(lay >= 0) {
-					layer.set(lay);
-
-					// Handle the remain functions
-					units.exec(lay);
-
-					// Handle the tasks in sequence
-					while (!global.isAbort.get() && !global.isAwait.get() && (tasks = tas.getNextTasks(lay))) {
-						global.reset();
-
-						if (tasks.forEach === true) {
-							forEach.do(tas, tasks);
-						}
-						else {
-							units.do(tas, tasks);
-						}
-					}
-
-					lay --;
+			for (var i = keys.length - 1; i >= 0; i --) {
+				func = task[keys[i]];
+				if (typeof func === 'function') {
+					break;
 				}
 			}
-		};
 
-		module.exports = (next);
-	});
+			func.isTheLastFunc = true;
+			task.isTheLastFunctionMarked = true;
+		},
+
+		clearTheRemainingTasks: function(){
+			var d = data;
+			var maxLayer = d.maxLayer;
+			var arrTasks;
+			var lay;
+
+			// clear the remaining functions in this tasks
+			for (lay = maxLayer; lay >= 0; lay --) {
+				d.units[lay] && (d.units[lay].length = 0);
+			}
+
+			// clear the sub tasks in this tasks
+			for (lay = maxLayer; lay > 0; lay --) {
+				d.tasks[lay] && (d.tasks[lay].length = 0);
+			}
+
+			// clear the remaining tasks in this line
+			arrTasks = d.tasks[0];
+			while (arrTasks && arrTasks.length) {
+				if (arrTasks[0].isFirst) {
+					break;
+				}
+				arrTasks.shift();
+			}
+		}
+	};
+
+	module.exports.__proto__ = tasks;
 },
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(40),
-		__webpack_require__(41),
-		__webpack_require__(42),
-		__webpack_require__(36)
-	)})
+	var data = __webpack_require__(3);
+	var runner = __webpack_require__(2);
 
-	(function(all, race, convert, async){
+	var units = {
+		do: function(task){
+			this.add(task);
 
-		var promise = {
-			promise: function(tasks){
-				tasks.done = function(err, data){
-					promise.done([err, data]);
-				};
+			var queue = data.units[task.layer];
+			queue && queue.length && runner.exec(queue, true);
+		},
 
-				promise.exec(tasks);
-			},
+		add: function(task){
+			var d = data;
+			var layer = task.layer || 0;
 
-			all: function(tasks){
-				all.do(tasks, promise);
-			},
+			d.currentTask.layer = layer;
+			d.currentTask.root = task;
 
-			race: function(tasks){
-				race.do(tasks, promise);
-			},
-			
-			exec: function(tasks){
-				Object.defineProperty(tasks, "done", {
-					enumerable: false
-				});
+			typeof d.units[layer] === 'undefined' && (d.units[layer] = []);
+			this.getAllFunctions(layer, task, task, task.isAwait, d.units[layer]);
+		},
 
-				Object.keys(tasks).forEach(function(func){
-					tasks[func]();
-				});
-			},
+		getAllFunctions: function getAllFunctions(layer, root, obj, isAwait, arr) {
+			var key;
+			var func;
+			var keys = Object.keys(obj);
+			var isLogTreeEnabled = data.extensions.isLogTreeEnabled;
 
-			done: function(args){
-				async.next(args);
-			},
+			for (var i = 0, len = keys.length; i< len; i ++) {
+				key = keys[i];
+				func = obj[key];
 
-			cancel: function(args){
-				race.cancel(args);
-			},
-
-			convert: function(args, type){
-				convert.do(args, type, promise, async);
+				if (typeof func === 'object') {
+					getAllFunctions(layer, root, func, isAwait, arr);
+				}
+				else
+				if (typeof func === 'function') {
+					func.root = root;
+					func.layer = layer;
+					func.isAwait = isAwait;
+					isLogTreeEnabled && !func.name && /* istanbul ignore next */ (func.name = key);
+					arr.push(func);
+				}
 			}
-		};
+		},
 
-		module.exports = (promise);
-	});
+		clearTheRemainingFunctions: function(){
+			var d = data;
+			var layer = d.currentTask.layer;
+			var root = d.currentTask.root;
+			var functions = d.units[layer];
+
+			for (var i = 0, len = functions.length; i < len; i ++) {
+
+				/* istanbul ignore else */
+				if (functions[i].root === root) {
+					functions.shift();
+				}
+			}
+		}
+	};
+
+	module.exports.__proto__ = units;
 },
 
-function(module, exports) {
+function(module, exports, __webpack_require__) {
 
-	(function(){
+	var data = __webpack_require__(3);
 
-		var all = {
-			do: function(tasks, promise){
-				var len = Object.keys(tasks).length;
-				var count = 0;
-				var error = null;
-				var results = [];
+	var flag = {
+		isAbort: function(){
+			return data.flag.isAbort;
+		},
 
-				tasks.done = function(err, data){
+		setIsAbort: function(val){
+			data.flag.isAbort = val;
+		},
+
+		setIsAwait: function(val){
+			data.flag.isAwait = val;
+		},
+
+		setHasAsync: function(val){
+			data.flag.hasAsync = val;
+		}
+	};
+
+	module.exports.__proto__ = flag;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var data = __webpack_require__(3);
+
+	var pass = {
+		save: function(result){
+			var len = result.length;
+			len === 2 ? this.save2(result[0], result[1]) :
+			len === 1 ? this.save1(result[0]) :
+			len === 0 ? this.save0() :
+			this.saveArray(result);
+		},
+
+		save0: function(){
+			var d = data;
+			d.pass[0] = undefined;
+			d.pass[1] = undefined;
+			d.pass.isHasArgs = false;
+		},
+
+		save1: function(data_){
+			var d = data;
+			d.pass[0] = data_;
+			d.pass[1] = undefined;
+			d.pass.isHasArgs = true;
+		},
+
+		save2: function(a0, a1){
+			var d = data;
+			d.pass[0] = a0;
+			d.pass[1] = a1;
+			d.pass.isHasArgs = true;
+		},
+
+		saveArray: function(arr){
+			var d = data;
+			d.pass = arr;
+			d.pass.isHasArgs = true;
+		},
+
+		reset: function(){
+			data.pass.length = 0;
+			data.pass.isHasArgs = false;
+		}
+	};
+
+	module.exports.__proto__ = pass;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var tasks = __webpack_require__(4);
+	var pass = __webpack_require__(7);
+	var runner = __webpack_require__(2);
+	var flag = __webpack_require__(6);
+
+	var abort = {
+		do: function(){
+
+			tasks.clearTheRemainingTasks();
+			pass.reset();
+			runner.next();
+
+			// Set the flag isAbort for subsequent tasks.
+			// Otherwise the subsequent tasks will be executed.
+			// When the next "begin" tasks started, it will be restore to false.
+			flag.setIsAbort(true);
+		}
+	};
+
+	module.exports.__proto__ = abort;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var units = __webpack_require__(5);
+
+	var break_ = {
+		do: function(){
+			units.clearTheRemainingFunctions();
+		}
+	};
+
+	module.exports.__proto__ = break_;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var flag = __webpack_require__(6);
+
+	var begin = {
+		do: function(obj2){
+			obj2.isFirst = true;
+
+			// Restore flag iaAbort to false.
+			flag.setIsAbort(false);
+
+			return obj2;
+		}
+	};
+
+	module.exports = begin;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var Tas;
+
+	var loader = {
+		init: function(Tas_){
+			Tas = Tas_;
+		},
+
+		load: function(names){
+			names.length === 1 ?
+				loader.loadExtension(names[0]) :
+					loader.loadExtensions(names);
+		},
+
+		loadExtensions: function(names){
+			names.forEach(function(name){
+				loader.loadExtension(name);
+			});
+		},
+
+		loadExtension: function(name){
+			__webpack_require__(12)("./" + name).init(Tas);
+		}
+	};
+
+	module.exports.__proto__ = loader;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./forEach": 13,
+		"./forEach.js": 13,
+		"./loader": 11,
+		"./loader.js": 11,
+		"./promise-all": 14,
+		"./promise-all.js": 14,
+		"./promise-race": 16,
+		"./promise-race.js": 16,
+		"./promise~util": 15,
+		"./promise~util.js": 15,
+		"./tree": 17,
+		"./tree.js": 17
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 12;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var data = __webpack_require__(3);
+	var runner = __webpack_require__(2);
+	var tasks = __webpack_require__(4);
+	var units = __webpack_require__(5);
+	var pass = __webpack_require__(7);
+
+	var elements;
+	var task;
+	var index = 0;
+
+	var forEach = {
+
+		init: function(Tas_){
+			Tas = Tas_;
+			runner.saveForEach(this);
+			data.extensions.isForEachEnabled = true;
+
+			Tas.forEach = this.forEach;
+			Tas.continue = this.continue;
+		},
+
+		forEach: function(task){
+			task.isForEach = true;
+
+			tasks.markTheLastFunction(task);
+			data.flag.isAwait ? tasks.add(task) : forEach.exec(task);
+		},
+
+		exec: function(task_){
+			elements = data.pass[0].slice();
+			task = task_;
+			index = 0;
+			forEach.loop();
+		},
+
+		loop: function(){
+			var d = data;
+			var flag = d.flag;
+
+			while(!flag.isAwait && elements.length) {
+				d.layer ++;
+				pass.save2(elements.shift(), index ++);
+				tasks.add(task);
+				d.layer --;
+			}
+		},
+
+		continue: function(){
+			units.clearTheRemainingFunctions();
+			forEach.loop();
+		}
+	};
+
+	module.exports.__proto__ = forEach;
+},
+
+function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var util = __webpack_require__(15);
+
+	var promiseAll = {
+		init: function(Tas_){
+			Tas = Tas_;
+			Tas.all = this.all;
+		},
+
+		all: function(obj, obj2){
+			var isBegin = obj === 'begin';
+			obj === 'begin' && (obj = obj2);
+
+			var times = Object.keys(obj).length;
+			var count = 0;
+			var allData = [];
+
+			var This = {
+				done: function(err, data){
 					count ++;
+					allData.push(data);
 
-					err && /* istanbul ignore next */ (error = err);
-					results.push(data);
-
-					if (count === len) {
-						promise.done([error, results]);
+					if (err || count === times) {
+						Tas.resolve(err, allData);
 					}
-				};
+				},
 
-				promise.exec(tasks);
-			}
-		};
+				abort: function(){
+					Tas.abort();
+					this.done('abort');
+				}
+			};
 
-		module.exports = (all);
-	})();
+			obj = util.convert(obj, This);
+			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+		}
+	};
+
+	module.exports.__proto__ = promiseAll;
 },
 
 function(module, exports) {
 
-	(function(){
+	var util = {
+		convert: function(obj, This){
+			return function(){
+				var keys = Object.keys(obj);
+				for (var i = 0; i < keys.length; i++) {
+					obj[keys[i]].call(This);
+				}
+			}
+		}
+	};
 
-		var race = {
-			do: function(tasks, promise){
-				var count = 0;
+	module.exports.__proto__ = util;
+},
 
-				tasks.done = function(err, data){
-					if (++count === 1) {
-						promise.done([err, data]);
+function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var flag = __webpack_require__(6);
+	var util = __webpack_require__(15);
+
+	var promiseRace = {
+		init: function(Tas_){
+			Tas = Tas_;
+			Tas.race = this.race;
+			Tas.cancel = this.cancel;
+		},
+
+		race: function(obj, obj2){
+			var isBegin = obj === 'begin';
+			obj === 'begin' && (obj = obj2);
+
+			var count = 0;
+			var This = {
+				done: function(err, data){
+					if (++ count === 1) {
+						Tas.resolve(err, data);
 					}
-				};
+				},
 
-				promise.exec(tasks);
-			},
+				abort: function(){
+					flag.setIsAwait(false);
+					Tas.abort();
+				}
+			};
 
-			cancel: function(handlers){
+			obj = util.convert(obj, This);
+			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+		},
+
+		cancel: function(handlers){
+
+			/* istanbul ignore next */
+			if (!handlers || !(handlers instanceof Array)) return;
+
+			handlers.forEach(function(handle){
 
 				/* istanbul ignore next */
-				if (!handlers || !(handlers instanceof Array)) return;
+				if (handle.abort) {
 
-				handlers.forEach(function(handle){
-
-					/* istanbul ignore next */
-					if (handle.abort) {
-
-						// For web
-						if (typeof XMLHttpRequest !== 'undefined' && handle instanceof XMLHttpRequest) {
-							if (handle.readyState !== XMLHttpRequest.UNSENT) {
-								handle.abort();
-							}
-						}
-						else {
-							// The ajax or request object has abort() method, such as
-							// Superagent (one of Node.js third-party modules).
+					// For web
+					if (typeof XMLHttpRequest !== 'undefined' && handle instanceof XMLHttpRequest) {
+						if (handle.readyState !== XMLHttpRequest.UNSENT) {
 							handle.abort();
 						}
 					}
 					else {
-						// Valid for NodeJS and web.
-						clearTimeout(handle);
+						// The ajax or request object has abort() method, such as
+						// Superagent (one of Node.js third-party modules).
+						handle.abort();
 					}
-				});
-			}
-		};
-
-		module.exports = (race);
-	})();
-},
-
-function(module, exports) {
-
-	(function(){
-
-		var convert = {
-			do: function(args, type, promise, async){
-				var describe = "";
-				var obj = {};
-
-				({
-				setDescribe: function(){
-					typeof args[0] === "string" && (describe = args.shift());
-					return this;
-				},
-
-				convertFuncToObj: function(){
-					var tasks = {};
-					if (args[0] instanceof Function) {
-						args.forEach(function(arg, index){
-							tasks['t' + (index + 1)] = arg;
-						});
-						args = [tasks];
-					}
-					return this;
-				},
-
-				packPromiseTask: function(){
-					obj["promise_" + type] = function(){
-						promise[type](args[0]);
-					};
-					return this;
-				},
-
-				applyToAwait: function(){
-					var tasks = [obj];
-					describe && (tasks.unshift(describe));
-					async.await(tasks);
-					return this;
 				}
+				else {
+					// Valid for NodeJS and web.
+					clearTimeout(handle);
+				}
+			});
+		}
+	};
 
-				}).setDescribe().convertFuncToObj().packPromiseTask().applyToAwait();
-			}
-		};
-
-		module.exports = (convert);
-	})();
+	module.exports.__proto__ = promiseRace;
 },
 
 function(module, exports, __webpack_require__) {
 
-	(function(){arguments[0](
-		__webpack_require__(44),
-		__webpack_require__(35)
-	)})
+	var Tas;
+	var data = __webpack_require__(3);
+	var runner = __webpack_require__(2);
 
-	(function(forEach, forEachDo){
+	var isShowLogTree = true;
+	var tree = {
+		init: function (Tas_){
+			Tas = Tas_;
+			runner.saveTas(Tas);
 
-		var array = {
-			forEach: function(args){
-				forEach.init(args);
-			},
+			Tas.logTree = this.logTree;
+			Tas.enableLogTree = this.setIsEnabled;
+			Tas.setIsShowLogTree = this.setIsShowLogTree;
+		},
 
-			continue: function(){
-				forEachDo.continue();
-			}
-		};
+		setIsEnabled: function(val){
+			data.extensions.isLogTreeEnabled = val;
+		},
 
-		module.exports = (array);
-	});
-},
+		setIsShowLogTree: function(val){
+			isShowLogTree = val;
+		},
 
-function(module, exports, __webpack_require__) {
+		logTree: function(str){
+			if (!data.extensions.isLogTreeEnabled) return;
 
-	(function(){arguments[0](
-		__webpack_require__(3)
-	)})
+			var layer = data.layer + 1;
+			var maxLayer = data.maxLayer + 1;
 
-	(function(core){
+			var lay = data.flag.isAwait ? maxLayer + 1 : layer;
+			var indent = util.repeat(' ', (lay - 1) * 4);
+			util.log(('  ' + lay).substr(-2) + '| ' + indent + str);
+		}
+	};
 
-		var forEach = {
-			init: function(args){
-				this.mark(args);
-				core.do(args);
-			},
+	var util = {
+		log: function(){
+			var args = [].slice.call(arguments);
+			isShowLogTree && /* istanbul ignore next */ console.log.apply(console, args);
+		},
 
-			mark: function(args){
-				args.forEach(function(arg){
-					// arg is an Object or a Function
-					arg instanceof Object && (arg.forEach = true);
-				});
-			}
-		};
+		repeat: function (str, times) {
+			return new Array(times + 1).join(str);
+		}
+	};
 
-		module.exports = (forEach);
-	});
+	module.exports.__proto__ = tree;
 }
 
 

@@ -5,47 +5,55 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var config = require('../config');
-var request = require('superagent');
+var tas = require('../../../lib').load('forEach');
+var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
 describe('4.forEach tasks: return "continue"', function(){
-	it('should return 5', function(done){
+	it('should return 5,4', function(done){
 
-		var a = 0;
-		var flag = 0;
+		var test = function(done, count){
+			var a = 0;
+			var flag = 0;
 
-		tas(function(){
-			var arr = [1, 2];
-			return [arr];
-		});
+			tas(function(){
+				var arr = [1, 2];
+				return [arr];
+			});
 
-		tas.forEach({
-			init: function(element){
-				//console.log(element);
-				a += element;
-			},
+			tas.forEach({
+				init: function(element){
+					a += element;
+				},
 
-			check: function(){
-				if (flag === 0) {
-					flag = 1;
-					return "continue";
+				check: function(){
+					if (flag === 0) {
+						flag = 1;
+						return "continue";
+					}
+				},
+
+				calc: function(){
+					if (count === 1) {
+						a ++;
+					}
 				}
-			},
+			});
 
-			calc: function(){
-				a ++; // 1 times.
-			}
-		});
+			tas(function(){
+				a ++; // 5
+			});
 
-		tas(function(){
-			a ++; // 5
-		});
+			tas(function (){
+				done(count, a);
+			});
+		};
 
-		tas(function(){
-			expect(a).to.be.equal(5);
+		var check = function(results){
+			expect(results.toString() === '5,4').to.be.equal(true);
 			done();
-		});
+		};
+
+		tester.do(test, check);
 	});
 });

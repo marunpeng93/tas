@@ -16,9 +16,9 @@
 
 Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / callback pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
-The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. And, also Tas is faster than Promise and promise libraries (<a href="#why">Why</a>).
+The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. Tas is faster than native Promise and co, as faster as bluebird ([Benchmark](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/readme.md)).
 
-Tas is a lightweight JavaScript logic framework (only 4KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
+Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
 　
 
@@ -337,22 +337,6 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 | tas.break()    | Break the current tasks from nested function (closures). |
 | tas.abort()    | Abort Tas from nested function (closures). |
 | tas.done()     | End Tas at the end of the tasks.         |
-
-　
-
-## <a name="why">Why is Tas faster than Promise?</a>
-
-Tas does not use setTimeout or similar methods recommended by the Promise standard. With no delay, Tas is faster than Promise and promise libraries such as bluebird, Q, aigle, when.js, etc.
-
-**References:**
-
-\[1\] "This can be implemented with either a 'macro-task' mechanism such as setTimeout or setImmediate, or with a 'micro-task' mechanism such as MutationObserver or process.nextTick." [See details](https://promisesaplus.com/#point-67)
-
-\[2\] "Modern browsers impose a minimum delay of 4ms on every setTimeout, regardless of how long you specify. " [See details](http://www.bluejava.com/4NS/Speed-up-your-Websites-with-a-Faster-setTimeout-using-soon)
-
-\[3\] "setImmediate() is designed to execute a script once the current poll phase completes." [See details](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
-
-\[4\] "All callbacks scheduled via process.nextTick() are run at the end of a phase of the event loop (e.g. timers) before transitioning to the next phase. " [See details](https://nodesource.com/blog/understanding-the-nodejs-event-loop/)
 
 　
 

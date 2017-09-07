@@ -23,7 +23,7 @@
 				test();
 
 				count ++;
-				if (count == repeatTimes) {
+				if (count === repeatTimes) {
 					clearTimeout(hdl);
 				}
 

@@ -11,7 +11,7 @@ describe('3.as promise: this.done', function(){
 		var request = superagent;
 		jasmine.getEnv().defaultTimeoutInterval = config.netTimeout;
 
-		tas.promise("tas promise", function(){
+		tas.promise(function(){
 			var url = config.res.a;
 			request.get(url).end(this.done);
 		});

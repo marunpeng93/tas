@@ -5,37 +5,52 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
+var tas = require('../../../lib').load('promise-race');
+var tester = require('../../__lib/tester');
 var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('3.as promise: tas.cancel()', function(){
-	it('should return an object', function(done){
+	it('should return 4,3', function(done){
 
-		var handlers = [];
+		var test = function(done, count){
+			var handlers = [];
+			var a = 0;
 
-		tas.race({
-			t1: function(){
-				var url = config.res.a;
-				handlers.push(request.get(url).end(this.done));
-			},
+			tas.race({
+				t1: function(){
+					if (count === 1) {
+						a ++; // 1
+					}
+					var url = config.res.a;
+					handlers.push(request.get(url).end(this.done));
+				},
 
-			t2: function(){
-				var url = config.res.b;
-				handlers.push(request.get(url).end(this.done));
-			},
+				t2: function(){
+					a ++; // 2
+					var url = config.res.b;
+					handlers.push(request.get(url).end(this.done));
+				},
 
-			t3: function(){
-				var url = config.res.c;
-				handlers.push(request.get(url).end(this.done));
-			}
-		});
+				t3: function(){
+					a ++; // 3
+					var url = config.res.c;
+					handlers.push(request.get(url).end(this.done));
+				}
+			});
 
-		tas(function(err, data){
-			tas.cancel(handlers);
-			expect(data instanceof Object).to.be.equal(true);
+			tas(function (err, data){
+				tas.cancel(handlers);
+				done(count, a + (typeof data === 'object' ? 1 : 0));
+			});
+		};
+
+		var check = function(results){
+			expect(results.toString() === '4,3').to.be.equal(true);
 			done();
-		});
+		};
+
+		tester.do(test, check);
 	});
 });

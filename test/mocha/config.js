@@ -18,7 +18,7 @@
 			array: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/array.json'
 		},
 
-		waitTime: 1000,
+		waitTime: 10,
 		netTimeout: 3*60*1000
 	};
 
@@ -30,7 +30,7 @@
 			array: '/mynodejs/tas/examples/__res/array.json'
 		},
 		
-		waitTime: 1000,
+		waitTime: 10,
 		netTimeout: 3*60*1000
 	};
 

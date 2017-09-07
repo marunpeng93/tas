@@ -6,37 +6,76 @@
  */
 
 var tas = require('../../../lib');
+var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
-describe('1.sync tasks: pass data', function(){
-	it('should return 15', function(){
+describe('1.sync_tasks: pass data', function(){
+	it('should return 24,22', function(done){
 
-		var a = 1;
+		var test = function(done, count){
+			var a = 1;
 
-		tas({
-			t1: function(){
-				return [2];
-			},
+			tas({
+				t1: function(){
+					if (count === 1) {
+						return 2;
+					}
+					else {
+						return 0;
+					}
+				},
 
-			t2: function(arg){
-				a += arg; // 3
-				return [4];
-			}
-		});
-
-		tas({
-			t3: {
-				t4: function(arg){
-					a += arg; // 7
-					return [8];
+				t2: function(arg){
+					a += arg; // 3
+					return [4, 5];
 				}
-			}
-		});
+			});
 
-		tas(function(arg){
-			a += arg; // 15
-		});
+			tas({
+				t3: {
+					t4: function(a0, a1){
+						a += a0; // 7
+						a += a1; // 12
+						return [];
+					},
 
-		expect(a).to.be.equal(15);
+					t5: {
+						t6: function(a0){
+							if (typeof a0 !== 'undefined') {
+								a ++;
+							}
+
+							return [1, 2, 3];
+						},
+
+						t7: function(a0, a1, a2){
+							a += a0; // 13
+							a += a1; // 15
+							a += a2; // 18
+
+							var arr = [1, 2, 3];
+							return [arr];
+						}
+					}
+				}
+			});
+
+			tas(function(arr){
+				arr.forEach(function(e){
+					a += e;
+				});
+			});
+
+			tas(function (){
+				done(count, a);
+			});
+		};
+
+		var check = function(results){
+			expect(results.toString() === '24,22').to.be.equal(true);
+			done();
+		};
+
+		tester.do(test, check);
 	});
 });

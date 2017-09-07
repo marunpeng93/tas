@@ -6,30 +6,37 @@
  */
 
 var tas = require('../../../lib');
+var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
 describe('5.break the flow: return "abort"', function(){
-	it('should return 1', function(done){
+	it('should return ,1', function(done){
 
-		setTimeout(function(){
-			var a = 1;
+		var test = function(done, count){
+			var a = 0;
 
-			tas({
-				t1: function(){
-					return 'abort';
+			tas('begin', {
+				t1: function t1(){
+					if (count === 1) {
+						return 'abort';
+					}
 				},
 
-				t2: function(){
-					a ++; // skipped
+				t2: function t2(){
+					a ++;
 				}
 			});
 
-			tas(function(){
-				a ++; // skipped
+			tas(function end(){
+				done(count, a);
 			});
+		};
 
-			expect(a).to.be.equal(1);
+		var check = function(results){
+			expect(results.toString() === ',1').to.be.equal(true);
 			done();
-		}, 0);
+		};
+
+		tester.do(test, check);
 	});
 });

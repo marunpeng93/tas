@@ -6,23 +6,51 @@
  */
 
 var tas = require('../../../lib');
+var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
-describe('1.sync tasks: hello world', function(){
-	it('should return 3', function(){
+describe('1.sync_tasks: hello world', function(){
+	it('should return 5,4', function(done){
 
-		var a = 1;
+		var test = function(done, count){
+			var a = 0;
 
-		tas("hello world", {
-			t1: function(){
-				a ++; // 2
-			},
+			tas(function(){
+				a ++; // 1
+			});
 
-			t2: function(){
-				a ++; //3
-			}
-		});
+			tas({
+				t1: function(){
+					a ++; // 2
+				},
 
-		expect(a).to.be.equal(3);
+				t2: {
+					t3: function(){
+						if (count === 1) {
+							a ++; // 3
+						}
+					},
+
+					t4: function(){
+						a ++; // 4
+					}
+				},
+
+				t5: function(){
+					a ++; // 5
+				}
+			});
+
+			tas(function (){
+				done(count, a);
+			});
+		};
+
+		var check = function(results){
+			expect(results.toString() === '5,4').to.be.equal(true);
+			done();
+		};
+
+		tester.do(test, check);
 	});
 });
