@@ -16,7 +16,7 @@
 
 Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / callback pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
 
-The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. Tas is faster than native Promise and co, as faster as bluebird ([Benchmark](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/readme.md)).
+The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. Tas is faster than native Promise and co, as faster as bluebird ([Benchmark](https://github.com/hiowenluke/oyo)).
 
 Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
 
