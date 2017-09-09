@@ -26,11 +26,18 @@ var tester = function(){
 ```
 
 When the tester() execution is completed, what is the number order in the console?
+
 Yes, obviously, it's 0, 1, 2, 3, 4.
 
+　
+
 Now, what happens if the tester() is executed twice concurrently?
+
 Unexpectedly, the order is 0, 1, 0, 1, 2, 2, 3, 3, 4, 4, **NOT** 0, 1, 0, 2, 3, 4, 1, 2, 3, 4.
-What ever native Promise or promise library such as bluebird and co, they have the same problem. 
+
+What ever native Promise or promise library, they have the same problem. 
+
+　
 
 Run the following to experience it:
 
@@ -72,7 +79,10 @@ var tester = function(){
 ```
 
 Now, what happens if the tester() is executed 5 times concurrently?
+
 The order will be 0, **1**, 0, 0, 0, 0, **2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4**, so perfect!
+
+　
 
 Run the following to experience it:
 
