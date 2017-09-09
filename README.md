@@ -33,7 +33,7 @@ $ npm install tas --save
 
 In Web:
 
-Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
+Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js) (only 3KB gzipped).
 
 　
 
@@ -311,6 +311,7 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 | tas.break()    | Break the current tasks from nested function (closures). |
 | tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). |
 
+Note: if you wanna to use abort, please set "begin" flag in first task. [See details](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md).
 　
 
 ## License
