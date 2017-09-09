@@ -113,24 +113,24 @@ With Tas, we can turn complex logic or high-coupling logic into a set of mini-ta
 ```js
 tas({
     t1: function () {
-        return [1, 2, 3];
+        return 1;
     },
-    t2: function(a, b, c){
-        console.log(a, b, c); // 1 2 3
-        return [4, 5, 6];
+    t2: function(a){
+        console.log(a); // 1
+        return [2, 3];
     }
 });
 
 tas({
     t3: {
-        t4: function (a, b, c) {
-            console.log(a, b, c); // 4 5 6
-            return [7, 8, 9];
+        t4: function (a, b) {
+            console.log(a, b); // 2 3
+            return [[4, 5, 6]];
         }
     },
     t5: {
-        t6: function (a, b, c) {
-            console.log(a, b, c); // 7 8 9
+        t6: function (arr) {
+            console.log(arr); // 4 5 6
         }
     }
 });
@@ -269,14 +269,25 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 　
 
+### Sync Tasks
+
+| Usage         | Functions                             |
+| ------------- | ------------------------------------- |
+| return <data> | Use it to pass data to the next task. |
+
+**Note**: Use return [array] instead of return array to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
+
+　
+
 ### Async Tasks
 
-| Usage          | Functions                                |
-| -------------- | ---------------------------------------- |
-| return "await" | Used in one of a group of sync tasks.    |
-| tas.await()    | If the tasks/subtasks contains async code, use it. |
-| tas.next()     | Jump to the next task to continue.       |
+| Usage            | Functions                                |
+| ---------------- | ---------------------------------------- |
+| return "await"   | Used in one of a group of sync tasks.    |
+| tas.await()      | If the tasks/subtasks contains async code, use it. |
+| tas.next(<data>) | Jump to the next task to continue.       |
 
+**Note**: Use tas.next([array]) instead of tas.next(array) to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
 　
 
 ### As Promise
@@ -311,7 +322,7 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 | tas.break()    | Break the current tasks from nested function (closures). |
 | tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). |
 
-Note: if you wanna to use abort, please set "begin" flag in first task. [See details](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md).
+**Note**: Set "begin" flag in first task if you wanna to use abort. [See details](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md).
 　
 
 ## License
