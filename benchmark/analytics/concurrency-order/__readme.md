@@ -21,7 +21,7 @@ var tester = function(done, count){
 
 If the tester() is executed 5 times, the map of the tasks streams will be like the following:
 
-![](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/analytics/concurrence-order/__res/concurrency-order.png)
+![](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/analytics/concurrency-order/__res/concurrency-order.png)
 
 The variable count records the serial number of tasks stream. When the current tasks stream execution is completed, done() is called and return count. The count value is match the value passed when tester() is called (otherwise it indicates that the current tasks stream failed).
 
