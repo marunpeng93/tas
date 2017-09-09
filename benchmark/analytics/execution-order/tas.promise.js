@@ -3,23 +3,26 @@
 var tas = require('../../lib');
 var run = require('oyo/run');
 
-var isDebug = 1;
 var tester = function(done, count){
 
-	isDebug && console.log(0);
+	console.log(0);
 
 	tas.promise(function(){
-		isDebug && console.log(1);
+		console.log(1);
 
 		process.nextTick(function(){
-			isDebug && console.log(2);
+			console.log(2);
 
 			tas.resolve();
 		});
 	});
 
 	tas(function(err, data){
-		isDebug && console.log(3, count);
+		console.log(3);
+	});
+
+	tas(function(){
+		console.log(4);
 		done(count);
 	});
 };
