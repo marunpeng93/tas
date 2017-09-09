@@ -20,4 +20,4 @@ var tester = function(done, count){
 ```
 
 If the tester() is executed 5 times, the map of the tasks streams will be like the following:
-![](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__res/concurrency-order.png)
+![](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/analytics/concurrence-order/__res/concurrency-order.png)
