@@ -23,9 +23,9 @@ If the tester() is executed 3 times, the map of the tasks streams will be like t
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/benchmark/analytics/concurrency-order/__res/concurrency-order.png)
 
-The variable count records the serial number of tasks stream. When the current tasks stream execution is completed, done() is called and return count. The count value is match the value passed when tester() is called (otherwise it indicates that the current tasks stream failed).
+The variable count records the serial number of tasks stream. When the current tasks stream execution is completed, done() is called and pass count. The count value must be match the value passed when tester() is called, otherwise it indicates that the current tasks stream failed.
 
-On the other hand, we can think of count as the context of the execution of the tasks stream, which means that Tas correctly save the environment variables for each concurrent task, and that all tasks get the correct environment variables. 
+On the other hand, we can think of count as the context of the execution of the tasks stream, which means that Tas saved the environment variables for each concurrent task correctly, and that all tasks get the correct environment variables. 
 
 Run the following to experience it:
 
