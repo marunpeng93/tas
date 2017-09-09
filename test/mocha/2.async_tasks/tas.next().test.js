@@ -7,11 +7,10 @@
 
 var tas = require('../../../lib');
 var tester = require('../../__lib/tester');
-var config = require('../config');
 var expect = require('chai').expect;
 
 describe('2.async tasks: tas.next()', function(){
-	it('should return 10,9', function(done){
+	it('should return 16,15', function(done){
 
 		var test = function(done, count){
 			var a = 1;
@@ -30,7 +29,7 @@ describe('2.async tasks: tas.next()', function(){
 						}
 
 						tas.next(1, 2);
-					}, config.waitTime);
+					}, 0);
 
 					return "await";
 				},
@@ -41,16 +40,26 @@ describe('2.async tasks: tas.next()', function(){
 
 					setTimeout(function(){
 						tas.next(0, 1, 2);
-					}, config.waitTime);
+					}, 0);
 
 					return "await";
 				}
 			});
 
-			tas(function (a0, a1, a2){
+			tas.await(function (a0, a1, a2){
 				a += a0; // 7
 				a += a1; // 8
 				a += a2; // 10
+
+				setTimeout(function(){
+					tas.next([1, 2, 3]);
+				}, 0);
+			});
+
+			tas(function (arr){
+				arr.forEach(function(e){
+					a += e;
+				});
 			});
 
 			tas(function (){
@@ -59,7 +68,7 @@ describe('2.async tasks: tas.next()', function(){
 		};
 
 		var check = function(results){
-			expect(results.toString() === '10,9').to.be.equal(true);
+			expect(results.toString() === '16,15').to.be.equal(true);
 			done();
 		};
 

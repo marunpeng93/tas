@@ -7,7 +7,6 @@
 
 var tas = require('../../../lib');
 var tester = require('../../__lib/tester');
-var config = require('../config');
 var expect = require('chai').expect;
 
 describe('2.async tasks: tas.await()', function(){
@@ -26,7 +25,7 @@ describe('2.async tasks: tas.await()', function(){
 						}
 
 						tas.next();
-					}, config.waitTime);
+					}, 0);
 				},
 
 				t2: function(){
@@ -36,7 +35,7 @@ describe('2.async tasks: tas.await()', function(){
 						a ++; // 5
 
 						tas.next();
-					}, config.waitTime);
+					}, 0);
 				}
 			});
 
