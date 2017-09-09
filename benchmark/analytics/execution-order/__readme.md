@@ -36,9 +36,9 @@ Run the following to experience it:
 
 ```bash
 $ cd /path/to/tas
-$ node benchmark/execution-order/native-promise.js
-$ node benchmark/execution-order/bluebird.js
-$ node benchmark/execution-order/co.js
+$ node benchmark/analytics/execution-order/native-promise.js
+$ node benchmark/analytics/execution-order/bluebird.js
+$ node benchmark/analytics/execution-order/co.js
 ```
 
 　
@@ -78,7 +78,7 @@ Run the following to experience it:
 
 ```bash
 $ cd /path/to/tas
-$ node benchmark/execution-order/tas.promise.js
+$ node benchmark/analytics/execution-order/tas.promise.js
 ```
 
 　
@@ -95,5 +95,5 @@ Now, all tester() executions are completed, the current [event loop](https://nod
 
 Then, the other tasks which added to queue in 2nd, 3rd, 4th, 5th running is executed one by one. so, we can see the **1, 2, 3, 4** is printed 4 times. Cool!
 
-Wanna to know more? See [Concurrency Order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md).
+See [Concurrency Order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) to learn more.
 

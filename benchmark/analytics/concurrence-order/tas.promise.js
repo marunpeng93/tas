@@ -1,6 +1,6 @@
 'use strict';
 
-var tas = require('../../lib');
+var tas = require('../../../lib');
 var run = require('oyo/run');
 
 var isDebug = 1;
