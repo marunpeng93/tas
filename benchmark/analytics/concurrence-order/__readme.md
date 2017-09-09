@@ -6,16 +6,16 @@ The concurrent tasks are occurs in sequence. Tas performs all tasks in each conc
 ```js
 var tester = function(done, count){
 
-	tas.promise(function(){
-		process.nextTick(function(){
-			tas.resolve();
-		});
-	});
+    tas.promise(function(){
+        process.nextTick(function(){
+            tas.resolve();
+        });
+    });
 
-	tas(function(err, data){
-		console.log(count);
-		done(count);
-	});
+    tas(function(err, data){
+        console.log(count);
+        done(count);
+    });
 };
 ```
 

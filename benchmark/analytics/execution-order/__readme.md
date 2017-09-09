@@ -6,22 +6,22 @@ Think about the following code:
 
 ```js
 var tester = function(){
-	console.log(0);
+    console.log(0);
 
-	new Promise(function (resolve, reject) {
-    	console.log(1);
+    new Promise(function (resolve, reject) {
+        console.log(1);
 
-		process.nextTick(function () {
-	        console.log(2);
+        process.nextTick(function () {
+            console.log(2);
 
-			resolve();
-		});
-	}).then(function (data) {
-		console.log(3);
+            resolve();
+        });
+    }).then(function (data) {
+        console.log(3);
 
-	}).then(function (data) {
-		console.log(4);
-	});
+    }).then(function (data) {
+        console.log(4);
+    });
 };
 ```
 
@@ -49,25 +49,25 @@ In Tas, there is no such problem. Let's rewrite the above code with Tas:
 
 ```js
 var tester = function(){
-	console.log(0);
+    console.log(0);
 
-	tas.promise(function(){
-		console.log(1);
+    tas.promise(function(){
+        console.log(1);
 
-		process.nextTick(function(){
-			console.log(2);
+        process.nextTick(function(){
+            console.log(2);
 
-			tas.resolve();
-		});
-	});
+            tas.resolve();
+        });
+    });
 
-	tas(function(err, data){
-		console.log(3);
-	});
+    tas(function(err, data){
+        console.log(3);
+    });
 
-	tas(function(){
-		console.log(4);
-	});
+    tas(function(){
+        console.log(4);
+    });
 };
 ```
 
