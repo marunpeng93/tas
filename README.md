@@ -14,11 +14,11 @@
 
 　
 
-Tas makes the code structure clear, turning async code to sync, reducing the levels, avoiding callback hell / callback pyramid, is better than Promise, and can be used in [Node.js](https://nodejs.org) and in browsers. 
+Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. Tas is the abbreviation of "tasks".
 
-The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise. Tas is faster than native Promise and co, as faster as bluebird ([Benchmark](https://github.com/hiowenluke/oyo)).
+In Tas, we can combine multiple sync / async tasks, nested other sync / async tasks freely, better than Promise, generator / yield and async / await, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable than with Promise.
 
-Tas is a lightweight JavaScript logic framework (only 3KB gzipped), with no dependency. Tas is the abbreviation of "tasks".
+Tas can handle more than 1 million concurrent tasks per second, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
 　
 
@@ -31,7 +31,7 @@ $ npm install tas --save
 
 　
 
-In Web / RequireJS:
+In Web:
 
 Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js) or [tas.min.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.min.js).
 
@@ -42,28 +42,19 @@ Download [tas.js](https://raw.githubusercontent.com/tasjs/tas/master/dist/tas.js
 Clone the Tas repo first:
 
 ```bash
-$ cd /path/to
 $ git clone https://github.com/tasjs/tas.git
-```
-
-Install the development dependencies:
-```bash
-$ cd /path/to/tas
+$ cd tas
 $ npm install
 ```
 
 Then run the tests in Node.js:
 ```bash
-$ cd /path/to/tas
 $ npm test
 ```
 
 Or run the tests in your browser:
 ```bash
-$ cd /path/to/tas
 $ open examples/usage/web/test.html
-
-# or
 $ open examples/usage/web_requirejs/test.html
 ```
 
@@ -120,7 +111,7 @@ See details: [Express examples by Tas](https://github.com/tasjs/express-examples
 With Tas, we can turn complex logic or high-coupling logic into a set of mini-tasks. All mini-tasks are executed one by one. 
 
 ```js
-tas("My first tasks", {
+tas({
     t1: function () {
         return [1, 2, 3];
     },
@@ -130,7 +121,7 @@ tas("My first tasks", {
     }
 });
 
-tas("My Second tasks", {
+tas({
     t3: {
         t4: function (a, b, c) {
             console.log(a, b, c); // 4 5 6
@@ -168,10 +159,6 @@ tas.await(function(){
 tas(function(){
     a ++ ; // 3
     console.log(a); // 3
-
-    // At the end of the tasks, use tas.done() to end Tas 
-    // because Tas does not know when the async task is stopped.
-    tas.done();
 })
 ```
 
@@ -179,27 +166,17 @@ tas(function(){
 
 ### As Promise
 
-We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await, so Tas is easier to use than Promise and promise libraries. 
+We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await. Tas is faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). 
 
 ```js
 tas.promise(function(){
-    // Use this.done to pass the data 
-    ajax.get('https://api.github.com', this.done);
+    process.nextTick(function(){
+        tas.resolve(1); // or tas.resolve(null, data)
+    });
 });
 
-tas(function (err, data) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log(data);
-    }
-});
-
-tas(function(){
-    // At the end of the tasks, use tas.done() to end Tas 
-    // because Tas does not know when the async task is stopped.
-    tas.done();
+tas(function (data) { // or function(err, data)
+   console.log(data);
 });
 ```
 
@@ -275,10 +252,6 @@ tas(function(){
     var a = ma.get(); // 3
     var b = mb.get(); // 5
     console.log(a + b); // 8
-    
-    // At the end of the tasks, use tas.done() to end Tas 
-    // because Tas does not know when the async task is stopped.
-    tas.done();
 });
 ```
 
@@ -298,29 +271,30 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Async Tasks
 
-| API            | Functions                                |
+| Usage          | Functions                                |
 | -------------- | ---------------------------------------- |
 | return "await" | Used in one of a group of sync tasks.    |
 | tas.await()    | If the tasks/subtasks contains async code, use it. |
-| tas.next()     | Jump to the next function or tasks to continue. |
+| tas.next()     | Jump to the next task to continue.       |
 
 　
 
 ### As Promise
 
-| API           | Functions                                |
+| Usage         | Functions                                |
 | ------------- | ---------------------------------------- |
-| tas.promise() | After this tasks is completed, continue. |
+| tas.promise() | Use it like Promise.                     |
+| tas.resolve() | When promise is done, use it to continue. |
 | tas.all()     | After all tasks are completed, continue. |
 | tas.race()    | As long as one of tasks is completed, continue. |
-| tas.cancel()  | Manually cancel the unfinished task(s).  |
-| this.done     | Pass the data received from promise to the next task. |
+| tas.cancel()  | When tas.all() or tas.race() is done, cancel the unfinished task(s). |
+| this.done     | When tas.all() or tas.race() is done, use it to continue. |
 
 　
 
 ### ForEach Tasks
 
-| API               | Functions                                |
+| Usage             | Functions                                |
 | ----------------- | ---------------------------------------- |
 | tas.forEach()     | Perform a set of tasks for each array element. |
 | tas.continue()    | Go to the next loop (in closures).       |
@@ -330,13 +304,12 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Break The Flow
 
-| API            | Functions                                |
+| Usage          | Functions                                |
 | -------------- | ---------------------------------------- |
 | return "break" | Break the current tasks.                 |
-| return "abort" | Abort Tas.                               |
+| return "abort" | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md). |
 | tas.break()    | Break the current tasks from nested function (closures). |
-| tas.abort()    | Abort Tas from nested function (closures). |
-| tas.done()     | End Tas at the end of the tasks.         |
+| tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). |
 
 　
 
