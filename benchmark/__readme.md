@@ -16,6 +16,7 @@ $ npm install
 
 Run the following:
 ```bash
+$ cd /path/to/tas
 $ node benchmark/tas.js
 ```
 
@@ -45,6 +46,7 @@ In fact, the hardware environment is a Macbook Pro (Retina, 13-inch, Late 2013).
 
 Run the following:
 ```bash
+$ cd /path/to/tas
 $ node benchmark/promise.js
 ```
 
