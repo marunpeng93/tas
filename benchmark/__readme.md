@@ -38,7 +38,7 @@ tas.forEach         461714	times/sec
 ```
 
 In fact, the hardware environment is a Macbook Pro (Retina, 13-inch, Late 2013). Obviously, if you are running the above tests on the server, the performance will be more higher. That's why we emphasize "more than 3 million".
-　
+
 　
 
 ### Tas VS Promise
