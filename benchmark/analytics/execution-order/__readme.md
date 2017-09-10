@@ -1,6 +1,6 @@
 ## The Tasks Execution Order
 
-### In Promise
+### With Promise (Not Perfect)
 
 Think about the following code:
 
@@ -50,7 +50,7 @@ $ node benchmark/analytics/execution-order/co.js
 
 　
 
-### In Tas (Perfect)
+### With Tas (Perfect)
 
 In Tas, there is no such problem. Let's rewrite the above code with Tas:
 
