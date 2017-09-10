@@ -14,11 +14,11 @@
 
 　
 
-Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. Tas is the abbreviation of "tasks".
+Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
-In Tas, we can combine multiple sync / async tasks, nested other sync / async tasks freely, better than Promise, generator / yield and async / await, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable than with Promise.
+In Tas, we can combine multiple sync / async tasks, nested other sync / async tasks freely, better than Promise, generator / yield and async / await, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
 
-Tas can handle more than 1 million concurrent tasks per second, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas performs more than **3 million** concurrent tasks per second, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
 　
 
@@ -271,9 +271,9 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Sync Tasks
 
-| Usage         | Functions                             |
-| ------------- | ------------------------------------- |
-| return <data> | Use it to pass data to the next task. |
+| API           | Functions                   |
+| ------------- | --------------------------- |
+| return <data> | Pass data to the next task. |
 
 **Note**: Use return [array] instead of return array to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
 
@@ -281,18 +281,18 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Async Tasks
 
-| Usage            | Functions                                |
+| API              | Functions                                |
 | ---------------- | ---------------------------------------- |
 | return "await"   | Used in one of a group of sync tasks.    |
 | tas.await()      | If the tasks/subtasks contains async code, use it. |
-| tas.next(<data>) | Jump to the next task to continue.       |
+| tas.next(<data>) | When async code is done, pass data to the next task. |
 
 **Note**: Use tas.next([array]) instead of tas.next(array) to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
 　
 
 ### As Promise
 
-| Usage         | Functions                                |
+| API           | Functions                                |
 | ------------- | ---------------------------------------- |
 | tas.promise() | Use it like Promise.                     |
 | tas.resolve() | When promise is done, use it to continue. |
@@ -305,7 +305,7 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### ForEach Tasks
 
-| Usage             | Functions                                |
+| API               | Functions                                |
 | ----------------- | ---------------------------------------- |
 | tas.forEach()     | Perform a set of tasks for each array element. |
 | tas.continue()    | Go to the next loop (in closures).       |
@@ -315,7 +315,7 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 
 ### Break The Flow
 
-| Usage          | Functions                                |
+| API            | Functions                                |
 | -------------- | ---------------------------------------- |
 | return "break" | Break the current tasks.                 |
 | return "abort" | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md). |
