@@ -288,6 +288,7 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 | tas.next(<data>) | When async code is done, pass data to the next task. |
 
 **Note**: Use tas.next([array]) instead of tas.next(array) to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
+
 　
 
 ### As Promise
@@ -298,8 +299,8 @@ Tas provides a small amount of APIs to control the flow, and they are simple and
 | tas.resolve() | When promise is done, use it to continue. |
 | tas.all()     | After all tasks are completed, continue. |
 | tas.race()    | As long as one of tasks is completed, continue. |
-| tas.cancel()  | When tas.all() or tas.race() is done, cancel the unfinished task(s). |
-| this.done     | When tas.all() or tas.race() is done, use it to continue. |
+| tas.cancel()  | When tas.race() is done, cancel the unfinished task(s). |
+| this.done     | When tas.all() or tas.race() is done, pass data to the next task. |
 
 　
 
