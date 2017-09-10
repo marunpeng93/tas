@@ -10,28 +10,26 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai'],
 
 
     // list of files / patterns to load in the browser
-    files: [
-		'./dist/tas.js',
+	  files: [
 
-		'./examples/__lib/superagent.js',
-        './examples/__lib/tester.js',
-        './examples/__lib/util.js',
+	  	  // your app for browser
+		  './dist/tas.js',
 
-		'./test/karma/config.js',
-        './test/karma/karmaDebugger.js',
+		  // karma files
+		  './test/karma/**/*.js',
 
-        './test/karma/1.sync_tasks/*.js',
-        './test/karma/2.async_tasks/*.js',
-        './test/karma/3.as_promise/*.js',
-        './test/karma/4.forEach_tasks/*.js',
-        './test/karma/5.break_the_flow/*.js'
-    ],
+		  // utils for tests
+		  './test/__lib/*.js',
 
-    // list of files to exclude
+		  // tests
+		  './test/mocha/**/*.js'
+	  ],
+
+	  // list of files to exclude
     exclude: [
     ],
 

@@ -33,5 +33,6 @@
 		}
 	};
 
+	console.log('tester is loaded');
 	return (tester);
 });

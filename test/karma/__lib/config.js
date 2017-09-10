@@ -9,19 +9,15 @@
 ('config', function(){
 
 	var config = {
-
-		// root path:
-		// http://localhost:9876/
 		res: {
-			a: '/socket.io/socket.io.js',
-			b: '/karma.js',
-			c: '/debug.html',
-			array: '/'
+			a: './examples/__res/pics/a.json',
+			b: './examples/__res/pics/b.json',
+			c: './examples/__res/pics/c.json',
+			array: './examples/__res/array.json'
 		},
-
+		
 		waitTime: 0,
-		netTimeout: 1000,
-		isKarma: true
+		netTimeout: 3*60*1000
 	};
 
 	return (config);
