@@ -16,7 +16,7 @@
 
 Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
-In Tas, we can combine multiple sync / async tasks, nested other sync / async tasks freely, better than Promise, generator / yield and async / await, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
+In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
 
 Tas performs more than **3 million** concurrent tasks per second, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
@@ -54,8 +54,7 @@ $ npm test
 
 Or run the tests in your browser:
 ```bash
-$ open examples/usage/web/test.html
-$ open examples/usage/web_requirejs/test.html
+$ open test/web/index.html
 ```
 
 　
@@ -63,6 +62,25 @@ $ open examples/usage/web_requirejs/test.html
 ## Demo
 
 To run these demos, please clone the Tas repo and Install the development dependencies first (if you have not done it yet, see details in section "Test"). Then see the **examples/demo** folder. 
+
+　
+
+### Easy asynchronization
+
+In this demonstration, there are many asynchronous tasks scattered in multiple modules, all of them works well as sync tasks, and be executed in the order we have written. See the following image.
+
+![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/easy-asynchronization.png)
+
+The results will be like the following:
+
+![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/easy-asynchronization.gif)
+
+Run this demo in Node.js:
+
+```bash
+$ cd /path/to/tas
+$ node examples/demo/easy-asynchronization/index.js
+```
 
 　
 
