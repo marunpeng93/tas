@@ -67,11 +67,11 @@ To run these demos, please clone the Tas repo and Install the development depend
 
 ### Easy asynchronization
 
-In this demonstration, there are many asynchronous tasks scattered in multiple modules, all of them works well as sync tasks, and be executed in the order we have written. See the following image.
+In this demo, there are many asynchronous tasks (represented by setTimeout()) in multiple modules, which are executed in the order we write, just like the synchronization tasks. See below.
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/easy-asynchronization.png)
 
-The results will be like the following:
+The results are as follows:
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/easy-asynchronization.gif)
 
