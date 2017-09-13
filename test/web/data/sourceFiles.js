@@ -31,5 +31,4 @@ var sourceFiles = [
 
 	'../mocha/6.extensions/multiple-load.test.js',
 	'../mocha/6.extensions/tree.test.js',
-	'../mocha/6.extensions/tree-log.test.js',
 ''];

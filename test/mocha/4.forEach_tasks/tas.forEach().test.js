@@ -60,7 +60,6 @@ describe('4.forEach tasks: tas.forEach()', function(){
 
 				calc2: function calc2(){
 					a ++; // 2 times
-					debugger;
 				}
 			});
 
