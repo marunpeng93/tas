@@ -6,7 +6,9 @@
  */
 
 var tas = require('../../../../lib').load('tree');
-var log = tas.logTree;
+var log = tas.tree.log;
+
+tas.tree.enable();
 
 var a = 0;
 
