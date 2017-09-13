@@ -36,7 +36,12 @@
 		return stream;
 	});
 
-	gulp.task("uglify", ["webpack"], function(){
+	gulp.task("copyToWeb", ["webpack"], function(){
+		return gulp.src('../dist/tas.js')
+			.pipe(gulp.dest('../test/web/js'));
+	});
+
+	gulp.task("uglify", ["copyToWeb"], function(){
 		var stream = gulp.src('../main.js')
 			.pipe(webpack(webpackMinConfig))
 			.pipe(uglify())
@@ -54,5 +59,5 @@
 		return stream;
 	});
 
-	gulp.task("default", ["prepare", "webpack", "uglify", "finished"]);
+	gulp.task("default", ["prepare", "webpack", "copyToWeb", "uglify", "finished"]);
 });
