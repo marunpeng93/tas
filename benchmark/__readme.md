@@ -1,6 +1,6 @@
 # The Performance of Tas
 
-Tas performs more than **3 million** concurrent tasks per second, faster than native Promise. With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise. With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
 Before running the tests of benchmark, clone the Tas repo first (if you have not done it yet):
 
@@ -20,7 +20,7 @@ $ cd /path/to/tas
 $ node benchmark/tas.js
 ```
 
-The results will be like the following:
+The results will be like below:
 
 ```bash
 Platform info:
@@ -38,7 +38,7 @@ tas.all             740559	times/sec
 tas.forEach         461714	times/sec
 ```
 
-In fact, the hardware environment is a Macbook Pro (Retina, 13-inch, Late 2013). Obviously, if you are running the above tests on the server, the performance will be more higher. That's why we emphasize "more than 3 million".
+In fact, the hardware environment is a Macbook Pro (Retina, 13-inch, Late 2013). Obviously, if you are running the above tests on the server, the performance will be more higher. That's why we emphasize "more than".
 
 　
 
@@ -50,7 +50,7 @@ $ cd /path/to/tas
 $ node benchmark/promise.js
 ```
 
-The results will be like the following:
+The results will be like below:
 ```bash
 Platform info:
 macOS Sierra 10.12 x64
@@ -65,7 +65,7 @@ native-promise      484785	times/sec
 tas.promise         1239579	times/sec
 ```
 
-We can see that tas.promise is faster than native Promise and co, and as fast as bluebird. The tas.promise is not a promise library, it's an alias of tas.await ([See details](https://github.com/tasjs/tas/blob/master/lib/index.js)), and is better than Promise.
+We can see that tas.promise is faster than native Promise, and as fast as bluebird. The tas.promise is not a promise library, it's an alias of tas.await ([See details](https://github.com/tasjs/tas/blob/master/lib/index.js)), and is better than Promise.
 
 　
 
