@@ -14,7 +14,7 @@ var expect = require('chai').expect;
 var r1 = [];
 
 describe('6.extensions: tree', function(){
-	it('should crete tree logs', function(done){
+	it('should create tree logs', function(done){
 
 		tas.tree.enable();
 		tas.tree.logArray.begin();
@@ -205,6 +205,11 @@ describe('6.extensions: tree', function(){
 		};
 
 		var check = function(results){
+
+			console.log(results[1]);
+			console.log('-----------------------------');
+			console.log(r1.join('\n'));
+
 			expect(results[1] === r1.join('\n')).to.be.equal(true);
 			tas.tree.disable();
 			tas.tree.log('this line will not be shown.');
