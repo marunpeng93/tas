@@ -16,9 +16,9 @@
 
 Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
-In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
+In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
 
-Tas performs more than **3 million** concurrent tasks per second, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
 　
 
@@ -158,7 +158,7 @@ tas({
 
 ### Async Tasks
 
-With Tas, we can write async code like writing sync code, easily avoiding callback hell / callback pyramid. All async tasks and sync tasks will be executed in the order we have written.
+In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks.
 
 ```js
 var a = 0;
@@ -184,7 +184,7 @@ tas(function(){
 
 ### As Promise
 
-We can use Tas as if using Promise. The tasks written by Tas do not need to use Promise / resolve / reject, generator / yield, async / await. Tas is faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). 
+We can use tas as Promise. Tas is better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable. Tas performs more than **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)).
 
 ```js
 tas.promise(function(){
