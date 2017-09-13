@@ -1,4 +1,5 @@
-var tas = require('../../../lib');
+
+var tas = require('../../../lib').load("forEach");
 var fs = require('fs');
 var gm = require('gm');
 
@@ -14,7 +15,7 @@ tas.await(function(){
 	});
 });
 
-tas.forEach("files", {
+tas.forEach({
 	init: function(file, index){
 		filename = file;
 	},
@@ -40,8 +41,4 @@ tas.forEach("files", {
 			})
 		});
 	}
-});
-
-tas(function(){
-	tas.done();
 });
