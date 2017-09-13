@@ -6,298 +6,351 @@
  */
 
 var tas = require('../../../lib').load('tree');
-var log = tas.logTree;
+var log = tas.tree.log;
 
 var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
+var r1 = [];
+
 describe('6.extensions: tree', function(){
-	it('should return 51,50', function(done){
+	it('should crete tree logs', function(done){
+
+		tas.tree.enable();
+		tas.tree.logArray.begin();
 
 		var test = function(done, count) {
-			var a = 0;
 
-			log('this text will not be shown...');
-
-			tas.await({
-				t1: function () {
-					a++; // 1
-
-					tas.await({
-						t2: function () {
-							a++; // 2
-
-							tas.await({
-								t3: function () {
-									a++; // 3
-
-									setTimeout(function () {
-										if (count === 1) {
-											a++; // 4
-										}
-										tas.next();
-									}, 0);
-								},
-
-								t5: function t5() {
-									a++; // 5
-									tas.next();
-								}
-							});
-
-							tas({
-								t6: function () {
-									a++; // 6
-
-									tas({
-										t7: function () {
-											a++; // 7
-										},
-
-										t8: function () {
-											a++; // 8
-										}
-									});
-
-								},
-
-								t9: function () {
-									a++; // 9
-								}
-							});
-
-							tas({
-								t10: function () {
-									a++; // 10
-								}
-							});
-						},
-
-						t11: function () {
-							a++; // 11
-							tas.next();
-						},
-
-						t12: function () {
-							a++; // 12
-							tas.next();
-						}
-					});
-
-					tas({
-						t13: function () {
-							a++; // 13
-						},
-
-						t14: function () {
-							a++; // 14
-
-							tas({
-								t15: function () {
-									a++; // 15
-								},
-
-								t16: function () {
-									a++; // 16
-								}
-							});
-						},
-
-						t17: function () {
-							a++; // 17
-						}
-					});
-
-					tas({
-						t18: function () {
-							a++; // 18
-						}
-					});
-				},
-
-				t19: function () {
-					a++; // 19
+			tas.await(function t0(){
+				log('wait...');
+				setTimeout(function(){
+					log('continue...');
 					tas.next();
-				}
-			});
-
-			tas(function t20() {
-				a++; // 20
+				}, 0);
 			});
 
 			tas({
-				t21: function () {
-					a++; // 21
+				t1: function(){
+					log('...');
 
 					tas({
-						t22: function () {
-							a++; // 22
+						t2: function(){
+							if (count === 1) {
+								log('...');
+							}
 
-							tas({
-								t23: function () {
-									a++; // 23
-
-									tas({
-										t24: function () {
-											a++; // 24
-										},
-
-										t25: function () {
-											a++; // 25
-										}
-									});
-								},
-
-								t26: function () {
-									a++; // 26
-								}
-							});
-						}
-					});
-
-					tas({
-						t27: function () {
-							a++; // 27
-
-							tas({
-								t28: function () {
-									a++; // 28
-								},
-
-								t29: function () {
-									a++; // 29
-								}
-							});
-						}
-					});
-
-					tas({
-						t30: function () {
-							a++; // 30
-						}
-					});
-
-				}
-			});
-
-			tas(function t31() {
-				a++; // 31
-			});
-
-			tas.await({
-				t32: function () {
-					a++; // 32
-
-					setTimeout(function () {
-						a++; // 33
-						tas.next();
-					}, 0);
-				},
-
-				t34: function () {
-					a++; // 34
-					tas.next();
-				}
-			});
-
-			tas(function t35() {
-				a++; // 35
-			});
-
-			tas.await({
-				t36: function () {
-					a++; // 36
-
-					tas.await({
-						t37: function () {
-							a++; // 37
-
-							tas.await({
-								t38: function () {
-									a++; // 38
-
-									setTimeout(function () {
-										a++; // 39
-										tas.next();
-									}, 0);
-								}
+							tas(function t21(){
+								log('...');
 							});
 
-							tas(function t40() {
-								a++; // 40
-							});
-
-							tas.await({
-								t41: function () {
-									a++; // 41
-
-									setTimeout(function () {
-										a++; // 42
-										tas.next();
-									}, 0);
-								},
-
-								t43: function () {
-									a++; // 43
+							tas.await(function t22(){
+								log('wait...');
+								setTimeout(function(){
+									log('continue...');
 									tas.next();
-								}
+								}, 0);
 							});
 
-							tas(function t44() {
-								a++; // 44
-							});
-
-							tas.await({
-								t45: function () {
-									a++; // 45
-
-									setTimeout(function () {
-										a++; // 46
-										tas.next();
-										debugger;
-									}, 0);
-								},
-
-								t47: function () {
-									a++; // 47
-									tas.next();
-								}
+							tas(function t23(){
+								log('...');
 							});
 						},
 
-						t48: function () {
-							a++; // 48
-							tas.next();
+						t3: {
+							t31: function(){
+								log('...');
+							},
+
+							t32: function(){
+								log('...');
+
+								tas({
+									t321: function(){
+										log('...');
+									},
+
+									t322: function(){
+										log('...');
+									},
+
+									t323: function(){
+										log('...');
+									}
+								});
+							},
+
+							t33: function(){
+								log('...');
+							}
+						},
+
+						t4: function(){
+							tas.await({
+								t41: function(){
+									log('...');
+
+									tas({
+										t411: function(){
+											log('wait...');
+											setTimeout(function(){
+												log('continue...');
+												tas.next();
+											}, 0);
+											return 'await';
+										},
+
+										t412: function(){
+											log('...');
+										}
+									});
+
+									tas(function t413(){
+										log('wait...');
+										setTimeout(function(){
+											log('continue...');
+											tas.next();
+										}, 0);
+
+										return 'await';
+									})
+								},
+
+								t42: function(){
+									log('...');
+
+									tas.await({
+										t421: function(){
+											log('wait...');
+											setTimeout(function(){
+												log('continue...');
+												tas.next();
+											}, 0);
+										},
+
+										t422: function(){
+											log('...');
+											tas.next();
+										}
+									});
+								}
+							});
+
+							tas({
+								t43: function(){
+									log('...');
+								},
+
+								t44: function(){
+									log('...');
+								}
+							});
 						}
 					});
 
-					tas(function t49() {
-						a++; // 49
+					tas({
+						t5: function(){
+							log('...');
+
+							tas({
+								t51: function(){
+									log('...');
+								},
+
+								t52: function(){
+									log('...');
+								}
+							});
+
+							tas.await(function t53(){
+								log('wait...');
+								setTimeout(function(){
+									log('continue...');
+									tas.next();
+								}, 0);
+							});
+
+							return 'await';
+						},
+
+						t6: function(){
+							log('...');
+						},
+
+						t7: function(){
+							log('...');
+						}
 					});
 				},
 
-				t50: function () {
-					a++; // 50
-					tas.next();
+				t8: function(){
+					log('...');
 				}
 			});
 
-			tas({
-				t51: function () {
-					a++; // 51
-				}
+			tas.await(function t9(){
+				log('wait...');
+				setTimeout(function(){
+					log('continue...');
+					tas.next();
+				}, 0);
+			});
+
+			tas(function t10(){
+				log('...');
 			});
 
 			tas(function (){
-				done(count, a);
+				done(count, tas.tree.logArray.getStr());
 			});
 		};
 
 		var check = function(results){
-			expect(results.toString() === '51,50').to.be.equal(true);
+			expect(results[1] === r1.join('\n')).to.be.equal(true);
+			tas.tree.disable();
+			tas.tree.log('this line will not be shown.');
 			done();
 		};
 
 		tester.do(test, check);
 	});
 });
+
+r1 = [
+	' 1| t0',
+	' 2|     wait...',
+	' 2|     continue...',
+	' 1| t1',
+	' 2|     ...',
+	' 2|     t2',
+	' 3|         ...',
+	' 3|         t21',
+	' 4|             ...',
+	' 3|         t22',
+	' 4|             wait...',
+	' 4|             continue...',
+	' 3|         t23',
+	' 4|             ...',
+	' 2|     t3',
+	' 3|         t31',
+	' 4|             ...',
+	' 3|         t32',
+	' 4|             ...',
+	' 4|             t321',
+	' 5|                 ...',
+	' 4|             t322',
+	' 5|                 ...',
+	' 4|             t323',
+	' 5|                 ...',
+	' 3|         t33',
+	' 4|             ...',
+	' 2|     t4',
+	' 3|         t41',
+	' 4|             ...',
+	' 4|             t411',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 4|             t412',
+	' 5|                 ...',
+	' 4|             t413',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 3|         t42',
+	' 4|             ...',
+	' 4|             t421',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 4|             t422',
+	' 5|                 ...',
+	' 3|         t43',
+	' 4|             ...',
+	' 3|         t44',
+	' 4|             ...',
+	' 2|     t5',
+	' 3|         ...',
+	' 3|         t51',
+	' 4|             ...',
+	' 3|         t52',
+	' 4|             ...',
+	' 3|         t53',
+	' 4|             wait...',
+	' 4|             continue...',
+	' 2|     t6',
+	' 3|         ...',
+	' 2|     t7',
+	' 3|         ...',
+	' 1| t8',
+	' 2|     ...',
+	' 1| t9',
+	' 2|     wait...',
+	' 2|     continue...',
+	' 1| t10',
+	' 2|     ...',
+	' 1| t0',
+	' 2|     wait...',
+	' 2|     continue...',
+	' 1| t1',
+	' 2|     ...',
+	' 2|     t2',
+	' 3|         t21',
+	' 4|             ...',
+	' 3|         t22',
+	' 4|             wait...',
+	' 4|             continue...',
+	' 3|         t23',
+	' 4|             ...',
+	' 2|     t3',
+	' 3|         t31',
+	' 4|             ...',
+	' 3|         t32',
+	' 4|             ...',
+	' 4|             t321',
+	' 5|                 ...',
+	' 4|             t322',
+	' 5|                 ...',
+	' 4|             t323',
+	' 5|                 ...',
+	' 3|         t33',
+	' 4|             ...',
+	' 2|     t4',
+	' 3|         t41',
+	' 4|             ...',
+	' 4|             t411',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 4|             t412',
+	' 5|                 ...',
+	' 4|             t413',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 3|         t42',
+	' 4|             ...',
+	' 4|             t421',
+	' 5|                 wait...',
+	' 5|                 continue...',
+	' 4|             t422',
+	' 5|                 ...',
+	' 3|         t43',
+	' 4|             ...',
+	' 3|         t44',
+	' 4|             ...',
+	' 2|     t5',
+	' 3|         ...',
+	' 3|         t51',
+	' 4|             ...',
+	' 3|         t52',
+	' 4|             ...',
+	' 3|         t53',
+	' 4|             wait...',
+	' 4|             continue...',
+	' 2|     t6',
+	' 3|         ...',
+	' 2|     t7',
+	' 3|         ...',
+	' 1| t8',
+	' 2|     ...',
+	' 1| t9',
+	' 2|     wait...',
+	' 2|     continue...',
+	' 1| t10',
+	' 2|     ...'
+];
