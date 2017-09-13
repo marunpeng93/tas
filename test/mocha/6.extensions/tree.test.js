@@ -205,11 +205,6 @@ describe('6.extensions: tree', function(){
 		};
 
 		var check = function(results){
-
-			console.log(results[1]);
-			console.log('-----------------------------');
-			console.log(r1.join('\n'));
-
 			expect(results[1] === r1.join('\n')).to.be.equal(true);
 			tas.tree.disable();
 			tas.tree.log('this line will not be shown.');
