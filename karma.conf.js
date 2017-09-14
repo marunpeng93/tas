@@ -2,7 +2,8 @@
 // Generated on Sun Apr 16 2017 20:34:00 GMT+0800 (CST)
 
 module.exports = function(config) {
-  config.set({
+
+	config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
