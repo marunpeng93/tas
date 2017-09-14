@@ -51,6 +51,7 @@ describe('1.sync_tasks: hello world', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

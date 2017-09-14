@@ -51,6 +51,7 @@ describe('3.as promise: tas.race()', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

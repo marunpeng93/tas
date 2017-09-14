@@ -36,7 +36,6 @@ describe('1.sync_tasks: pass data', function(){
 					t4: function(a0, a1){
 						a += a0; // 7
 						a += a1; // 12
-						return [];
 					},
 
 					t5: {
@@ -54,6 +53,8 @@ describe('1.sync_tasks: pass data', function(){
 							a += a2; // 18
 
 							var arr = [1, 2, 3];
+
+							// Return an array parameter, note that we must wrap it with [].
 							return [arr];
 						}
 					}
@@ -76,6 +77,7 @@ describe('1.sync_tasks: pass data', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

@@ -24,6 +24,9 @@ describe('5.break the flow: abort in tas.promise()', function(){
 
 				request.get(url).end(function (err, data){
 					if (count === 1) {
+
+						// Abort Tas, then the remaining tasks will be ignored.
+						// So the value of a will be returned only once (when count is 2).
 						tas.abort();
 					}
 					else {
@@ -46,6 +49,7 @@ describe('5.break the flow: abort in tas.promise()', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

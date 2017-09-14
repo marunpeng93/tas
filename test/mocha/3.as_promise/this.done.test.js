@@ -49,6 +49,7 @@ describe('3.as promise: this.done', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

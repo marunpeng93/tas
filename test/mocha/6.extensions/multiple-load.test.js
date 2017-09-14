@@ -77,6 +77,7 @@ describe('6.extensions: multiple load', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

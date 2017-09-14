@@ -22,6 +22,9 @@ describe('5.break the flow: abort in tas.all()', function(){
 			tas.all({
 				t1: function(){
 					if (count === 1) {
+
+						// Abort Tas, then the remaining tasks will be ignored.
+						// So the value of a will be returned only once (when count is 2).
 						return this.abort();
 					}
 
@@ -57,6 +60,7 @@ describe('5.break the flow: abort in tas.all()', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

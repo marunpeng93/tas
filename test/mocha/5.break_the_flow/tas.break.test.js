@@ -39,6 +39,7 @@ describe('5.break the flow: tas.break()', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

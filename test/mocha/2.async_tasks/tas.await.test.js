@@ -15,6 +15,8 @@ describe('2.async tasks: tas.await()', function(){
 		var test = function(done, count){
 			var a = 1;
 
+			// After each function execution is completed, Tas will be hanged up,
+			// waiting for the async task execution is completed.
 			tas.await({
 				t1: function(){
 					a ++; // 2
@@ -53,6 +55,7 @@ describe('2.async tasks: tas.await()', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

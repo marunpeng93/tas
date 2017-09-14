@@ -10,7 +10,7 @@ var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
 describe('2.async tasks: tas.next()', function(){
-	it('should return 16,15', function(done){
+	it('should return 20,19', function(done){
 
 		var test = function(done, count){
 			var a = 1;
@@ -28,38 +28,51 @@ describe('2.async tasks: tas.next()', function(){
 							a ++; // 4
 						}
 
-						tas.next(1, 2);
+						// Pass a parameter
+						tas.next(1);
 					}, 0);
 
 					return "await";
 				},
 
-				t3: function(a0, a1){
+				t3: function(a0){
 					a += a0; // 5
-					a += a1; // 7
 
 					setTimeout(function(){
-						tas.next(0, 1, 2);
+
+						// Pass multiple parameters
+						tas.next(2, 3, 4);
 					}, 0);
 
 					return "await";
 				}
 			});
 
-			tas.await(function (a0, a1, a2){
-				a += a0; // 7
-				a += a1; // 8
-				a += a2; // 10
+			tas.await({
+				t1: function (a0, a1, a2){
+					a += a0; // 7
+					a += a1; // 10
+					a += a2; // 14
 
-				setTimeout(function(){
-					tas.next([1, 2, 3]);
-				}, 0);
-			});
+					setTimeout(function(){
+						var arr = [1, 2, 3];
 
-			tas(function (arr){
-				arr.forEach(function(e){
-					a += e;
-				});
+						// Pass an array parameter.
+						tas.next(arr);
+					}, 0);
+				},
+
+				t2: function (arr){
+					arr.forEach(function(e){
+						a += e;
+					});
+
+					setTimeout(function(){
+
+						// Pass nothing, just go to the next task.
+						tas.next();
+					}, 0);
+				}
 			});
 
 			tas(function (){
@@ -68,10 +81,11 @@ describe('2.async tasks: tas.next()', function(){
 		};
 
 		var check = function(results){
-			expect(results.toString() === '16,15').to.be.equal(true);
+			expect(results.toString() === '20,19').to.be.equal(true);
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });

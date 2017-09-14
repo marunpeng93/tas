@@ -31,6 +31,7 @@ describe('2.async tasks: return "await"', function(){
 						tas.next();
 					}, 0);
 
+					// Hang up Tas, waiting for the async task execution is completed.
 					return "await";
 				},
 
@@ -49,6 +50,7 @@ describe('2.async tasks: return "await"', function(){
 			done();
 		};
 
-		tester.do(test, check);
+		// Run the test twice
+		tester.do(test, check, 2);
 	});
 });
