@@ -7,10 +7,10 @@
 
 var tas = require('../../../../lib');
 var test = require('../../../__lib/tester').test;
-var runner = require('./tas.break().js');
+var runner = require('./tas.promise_is_easier_to_use_than_promise.js');
 
 tas(function(){
-	var exp = 2;
-	var val = runner.get();
-	test("5.break the flow: tas.break()", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: tas.promise is easier to use than promise", tas, exp, val);
 });
