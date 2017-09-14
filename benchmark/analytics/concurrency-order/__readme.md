@@ -84,10 +84,10 @@ $ cd /path/to/tas
 $ cd test
 $ mocha mocha/5.break_the_flow/return_abort.test.js
 $ mocha mocha/5.break_the_flow/abort_in_tas.test.js
-$ mocha mocha/5.break_the_flow/abort_in_tas.await().test.js
-$ mocha mocha/5.break_the_flow/abort_in_tas.promise().test.js
-$ mocha mocha/5.break_the_flow/abort_in_tas.forEach().test.js
-$ mocha mocha/5.break_the_flow/abort_in_tas.all().test.js
-$ mocha mocha/5.break_the_flow/abort_in_tas.race().test.js
+$ mocha mocha/5.break_the_flow/abort_in_tas.await.test.js
+$ mocha mocha/5.break_the_flow/abort_in_tas.promise.test.js
+$ mocha mocha/5.break_the_flow/abort_in_tas.forEach.test.js
+$ mocha mocha/5.break_the_flow/abort_in_tas.all.test.js
+$ mocha mocha/5.break_the_flow/abort_in_tas.race.test.js
 ```
 
