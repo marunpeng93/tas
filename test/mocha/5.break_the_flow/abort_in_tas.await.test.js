@@ -15,7 +15,9 @@ describe('5.break the flow: abort in tas.await()', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas.await('begin', {
+			tas.begin();
+
+			tas.await({
 				t1: function (){
 					setTimeout(function (){
 						if (count === 1) {

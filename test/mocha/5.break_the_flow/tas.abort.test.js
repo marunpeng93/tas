@@ -15,7 +15,9 @@ describe('5.break the flow: tas.abort()', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas('begin', {
+			tas.begin();
+
+			tas({
 				t1: function (){
 					[1].forEach(function(){
 						if (count === 1) {

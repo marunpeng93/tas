@@ -17,7 +17,9 @@ describe('4.forEach tasks: tas.forEach()', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas.await('begin', function(){
+			tas.begin();
+
+			tas.await(function(){
 				var url = config.res.array;
 
 				request.get(url).end(function(err, data){

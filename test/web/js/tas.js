@@ -65,9 +65,9 @@ function(module, exports, __webpack_require__) {
 	var break_ = __webpack_require__(9);
 	var begin = __webpack_require__(10);
 
-	var Tas = function(obj, obj2){
-		if (obj === 'begin') {
-			obj = begin.do(obj2);
+	var Tas = function(obj){
+		if (begin.is()) {
+			begin.do(obj);
 		}
 		else if (flag.isAbort()){
 			return;
@@ -76,17 +76,15 @@ function(module, exports, __webpack_require__) {
 		tasks.add(obj);
 	};
 
-	Tas.await = function(obj, obj2){
-		if (obj === 'begin') {
-			obj = begin.do(obj2);
-		}
+	Tas.await = function(obj){
+		begin.is() && begin.do(obj);
 
 		obj.isAwait = true;
 		tasks.add(obj);
 	};
 
-	Tas.promise = function(func, func2){
-		Tas.await(func, func2);
+	Tas.promise = function(func){
+		Tas.await(func);
 	};
 
 	Tas.next = function(a0, a1){
@@ -109,8 +107,12 @@ function(module, exports, __webpack_require__) {
 		break_.do();
 	};
 
-	Tas.abort = function(){
-		abort.do();
+	Tas.abort = function(msg){
+		abort.do(msg);
+	};
+
+	Tas.begin = function(){
+		begin.set();
 	};
 
 	Tas.load = function(){
@@ -243,7 +245,7 @@ function(module, exports, __webpack_require__) {
 			}
 
 			// When all tasks done, then restore flag isAwait to false
-			if (!d.tasks[0].length) {
+			if (d.tasks[0] && !d.tasks[0].length) {
 				flag.setIsAwait(false);
 			}
 		},
@@ -537,7 +539,8 @@ function(module, exports, __webpack_require__) {
 	var flag = __webpack_require__(6);
 
 	var abort = {
-		do: function(){
+		do: function(msg){
+			msg && console.log(msg);
 
 			tasks.clearTheRemainingTasks();
 			pass.reset();
@@ -571,13 +574,24 @@ function(module, exports, __webpack_require__) {
 	var flag = __webpack_require__(6);
 
 	var begin = {
-		do: function(obj2){
-			obj2.isFirst = true;
+		f: false,
+
+		do: function(obj){
+			this.f = false;
+			obj.isFirst = true;
 
 			// Restore flag iaAbort to false.
 			flag.setIsAbort(false);
 
-			return obj2;
+			return obj;
+		},
+
+		is: function(){
+			return this.f;
+		},
+
+		set: function(){
+			this.f = true;
 		}
 	};
 
@@ -713,10 +727,7 @@ function(module, exports, __webpack_require__) {
 			Tas.all = this.all;
 		},
 
-		all: function(obj, obj2){
-			var isBegin = obj === 'begin';
-			obj === 'begin' && (obj = obj2);
-
+		all: function(obj){
 			var times = Object.keys(obj).length;
 			var count = 0;
 			var allData = [];
@@ -732,13 +743,13 @@ function(module, exports, __webpack_require__) {
 				},
 
 				abort: function(){
+					debugger;
 					Tas.abort();
 					this.done('abort');
 				}
 			};
 
-			obj = util.convert(obj, This);
-			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+			Tas.await(util.convert(obj, This));
 		}
 	};
 
@@ -774,10 +785,7 @@ function(module, exports, __webpack_require__) {
 			Tas.cancel = this.cancel;
 		},
 
-		race: function(obj, obj2){
-			var isBegin = obj === 'begin';
-			obj === 'begin' && (obj = obj2);
-
+		race: function(obj){
 			var count = 0;
 			var This = {
 				done: function(err, data){
@@ -792,8 +800,7 @@ function(module, exports, __webpack_require__) {
 				}
 			};
 
-			obj = util.convert(obj, This);
-			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+			Tas.await(util.convert(obj, This));
 		},
 
 		cancel: function(handlers){

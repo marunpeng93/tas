@@ -9,13 +9,15 @@ var tas = require('../../../lib');
 var tester = require('../../__lib/tester');
 var expect = require('chai').expect;
 
-describe('5.break the flow: abort in tas', function(){
+describe('5.break the flow: abort in tas()', function(){
 	it('should return ,3', function(done){
 
 		var test = function(done, count){
 			var a = 0;
 
-			tas('begin', {
+			tas.begin();
+
+			tas({
 				t1: function (){
 					a ++;
 

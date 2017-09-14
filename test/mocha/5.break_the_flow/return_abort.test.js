@@ -15,7 +15,9 @@ describe('5.break the flow: return "abort"', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas('begin', {
+			tas.begin();
+
+			tas({
 				t1: function t1(){
 					if (count === 1) {
 						return 'abort';

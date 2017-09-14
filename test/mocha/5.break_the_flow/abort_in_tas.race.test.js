@@ -18,7 +18,9 @@ describe('5.break the flow: abort in tas.race()', function(){
 			var handlers = [];
 			var a = 0;
 
-			tas.race('begin', {
+			tas.begin();
+
+			tas.race({
 				t1: function(){
 					if (count === 1) {
 						return this.abort();

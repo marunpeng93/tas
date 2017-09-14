@@ -17,7 +17,9 @@ describe('5.break the flow: abort in tas.promise()', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas.promise('begin', function (){
+			tas.begin();
+
+			tas.promise(function (){
 				var url = config.res.a;
 
 				request.get(url).end(function (err, data){

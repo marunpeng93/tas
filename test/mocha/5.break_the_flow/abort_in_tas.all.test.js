@@ -17,7 +17,9 @@ describe('5.break the flow: abort in tas.all()', function(){
 		var test = function(done, count){
 			var a = 0;
 
-			tas.all('begin', {
+			tas.begin();
+
+			tas.all({
 				t1: function(){
 					if (count === 1) {
 						return this.abort();
