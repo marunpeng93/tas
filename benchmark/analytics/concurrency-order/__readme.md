@@ -40,14 +40,22 @@ $ node benchmark/analytics/concurrency-order/tas.promise.js
 
 What happens if we abort in Tas? Well, the remaining tasks in the current tasks stream will not be performed, and the tasks in the next tasks stream will be performs one by one, that's very correct.
 
-Note that if we want to abort in the current task stream, we must set "begin" flag in first task. Tas uses this flag to determine which of the tasks in the queue belong to the current tasks stream. For example:
+Note that if we want to abort in the current task stream, we must use tas.begin() to mark the first task, then Tas will determine which of the tasks in the queue belong to the current tasks stream and ignore them. 
+
+For example:
 
 ```js
 var test = function(done, count){
     var a = 0;
 
-    // Set 'begin' flag in first task, important.
-    tas('begin', { 
+    // Must use it before other tasks if you wanna to abort in Tas.
+    // There are three ways to abort in Tas:
+    //     return "abort"| see test/mocha/5.break_the_flow/return_abort.test.js
+    //     tas.abort()   | see test/mocha/5.break_the_flow/abort_in_tas.await.test.js
+    //     this.abort()  | see test/mocha/5.break_the_flow/abort_in_tas.all.test.js
+    tas.begin();
+
+    tas({
         t1: function (){
             a ++;
 
@@ -58,8 +66,6 @@ var test = function(done, count){
 
                 t3: function(){
                     if (count === 1) {
-                      
-                        // Or return "abort" if not in nested function (closure)
                         tas.abort();
                     }
                 }
