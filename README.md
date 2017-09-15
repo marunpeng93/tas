@@ -198,19 +198,19 @@ tas(function (data) { // or function(err, data)
 
 　
 
-## API
+## Full Examples
 
-See the **examples/usage** folder. All examples and tests are categorized according to Node.js, Web and Web-RequireJS.
+See the **examples/usage** folder. All examples (with tests) are categorized according to Node.js, Web and Web-RequireJS.
 
 　
+
+## API
 
 ### Sync Tasks
 
 | API           | Functions                   | Usage |
 | ------------- | --------------------------- | ----- |
 | return <data> | Pass data to the next task. | Usage |
-
-**Note**: Use return [array] instead of return array to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
 
 　
 
@@ -221,8 +221,6 @@ See the **examples/usage** folder. All examples and tests are categorized accord
 | return "await"   | Hang up Tas, waiting for the async task execution is completed. |
 | tas.await()      | Sequential perform a set of async tasks. |
 | tas.next(<data>) | When async task is done, pass data to the next task. |
-
-**Note**: Use tas.next([array]) instead of tas.next(array) to pass an array. [See details](https://github.com/tasjs/tas/blob/master/test/mocha/1.sync_tasks/return_data.test.js).
 
 　
 
