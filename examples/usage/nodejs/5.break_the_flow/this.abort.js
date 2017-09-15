@@ -51,6 +51,6 @@ tas(function(err, data){
 
 module.exports = {
 	get: function(){
-		return a; // 2
+		return a;
 	}
 };

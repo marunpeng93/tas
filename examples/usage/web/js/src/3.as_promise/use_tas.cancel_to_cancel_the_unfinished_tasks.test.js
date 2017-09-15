@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = easierToUseThanPromise;
+	var runner = useTasCancelToCancelTheUnfinishedTasks;
 
 	var exp = 'object';
 	var val = typeof runner.get();
-	test("3.as promise: easier to use than promise", tas, exp, val);
+	test("3.as promise: use tas.cancel() to cancel the unfinished tasks", tas, exp, val);
 });

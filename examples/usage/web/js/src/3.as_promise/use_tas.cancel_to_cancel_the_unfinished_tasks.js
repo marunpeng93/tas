@@ -5,20 +5,25 @@
  * Released under the MIT License.
  */
 
-var cancelTheUnfinishedTasks = function(){
+var useTasCancelToCancelTheUnfinishedTasks = function(){
 
 	var request = superagent;
 	var dat;
 
-	// Perform the following three steps (please notice the serial number):
 	// 1. Define handlers array.
 	var handlers = [];
+
+	tas.load('promise-race');
+
+	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+	// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
+	tas.begin();
 
 	tas.race({
 		t1: function(){
 			var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
 
-			// 2. Push the hander to the handlers array.
+			// 2. Push the handler to the handlers array.
 			handlers.push(request.get(url).end(this.done));
 		},
 
@@ -36,9 +41,10 @@ var cancelTheUnfinishedTasks = function(){
 	tas(function(err, data){
 
 		// 3. Cancel other unfinished task(s).
+		// Therefore, the total waiting time is also the shortest task time.
 		tas.cancel(handlers);
 
-		// Therefore, the total waiting time is also the shortest task time.
+		if (err) return tas.abort(err);
 		dat = data;
 	});
 

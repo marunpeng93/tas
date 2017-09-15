@@ -10,6 +10,12 @@ var useTasAllAsPromiseAll = function(){
 	var request = superagent;
 	var dat;
 
+	tas.load('promise-all');
+
+	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+	// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
+	tas.begin();
+
 	// Perform all tasks at the same time.
 	tas.all({
 		t1: function(){
@@ -31,6 +37,7 @@ var useTasAllAsPromiseAll = function(){
 	// After all the tasks in tas.all(..) have been completed, continue.
 	// Therefore, the total waiting time is the longest task time.
 	tas(function(err, data){
+		if (err) return tas.abort(err);
 		dat = data;
 	});
 

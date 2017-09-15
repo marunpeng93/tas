@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = simplify;
+	var runner = tasPromiseInAnotherWay;
 
-	var exp = 3;
-	var val = runner.get();
-	test("1.sync tasks: simplify", tas, exp, val);
+	var exp = 'object';
+	var val = typeof runner.get();
+	test("3.as promise: tas.promise() in another way", tas, exp, val);
 });

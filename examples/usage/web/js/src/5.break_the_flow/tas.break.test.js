@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = abortTas;
+	var runner = tasBreak;
 
-	var exp = 3;
+	var exp = 2;
 	var val = runner.get();
-	test("5.break the flow: abort tas", tas, exp, val);
+	test("5.break the flow: tas.break()", tas, exp, val);
 });

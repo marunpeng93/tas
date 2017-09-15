@@ -5,19 +5,21 @@
  * Released under the MIT License.
  */
 
-var breakTheCurrentTasks = function(){
+var tasBreak = function(){
 
-	var a  = 1;
+	var a = 1;
 
 	tas({
 		t1: function(){
+			[1].forEach(function(){
 
-			// Use return "break" or tas.break() to break the current tasks.
-			return 'break'; // tas.break();
+				// The remaining task(s) in the current tasks will be ignored.
+				tas.break();
+			});
 		},
 
 		t2: function(){
-			a ++; // skipped
+			a ++; // ignored
 		}
 	});
 

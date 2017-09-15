@@ -207,7 +207,6 @@ tas.await({
 		setTimeout(function(){
 			a ++; // 33
 
-			debugger;
 			log('t33');
 			log('continue...');
 

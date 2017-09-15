@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = mixTasks;
+	var runner = returnBreak;
 
-	var exp = 10;
+	var exp = 2;
 	var val = runner.get();
-	test("2.async tasks: mix tasks", tas, exp, val);
+	test("5.break the flow: return 'break'", tas, exp, val);
 });

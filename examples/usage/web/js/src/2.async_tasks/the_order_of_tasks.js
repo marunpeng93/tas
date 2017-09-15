@@ -10,7 +10,7 @@ var theOrderOfTasks = function(){
 	var log = util.log;
 	var a;
 
-	// The tas.await() and tas() in the first indent level is not part of
+	// The tas.await() and tas() in the first indent is not part of
 	// this example, just use it to separate multiple examples.
 	tas.await(function(){
 
@@ -80,7 +80,7 @@ var theOrderOfTasks = function(){
 	tas.await(function(){
 
 		//--------------------------------------------
-		// 3. The simplified way
+		// 3. The simplified way (use anonymous function)
 		//--------------------------------------------
 
 		a = 7;

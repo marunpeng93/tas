@@ -61,7 +61,6 @@ tas(function(arr){
 	});
 });
 
-
 module.exports = {
 	get: function(){
 		return a; // 24

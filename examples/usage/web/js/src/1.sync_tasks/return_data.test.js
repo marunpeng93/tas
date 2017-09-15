@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = asyncTasks;
+	var runner = viaReturn;
 
-	var exp = 3;
+	var exp = 24;
 	var val = runner.get();
-	test("2.async tasks: async tasks", tas, exp, val);
+	test("1.sync tasks: return data", tas, exp, val);
 });

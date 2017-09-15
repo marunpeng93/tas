@@ -13,14 +13,22 @@ var useTasForEach = function() {
 	var a = 0;
 	var record;
 
-	tas.promise(function () {
+	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+	// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
+	tas.begin();
+
+	// tas.forEach() is an extension, we need to load it independently.
+	tas.load('forEach');
+
+	tas.promise(function(){
 		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/array.json';
-		request.get(url).end(this.done);
+		request.get(url).end(tas.resolve);
 	});
 
-	tas(function (err, data) {
+	tas(function(err, data){
+		if (err) return tas.abort(err);
 
-		// Put the data to an array
+		// Put the data into an array
 		var arr = JSON.parse(data.text).data;
 
 		// Pass the array to the next tasks
@@ -31,24 +39,24 @@ var useTasForEach = function() {
 	tas.forEach({
 
 		// Receive the current element via init(), important!
-		init: function (element) {
+		init: function(element, index){
 
 			// Save the element to local variable
 			record = element;
 		},
 
 		// Apply the element
-		doSomething: function () {
+		doSomething: function(){
 			log(record);
 		},
 
-		calc: function () {
-			a++; // 2 times.
+		calc: function(){
+			a ++; // 2 times.
 		}
 	});
 
-	tas(function () {
-		a++; // 3
+	tas(function(){
+		a ++; // 3
 	});
 
 	return {

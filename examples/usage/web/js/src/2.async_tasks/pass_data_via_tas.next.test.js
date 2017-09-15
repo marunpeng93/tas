@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = breakTheCurrentTasks;
+	var runner = passDataViaTasNext;
 
-	var exp = 2;
+	var exp = 20;
 	var val = runner.get();
-	test("5.break the flow: break the current tasks", tas, exp, val);
+	test("2.async tasks: pass data via tas.next()", tas, exp, val);
 });

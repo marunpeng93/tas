@@ -12,5 +12,5 @@ var runner = require('./use_tas.cancel_to_cancel_the_unfinished_tasks.js');
 tas(function(){
 	var exp = 'object';
 	var val = typeof runner.get();
-	test("3.as promise: cancel the unfinished tasks", tas, exp, val);
+	test("3.as promise: use tas.cancel() to cancel the unfinished tasks", tas, exp, val);
 });

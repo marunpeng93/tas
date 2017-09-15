@@ -8,9 +8,9 @@
 tas(function(){
 
 	var test = tester.test;
-	var runner = viaReturn;
+	var runner = tasContinue;
 
-	var exp = 81;
+	var exp = 5;
 	var val = runner.get();
-	test("1.sync tasks: pass data", tas, exp, val);
+	test("4.forEach tasks: tas.continue()", tas, exp, val);
 });
