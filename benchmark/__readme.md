@@ -30,12 +30,12 @@ Total Memory 16 GB
 Node.js v6.11.2
 V8 5.1.281.103
 ---------------------------------------------
-tas                 3577702	times/sec
-tas.promise         1202384	times/sec
-tas.await           1138029	times/sec
-tas.race            798434	times/sec
-tas.all             740559	times/sec
-tas.forEach         461714	times/sec
+tas                 3577702 times/sec
+tas.promise         1202384 times/sec
+tas.await           1138029 times/sec
+tas.race            798434  times/sec
+tas.all             740559  times/sec
+tas.forEach         461714  times/sec
 ```
 
 In fact, the hardware environment is a Macbook Pro (Retina, 13-inch, Late 2013). Obviously, if you are running the above tests on the server, the performance will be more higher. That's why we emphasize "more than".
@@ -59,10 +59,10 @@ Total Memory 16 GB
 Node.js v6.11.2
 V8 5.1.281.103
 ---------------------------------------------
-bluebird            1240486	times/sec
-co                  78077	times/sec
-native-promise      484785	times/sec
-tas.promise         1239579	times/sec
+bluebird            1240486    times/sec
+co                  78077    times/sec
+native-promise      484785    times/sec
+tas.promise         1239579    times/sec
 ```
 
 We can see that tas.promise is faster than native Promise, and as fast as bluebird. The tas.promise is not a promise library, it's an alias of tas.await ([See details](https://github.com/tasjs/tas/blob/master/lib/index.js)), and is better than Promise.

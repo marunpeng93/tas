@@ -48,7 +48,7 @@ For example:
 var test = function(done, count){
     var a = 0;
 
-    // Must use it before other tasks if you wanna to abort in Tas.
+    // Must use tas.begin() before other tasks if you wanna to abort in Tas.
     // There are three ways to abort in Tas:
     //     return "abort"| see test/mocha/5.break_the_flow/return_abort.test.js
     //     tas.abort()   | see test/mocha/5.break_the_flow/abort_in_tas.await.test.js
