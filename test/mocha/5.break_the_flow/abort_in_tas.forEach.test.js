@@ -5,8 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib').load('forEach');
-var tester = require('../../__lib/tester');
+var tas = require('../tas').load('forEach');
+var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
@@ -14,9 +14,13 @@ var expect = require('chai').expect;
 describe('5.break the flow: abort in tas.forEach()', function(){
 	it('should return ,5', function(done){
 
+		this.timeout(config.netTimeout);
+
 		var test = function(done, count){
 			var a = 0;
 
+			// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+			// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
 			tas.begin();
 
 			tas.await(function(){

@@ -5,8 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var tester = require('../../__lib/tester');
+var tas = require('../tas');
+var tester = require('../tester');
 var expect = require('chai').expect;
 
 describe('5.break the flow: return "abort"', function(){
@@ -15,6 +15,8 @@ describe('5.break the flow: return "abort"', function(){
 		var test = function(done, count){
 			var a = 0;
 
+			// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+			// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
 			tas.begin();
 
 			tas({

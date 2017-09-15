@@ -5,14 +5,16 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib').load('promise-all', 'promise-race');
-var tester = require('../../__lib/tester');
+var tas = require('../tas').load('promise-all', 'promise-race');
+var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('6.extensions: multiple load', function(){
 	it('should return 8,6', function(done){
+
+		this.timeout(config.netTimeout);
 
 		var test = function(done, count){
 			var handlers = [];

@@ -23,6 +23,10 @@ module.exports = function(config) {
 		  // karma files
 		  './test/karma/**/*.js',
 
+		  // lib references
+		  './test/mocha/tas.js',
+		  './test/mocha/tester.js',
+
 		  // utils for tests
 		  './test/__lib/*.js',
 

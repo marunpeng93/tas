@@ -5,14 +5,16 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib').load('forEach');
-var tester = require('../../__lib/tester');
+var tas = require('../tas').load('forEach');
+var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('4.forEach tasks: tas.forEach()', function(){
 	it('should return 9,7', function(done){
+
+		this.timeout(config.netTimeout);
 
 		var test = function(done, count){
 			var a = 0;

@@ -122,6 +122,12 @@ function(module, exports, __webpack_require__) {
 		return Tas;
 	};
 
+	Tas.unload = function(){
+		var loader = __webpack_require__(11);
+		loader.unload([].slice.call(arguments));
+		return Tas;
+	};
+
 	module.exports = Tas;
 },
 
@@ -603,6 +609,8 @@ function(module, exports, __webpack_require__) {
 	var Tas;
 
 	var loader = {
+		isUnload: false,
+
 		init: function(Tas_){
 			Tas = Tas_;
 		},
@@ -620,7 +628,14 @@ function(module, exports, __webpack_require__) {
 		},
 
 		loadExtension: function(name){
-			__webpack_require__(12)("./" + name).init(Tas);
+			var ext = __webpack_require__(12)("./" + name);
+			loader.isUnload ? ext.unload() : ext.init(Tas);
+		},
+
+		unload: function(names){
+			loader.isUnload = true;
+			loader.load(names);
+			loader.isUnload = false;
 		}
 	};
 
@@ -838,6 +853,8 @@ function(module, exports, __webpack_require__) {
 
 function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {
+
 	var Tas;
 	var data = __webpack_require__(3);
 	var runner = __webpack_require__(2);
@@ -934,13 +951,11 @@ function(module, exports, __webpack_require__) {
 			Tas.tree = this;
 			Tas.tree.logArray = logArray;
 			Tas.tree.nested = nested;
-		},
 
-		enable: function(){
 			data.extensions.isTreeEnabled = true;
 		},
 
-		disable: function(){
+		unload: function(){
 			data.extensions.isTreeEnabled = false;
 		},
 
@@ -974,7 +989,7 @@ function(module, exports, __webpack_require__) {
 				logArray.save(args[0] + ' ' + args[1]);
 			}
 			else {
-				console.log.apply(console, args);
+				!global.isDisabledLog && console.log.apply(console, args);
 			}
 		},
 
@@ -984,6 +999,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = tree;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
 }
 
 

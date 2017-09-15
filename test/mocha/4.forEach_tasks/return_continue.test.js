@@ -5,8 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib').load('forEach');
-var tester = require('../../__lib/tester');
+var tas = require('../tas').load('forEach');
+var tester = require('../tester');
 var expect = require('chai').expect;
 
 describe('4.forEach tasks: return "continue"', function(){

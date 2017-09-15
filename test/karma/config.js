@@ -1,5 +1,5 @@
 /**
- * Utils of examples of Tas.js
+ * Tas.js
  * (c) 2017 Owen Luke
  * https://github.com/tasjs/tas
  * Released under the MIT License.
@@ -17,7 +17,7 @@
 		},
 		
 		waitTime: 0,
-		netTimeout: 3*60*1000
+		netTimeout: 60*1000
 	};
 
 	return (config);

@@ -5,14 +5,16 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var tester = require('../../__lib/tester');
+var tas = require('../tas');
+var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
 var expect = require('chai').expect;
 
 describe('3.as promise: tas.promise()', function(){
 	it('should return ,1', function(done){
+
+		this.timeout(config.netTimeout);
 
 		var test = function(done, count){
 			var a = 0;

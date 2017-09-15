@@ -5,8 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib');
-var tester = require('../../__lib/tester');
+var tas = require('../tas');
+var tester = require('../tester');
 var expect = require('chai').expect;
 
 describe('1.sync_tasks: pass data', function(){

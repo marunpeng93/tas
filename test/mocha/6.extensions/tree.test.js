@@ -5,10 +5,8 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../lib').load('tree');
-var log = tas.tree.log;
-
-var tester = require('../../__lib/tester');
+var tas = require('../tas');
+var tester = require('../tester');
 var expect = require('chai').expect;
 
 var r1 = [];
@@ -16,8 +14,13 @@ var r1 = [];
 describe('6.extensions: tree', function(){
 	it('should create tree logs', function(done){
 
-		tas.tree.enable();
+		// Load Tas tree in this module
+		tas.load('tree');
+
+		// Save logs into an array instead of printing it immediately.
 		tas.tree.logArray.begin();
+
+		var log = tas.tree.log;
 
 		var test = function(done, count) {
 
@@ -200,14 +203,22 @@ describe('6.extensions: tree', function(){
 			});
 
 			tas(function (){
-				done(count, tas.tree.logArray.getStr());
+
+				// Get logs from array and convert to string.
+				var str = tas.tree.logArray.getStr();
+				done(count, str);
 			});
 		};
 
 		var check = function(results){
 			expect(results[1] === r1.join('\n')).to.be.equal(true);
-			tas.tree.disable();
+
+			// Unload Tas tree to avoid affect the other modules.
+			tas.unload('tree');
+
+			// Just for code coverage only.
 			tas.tree.log('this line will not be shown.');
+
 			done();
 		};
 

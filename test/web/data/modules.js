@@ -3,7 +3,7 @@ var modules = {
 	'chai': 'chai',
 	'superagent': 'superagent',
 
-	'/lib': 'tas',
+	'/tas': 'tas',
 	'/tester': 'tester',
 	'/config': 'config'
 };
