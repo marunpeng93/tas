@@ -65,7 +65,7 @@ To run these demos, please clone the Tas repo (if you have not done it yet, see 
 
 　
 
-### Easy asynchronization
+### Easy Asynchronization
 
 In this demo, there are many asynchronous tasks (represented by setTimeout()) in multiple modules, which are executed in the order we write, just like the synchronization tasks. See below.
 
@@ -84,7 +84,7 @@ $ node examples/demo/easy-asynchronization/index.js
 
 　
 
-### Fixing callback hell
+### Fixing Callback Hell
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/fixing-callback-hell-with-tas.png)
 
@@ -99,7 +99,7 @@ $ node fixing-callback-hell.js
 
 　
 
-### Better than Promise
+### Better Than Promise
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/better-than-promise.png)
 
@@ -114,7 +114,7 @@ $ open tas.html
 
 　
 
-### Clear code structure
+### Clear Code Structure
 
 ![](https://raw.githubusercontent.com/tasjs/tas/master/examples/demo/__res/clear-code-structure.png)
 
@@ -208,55 +208,79 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 ### Sync Tasks
 
-| API           | Functions                   | Usage |
-| ------------- | --------------------------- | ----- |
-| return <data> | Pass data to the next task. | Usage |
+| API           | Functions                   | Usage                                    |
+| ------------- | --------------------------- | ---------------------------------------- |
+| return <data> | Pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/1.sync_tasks/return_data.js) |
 
 　
 
 ### Async Tasks
 
-| API              | Functions                                |
-| ---------------- | ---------------------------------------- |
-| return "await"   | Hang up Tas, waiting for the async task execution is completed. |
-| tas.await()      | Sequential perform a set of async tasks. |
-| tas.next(<data>) | When async task is done, pass data to the next task. |
+| API              | Functions                                | Usage                                    |
+| ---------------- | ---------------------------------------- | ---------------------------------------- |
+| return "await"   | Hang up Tas, waiting for the async task execution is completed. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
+| tas.await()      | Sequential perform a set of async tasks. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
+| tas.next(<data>) | When async task is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/pass_data_via_tas.next.js) |
 
 　
 
 ### As Promise
 
-| API           | Functions                                |
-| ------------- | ---------------------------------------- |
-| tas.promise() | Equivalent to tas.await().               |
-| tas.resolve() | Equivalent to tas.next().                |
-| tas.all()     | After all async tasks are completed, continue. |
-| tas.race()    | As long as one of async tasks is completed, continue. |
-| tas.cancel()  | When tas.race() is done, cancel the unfinished async task(s). |
-| this.done     | When tas.all() or tas.race() is done, pass data to the next task. |
+| API           | Functions                                | Usage                                    |
+| ------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.promise() | Equivalent to tas.await().               | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
+| tas.resolve() | Equivalent to tas.next().                | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
+| tas.all()     | After all async tasks are completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
+| tas.race()    | As long as one of async tasks is completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
+| tas.cancel()  | When tas.race() is done, cancel the unfinished async task(s). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
+| this.done     | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js)) |
 
 　
 
 ### ForEach Tasks
 
-| API               | Functions                                |
-| ----------------- | ---------------------------------------- |
-| tas.forEach()     | Perform a set of tasks for each array element. |
-| tas.continue()    | Go to the next loop (in closures).       |
-| return "continue" | Go to the next loop.                     |
+| API               | Functions                                | Usage                                    |
+| ----------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.forEach()     | Perform a set of tasks for each array element. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
+| tas.continue()    | Go to the next loop (in closures).       | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/tas.continue.js) |
+| return "continue" | Go to the next loop.                     | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/return_continue.js) |
 
 　
 
 ### Break The Flow
 
-| API            | Functions                                |
-| -------------- | ---------------------------------------- |
-| tas.begin()    | Use it before all tasks if you wanna [abort in Tas](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md). |
-| tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). |
-| return "abort" | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in task. |
-| this.abort()   | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in tas.all() or tas.race(). |
-| return "break" | Break the current tasks.                 |
-| tas.break()    | Break the current tasks from nested function (closures). |
+| API            | Functions                                | Usage                                    |
+| -------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.begin()    | Use it before all tasks if you wanna [abort in Tas](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
+| tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/tas.abort.js) |
+| return "abort" | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
+| this.abort()   | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in tas.all() or tas.race(). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/this.abort.js) |
+| return "break" | Break the current tasks.                 | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_break.js) |
+| tas.break()    | Break the current tasks from nested function (closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/tas.break.js) |
+
+　
+
+## Extensions
+
+In order to pursue faster performance, the following features which not commonly used are not enabled by default and can be enabled by using require('tas').load() or tas.load().
+
+| Name of Extension | How to Load                              | Usage                                    |
+| ----------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.forEach()     | require('tas').load('forEach'), or tas.load('forEach') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
+| tas.all()         | require('tas').load('promise-all'), or tas.load('promise-all') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
+| tas.race()        | require('tas').load('promise-race'), or tas.load('promise-race') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
+| Tas tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md) |
+
+We can load multiple extensions at once, as follows:
+```js
+var tas = require('tas').load('promise-all', 'promise-race');
+```
+
+　
+
+## Log Tree
+
+Tas can automatically print the names of all tasks as a tree,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md)
 
 　
 
