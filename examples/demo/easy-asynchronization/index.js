@@ -5,15 +5,15 @@
  * Released under the MIT License.
  */
 
-// load Tas with tree for demonstrating.
-// this will makes Tas in all modules loading tree automatically.
-var tas = require('../../../lib').load('tree');
+// Load Tas with tree for this demonstrating.
+// This will makes Tas in all modules loading tree automatically.
+// So in other modules, we do not have to do load('tree') repeatedly.
+var tas = require('./tas').load('tree');
+
+// Print the tree logs.
 var log = tas.tree.log;
 
-// enable tree
-tas.tree.enable();
-
-// define a as global variable
+// define a as global variable for testing
 a = 0;
 
 tas.await({

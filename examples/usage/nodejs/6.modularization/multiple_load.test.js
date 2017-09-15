@@ -7,10 +7,11 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var ma = require('./multiple_a.js');
+var mb = require('./multiple_b.js');
 
 tas(function(){
-	var exp = 24;
-	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	var exp = 8;
+	var val = ma.get() + mb.get();
+	test("6.modularization: multiple", tas, exp, val);
 });

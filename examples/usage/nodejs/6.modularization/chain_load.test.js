@@ -7,10 +7,11 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var mc = require('./chain_c.js');
+var md = require('./chain_d.js');
 
 tas(function(){
-	var exp = 24;
-	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	var exp = 19;
+	var val = mc.get() + md.get();
+	test("6.modularization: chain", tas, exp, val);
 });

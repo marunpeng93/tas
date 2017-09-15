@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./tas.promise_is_easier_to_use_than_promise.js');
+var runner = require('./tas.promise_in_another_way.js');
 
 tas(function(){
 	var exp = 'object';
 	var val = typeof runner.get();
-	test("3.as promise: tas.promise is easier to use than promise", tas, exp, val);
+	test("3.as promise: tas.promise in another way", tas, exp, val);
 });

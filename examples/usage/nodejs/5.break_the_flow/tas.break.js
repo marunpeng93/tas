@@ -6,34 +6,28 @@
  */
 
 var tas = require('../tas');
-var a = 0;
-
-tas(function(){
-	a ++; // 1
-});
+var a  = 1;
 
 tas({
 	t1: function(){
-		a ++; // 2
+		[1].forEach(function(){
+
+			// The remaining task(s) in the current tasks will be ignored.
+			tas.break();
+		});
 	},
 
-	t2: {
-		t3: function(){
-			a ++; // 3
-		},
-
-		t4: function(){
-			a ++; // 4
-		}
-	},
-
-	t5: function(){
-		a ++; // 5
+	t2: function(){
+		a ++; // ignored
 	}
+});
+
+tas(function(){
+	a ++; // 2
 });
 
 module.exports = {
 	get: function(){
-		return a; // 5
+		return a; // 2
 	}
 };

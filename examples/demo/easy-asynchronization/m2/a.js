@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-var tas = require('../../../../lib');
+var tas = require('../tas');
 var log = tas.tree.log;
 
 tas.await({

@@ -33,7 +33,7 @@ var useTasRaceAsPromiseRace = function(){
 	// because the other tasks are not canceled.
 
 	// If you want to cancel other tasks that have not yet been completed,
-	// see "4.cancel_the_unfinished_tasks.js" for more details.
+	// see "4.use_tas.cancel_to_cancel_the_unfinished_tasks.js" for more details.
 
 	tas(function(err, data){
 		dat = data;

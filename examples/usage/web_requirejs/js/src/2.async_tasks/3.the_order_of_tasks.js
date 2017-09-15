@@ -12,7 +12,7 @@ function(tas, util){
 	var a;
 
 	// The tas.await() and tas() in the first indent level is not part of
-	// this example, just use it to distinguish multiple examples.
+	// this example, just use it to separate multiple examples.
 	tas.await(function(){
 
 		//--------------------------------------------
@@ -31,7 +31,7 @@ function(tas, util){
 
 		a = 1;
 
-		tas.await("start", function(){
+		tas.await(function start(){
 			setTimeout(function whenTimesUp(){
 				a ++; // 3
 				tas.next();
@@ -40,7 +40,7 @@ function(tas, util){
 
 		a = 2;
 
-		tas("end", function(){
+		tas(function end(){
 			log(a); // It's 3, not 2.
 		})
 	});
@@ -61,18 +61,18 @@ function(tas, util){
 
 		a = 4;
 
-		tas.await("start", function () {
+		tas.await(function start() {
 			setTimeout(function whenTimesUp(){
 				a ++; // 5
 				tas.next();
 			}, 500);
 		});
 
-		tas("doIt", function(){
+		tas(function doIt(){
 			a = 6;
 		});
 
-		tas("end", function(){
+		tas(function end(){
 			log(a); // 6
 		});
 	});

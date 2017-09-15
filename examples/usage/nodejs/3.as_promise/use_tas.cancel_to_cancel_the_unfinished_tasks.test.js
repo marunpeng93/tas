@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./tas.promise_is_easier_to_use_than_promise.js');
+var runner = require('./use_tas.cancel_to_cancel_the_unfinished_tasks.js');
 
 tas(function(){
 	var exp = 'object';
 	var val = typeof runner.get();
-	test("3.as promise: tas.promise is easier to use than promise", tas, exp, val);
+	test("3.as promise: cancel the unfinished tasks", tas, exp, val);
 });

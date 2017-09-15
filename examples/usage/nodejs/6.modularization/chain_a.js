@@ -6,34 +6,23 @@
  */
 
 var tas = require('../tas');
-var a = 0;
+var a  = 0;
 
-tas(function(){
+tas.await(function(){
 	a ++; // 1
+
+	setTimeout(function(){
+		a ++; // 2
+		tas.next();
+	}, 300);
 });
 
-tas({
-	t1: function(){
-		a ++; // 2
-	},
-
-	t2: {
-		t3: function(){
-			a ++; // 3
-		},
-
-		t4: function(){
-			a ++; // 4
-		}
-	},
-
-	t5: function(){
-		a ++; // 5
-	}
+tas(function(){
+	a ++; // 3
 });
 
 module.exports = {
 	get: function(){
-		return a; // 5
+		return a; // 3
 	}
 };

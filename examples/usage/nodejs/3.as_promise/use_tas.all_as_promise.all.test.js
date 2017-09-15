@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var runner = require('./use_tas.all_as_promise.all.js');
 
 tas(function(){
-	var exp = 24;
-	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	var exp = 'array';
+	var val = runner.get() instanceof Array ? 'array' : '';
+	test("3.as promise: use tas.all() as promise.all()", tas, exp, val);
 });

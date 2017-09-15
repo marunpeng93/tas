@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var runner = require('./the_order_of_tasks.js');
 
 tas(function(){
-	var exp = 24;
+	var exp = 9;
 	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	test("2.async tasks: the order of tasks", tas, exp, val);
 });

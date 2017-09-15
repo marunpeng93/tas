@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var runner = require('./fix_callback_hell_pyramid.js');
 
 tas(function(){
-	var exp = 24;
+	var exp = 7;
 	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	test("2.async tasks: fix callback hell (pyramid)", tas, exp, val);
 });

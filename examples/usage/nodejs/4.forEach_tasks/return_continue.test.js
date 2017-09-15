@@ -7,10 +7,10 @@
 
 var tas = require('../tas');
 var test = require('../tester').test;
-var runner = require('./return_data.js');
+var runner = require('./return_continue.js');
 
 tas(function(){
-	var exp = 24;
+	var exp = 5;
 	var val = runner.get();
-	test("1.sync tasks: return data", tas, exp, val);
+	test('4.forEach tasks: return "continue"', tas, exp, val);
 });
