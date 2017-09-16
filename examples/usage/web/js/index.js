@@ -10,16 +10,16 @@
 //--------------------------------------------
 // Do the following in your browser to run all examples of Tas:
 // $ cd /path/to/tas
-// $ open examples/usage/web/test.html
+// $ open examples/usage/web/index.html
 
 //--------------------------------------------
 // NOTICE
 //--------------------------------------------
 // This file load multiple JS files at once, and most of them contains async code.
-// In the past, these async code will not be executed in the order defined by the code.
+// In the past, these async code will not be executed in the order we write.
 
 // Now with Tas, it's not a problem any more. All tasks (mixing sync tasks and
-// async tasks) in these files are executed in the order defined by the code.
+// async tasks) in these files are executed in the order we write.
 // And, after that, the summary information will be printed.
 //--------------------------------------------
 
