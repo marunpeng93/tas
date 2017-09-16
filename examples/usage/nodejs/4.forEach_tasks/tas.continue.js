@@ -16,6 +16,7 @@ tas(function(){
 	return [arr];
 });
 
+// Perform a set of tasks for each array element
 tas.forEach({
 	init: function(element){
 		a += element;

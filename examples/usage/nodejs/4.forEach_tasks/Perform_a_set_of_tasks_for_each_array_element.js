@@ -32,7 +32,7 @@ tas(function(err, data){
 	return [arr];
 });
 
-// Use tas.forEach() to perform a set of tasks for each array element
+// Perform a set of tasks for each array element
 tas.forEach({
 
 	// Receive the current element via init(), important!

@@ -14,6 +14,7 @@ function(tas, superagent){
 	// 1. Define handlers array.
 	var handlers = [];
 
+	// tas.race() is an extension of Tas, we need to load it at the first.
 	tas.load('promise-race');
 
 	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:

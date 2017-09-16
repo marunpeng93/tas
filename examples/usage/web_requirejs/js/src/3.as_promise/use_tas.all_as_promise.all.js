@@ -11,6 +11,7 @@ function(tas, superagent){
 	var request = superagent;
 	var dat;
 
+	// tas.all() is an extension of Tas, we need to load it at the first.
 	tas.load('promise-all');
 
 	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
