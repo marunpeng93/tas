@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var tasAbort = function(){
+define(['../tas'],
+function(tas){
 
 	var a = 1;
 
@@ -36,5 +37,4 @@ var tasAbort = function(){
 			return a;
 		}
 	};
-
-}();
+});

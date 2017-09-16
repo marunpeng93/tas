@@ -24,6 +24,8 @@ tas.forEach({
 	check: function(){
 		if (flag === 0) {
 			flag = 1;
+
+			// Ignore the remaining tasks, and go to init() for next loop.
 			return "continue";
 		}
 	},

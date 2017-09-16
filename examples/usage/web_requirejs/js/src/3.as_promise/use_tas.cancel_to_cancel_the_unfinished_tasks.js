@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var useTasCancelToCancelTheUnfinishedTasks = function(){
+define(['../tas', '../superagent'],
+function(tas, superagent){
 
 	var request = superagent;
 	var dat;
@@ -57,5 +58,4 @@ var useTasCancelToCancelTheUnfinishedTasks = function(){
 			return dat;
 		}
 	};
-
-}();
+});

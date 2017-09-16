@@ -18,6 +18,7 @@ var handlers = [];
 // https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
 tas.begin();
 
+// Perform all tasks at the same time.
 tas.race({
 	t1: function(){
 		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
@@ -37,11 +38,14 @@ tas.race({
 	}
 });
 
+// When one of tasks execution is completed, then continue.
 tas(function(err, data){
 
 	// 3. Cancel other unfinished task(s).
-	// Therefore, the total waiting time is also the shortest task time.
 	tas.cancel(handlers);
+
+	// Because we canceled the other unfinished task(s),
+	// now the total waiting time is the shortest task time.
 
 	if (err) return tas.abort(err);
 	dat = data;

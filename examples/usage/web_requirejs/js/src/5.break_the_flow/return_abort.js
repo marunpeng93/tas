@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var tasAbort = function(){
+define(['../tas'],
+function(tas){
 
 	var a = 1;
 
@@ -18,12 +19,10 @@ var tasAbort = function(){
 			a ++;
 		},
 
-		t2: function(){
-			[1].forEach(function(){
+		t2: function () {
 
-				// Abort Tas, then the remaining tasks will be ignored.
-				tas.abort();
-			});
+			// Abort Tas, then the remaining tasks will be ignored.
+			return "abort";
 		}
 	});
 
@@ -36,5 +35,4 @@ var tasAbort = function(){
 			return a;
 		}
 	};
-
-}();
+});

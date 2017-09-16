@@ -27,7 +27,6 @@ tas.all({
 
 		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
 		request.get(url).end(this.done);
-
 	},
 
 	t2: function(){

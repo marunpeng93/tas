@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var asyncTasks = function(){
+define(['../tas'],
+function(tas){
 
 	var a = 0;
 
@@ -66,5 +67,4 @@ var asyncTasks = function(){
 			return a; // 8
 		}
 	};
-
-}();
+});

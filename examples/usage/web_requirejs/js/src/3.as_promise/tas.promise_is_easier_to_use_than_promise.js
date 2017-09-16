@@ -5,36 +5,31 @@
  * Released under the MIT License.
  */
 
-var tasAbort = function(){
+define(['../tas', '../superagent'],
+function(tas, superagent){
 
-	var a = 1;
+	var request = superagent;
+	var dat;
 
 	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
 	// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
 	tas.begin();
 
-	tas({
-		t1: function () {
-			a ++;
-		},
-
-		t2: function(){
-			[1].forEach(function(){
-
-				// Abort Tas, then the remaining tasks will be ignored.
-				tas.abort();
-			});
-		}
+	tas.promise(function(){
+		var url = 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json';
+		request.get(url).end(function(err, data){
+			if (err) return tas.abort(err);
+			tas.resolve(data);
+		});
 	});
 
-	tas(function(){
-		a ++;
+	tas(function(data){
+		dat = data;
 	});
 
 	return {
 		get: function(){
-			return a;
+			return dat;
 		}
 	};
-
-}();
+});

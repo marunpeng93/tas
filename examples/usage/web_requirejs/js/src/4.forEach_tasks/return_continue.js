@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var tasContinue = function() {
+define(['../tas'],
+function(tas) {
 
 	var a = 0;
 	var flag = 0;
@@ -27,11 +28,8 @@ var tasContinue = function() {
 			if (flag === 0) {
 				flag = 1;
 
-				[1, 2, 3].forEach(function(){
-
-					// Ignore the remaining tasks, and go to init() for next loop.
-					tas.continue();
-				});
+				// Ignore the remaining tasks, and go to init() for next loop.
+				return "continue";
 			}
 		},
 
@@ -50,4 +48,4 @@ var tasContinue = function() {
 		}
 	};
 
-}();
+});

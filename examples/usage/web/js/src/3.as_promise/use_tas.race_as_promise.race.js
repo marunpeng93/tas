@@ -34,7 +34,7 @@ var useTasRaceAsPromiseRace = function(){
 		}
 	});
 
-	// When one of tasks in tas.race(..) is completed, continue.
+	// When one of tasks execution is completed, then continue.
 	// The total waiting time is the longest task time
 	// because the other tasks are not canceled.
 

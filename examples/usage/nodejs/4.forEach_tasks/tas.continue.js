@@ -26,6 +26,8 @@ tas.forEach({
 			flag = 1;
 
 			[1, 2, 3].forEach(function(){
+
+				// Ignore the remaining tasks, and go to init() for next loop.
 				tas.continue();
 			});
 		}

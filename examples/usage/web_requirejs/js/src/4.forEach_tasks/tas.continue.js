@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var tasContinue = function() {
+define(['../tas'],
+function(tas) {
 
 	var a = 0;
 	var flag = 0;
@@ -50,4 +51,4 @@ var tasContinue = function() {
 		}
 	};
 
-}();
+});

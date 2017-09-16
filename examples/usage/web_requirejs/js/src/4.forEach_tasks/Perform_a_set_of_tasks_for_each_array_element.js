@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var useTasForEach = function() {
+define(['../tas', '../util', '../superagent'],
+function(tas, util, superagent) {
 
 	var request = superagent;
 	var log = util.log;
@@ -65,4 +66,4 @@ var useTasForEach = function() {
 		}
 	};
 
-}();
+});

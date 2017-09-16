@@ -33,8 +33,8 @@ tas.all({
 	}
 });
 
-// After all the tasks in tas.all(..) have been completed, continue.
-// Therefore, the total waiting time is the longest task time.
+// When all tasks execution is completed, then continue.
+// The total waiting time is the longest task time.
 tas(function(err, data){
 	if (err) return tas.abort(err);
 	dat = data;
