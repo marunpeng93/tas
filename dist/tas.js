@@ -65,9 +65,9 @@ function(module, exports, __webpack_require__) {
 	var break_ = __webpack_require__(9);
 	var begin = __webpack_require__(10);
 
-	var Tas = function(obj, obj2){
-		if (obj === 'begin') {
-			obj = begin.do(obj2);
+	var Tas = function(obj){
+		if (begin.is()) {
+			begin.do(obj);
 		}
 		else if (flag.isAbort()){
 			return;
@@ -76,18 +76,15 @@ function(module, exports, __webpack_require__) {
 		tasks.add(obj);
 	};
 
-	Tas.await = function(obj, obj2){
-		if (obj === 'begin') {
-			obj = begin.do(obj2);
-		}
+	Tas.await = function(obj){
+		begin.is() && begin.do(obj);
 
 		obj.isAwait = true;
-		flag.setHasAsync(true);
 		tasks.add(obj);
 	};
 
-	Tas.promise = function(func, func2){
-		Tas.await(func, func2);
+	Tas.promise = function(func){
+		Tas.await(func);
 	};
 
 	Tas.next = function(a0, a1){
@@ -110,20 +107,24 @@ function(module, exports, __webpack_require__) {
 		break_.do();
 	};
 
-	Tas.abort = function(){
-		abort.do();
+	Tas.abort = function(msg){
+		abort.do(msg);
 	};
 
-	/* istanbul ignore next */
-	Tas.printFlags = function(){
-		var data = __webpack_require__(3);
-		console.log(data.flag);
+	Tas.begin = function(){
+		begin.set();
 	};
 
 	Tas.load = function(){
 		var loader = __webpack_require__(11);
 		loader.init(Tas);
 		loader.load([].slice.call(arguments));
+		return Tas;
+	};
+
+	Tas.unload = function(){
+		var loader = __webpack_require__(11);
+		loader.unload([].slice.call(arguments));
 		return Tas;
 	};
 
@@ -144,7 +145,7 @@ function(module, exports, __webpack_require__) {
 	var forEach;
 
 	var runner = {
-		exec: function(queue, isWithLayer){
+		exec: function(queue){
 			var flag = data.flag;
 
 			/* istanbul ignore next */
@@ -152,7 +153,7 @@ function(module, exports, __webpack_require__) {
 
 			var func;
 			var result;
-			var run = runner[isWithLayer ? 'runFuncWithLayer' : 'runFunc'];
+			var run = runner.runFunc;
 
 			while(func = queue.shift()) {
 				result = run(func);
@@ -174,29 +175,19 @@ function(module, exports, __webpack_require__) {
 			/* istanbul ignore next */
 			if (flag.isAwait) return;
 
-			var result = runner.runFuncWithLayer(func);
+			var result = runner.runFunc(func);
 			if (result === 'await' || func.isAwait === true) {
 				flag.isAwait = true;
 			}
 		},
 
-		runFuncWithLayer: function(func){
-			data.extensions.isLogTreeEnabled && Tas.logTree(func.name);
+		runFunc: function(func){
+			var isForEachEnabled = data.extensions.isForEachEnabled;
+			var isTreeEnabled = data.extensions.isTreeEnabled;
+			isTreeEnabled && Tas.tree.print(func);
 
 			data.maxLayer = data.layer;
 			data.layer ++;
-
-			var result = runner.runFunc(func, true);
-			data.layer > 0 && data.layer --;
-
-			return result;
-		},
-
-		runFunc: function(func, isPrintedLogTree){
-			var isForEachEnabled = data.extensions.isForEachEnabled;
-			var isLogTreeEnabled = data.extensions.isLogTreeEnabled;
-
-			!isPrintedLogTree && isLogTreeEnabled && Tas.logTree(func.name);
 
 			var args = data.pass;
 			var result = args.isHasArgs ? func.apply(null, args) : func();
@@ -211,9 +202,10 @@ function(module, exports, __webpack_require__) {
 							result === 'abort' ? abort.do() :
 								result === 'continue' ? forEach.continue() :
 									pass.save1(result);
-
-				return result;
 			}
+
+			data.layer > 0 && data.layer --;
+			return result;
 		},
 
 		next: function(){
@@ -259,7 +251,7 @@ function(module, exports, __webpack_require__) {
 			}
 
 			// When all tasks done, then restore flag isAwait to false
-			if (!d.tasks[0].length) {
+			if (d.tasks[0] && !d.tasks[0].length) {
 				flag.setIsAwait(false);
 			}
 		},
@@ -287,7 +279,6 @@ function(module, exports) {
 		pass: [],
 
 		flag: {
-			hasAsync: false,
 			isAwait: false,
 			isAbort: false
 		},
@@ -295,17 +286,12 @@ function(module, exports) {
 		extensions: {
 			isPromiseAllEnabled: false,
 			isPromiseRaceEnabled: false,
-			isForEachEnaboed: false,
-			isLogTreeEnabled: false
-		},
-
-		currentTask: {
-			layer: 0,
-			root: null
+			isForEachEnabled: false,
+			isTreeEnabled: false
 		}
 	};
 
-	module.exports.__proto__ = data;
+	module.exports = data;
 },
 
 function(module, exports, __webpack_require__) {
@@ -394,53 +380,74 @@ function(module, exports, __webpack_require__) {
 	var data = __webpack_require__(3);
 	var runner = __webpack_require__(2);
 
+	var Tas;
+	var currentTask = {};
+
 	var units = {
 		do: function(task){
 			this.add(task);
 
 			var queue = data.units[task.layer];
-			queue && queue.length && runner.exec(queue, true);
+			queue && queue.length && runner.exec(queue);
 		},
 
 		add: function(task){
 			var d = data;
 			var layer = task.layer || 0;
 
-			d.currentTask.layer = layer;
-			d.currentTask.root = task;
+			currentTask.layer = layer;
+			currentTask.root = task;
 
 			typeof d.units[layer] === 'undefined' && (d.units[layer] = []);
-			this.getAllFunctions(layer, task, task, task.isAwait, d.units[layer]);
+
+			var arr = d.units[layer];
+			var isTreeEnabled = data.extensions.isTreeEnabled;
+			isTreeEnabled && Tas.tree.nested.createFnForBegin(arr);
+
+			var t = task;
+			if (typeof task === 'function') {
+				var o = {};
+				o[task.name] = task;
+				o.isAwait = task.isAwait;
+				t = o;
+			}
+			this.getAllFunctions(layer, t, t, t.isAwait, arr, 0);
+
+			isTreeEnabled && Tas.tree.nested.createFnForEnd(arr);
 		},
 
-		getAllFunctions: function getAllFunctions(layer, root, obj, isAwait, arr) {
+		getAllFunctions: function getAllFunctions(layer, root, obj, isAwait, arr, deep) {
 			var key;
 			var func;
 			var keys = Object.keys(obj);
-			var isLogTreeEnabled = data.extensions.isLogTreeEnabled;
+			var isTreeEnabled = data.extensions.isTreeEnabled;
 
 			for (var i = 0, len = keys.length; i< len; i ++) {
 				key = keys[i];
 				func = obj[key];
 
 				if (typeof func === 'object') {
-					getAllFunctions(layer, root, func, isAwait, arr);
+					isTreeEnabled && Tas.tree.nested.createFnForAdd(key, arr, deep);
+					getAllFunctions(layer, root, func, isAwait, arr, deep + 1);
+					isTreeEnabled && Tas.tree.nested.createFnForSub(arr, deep);
 				}
 				else
 				if (typeof func === 'function') {
 					func.root = root;
 					func.layer = layer;
 					func.isAwait = isAwait;
-					isLogTreeEnabled && !func.name && /* istanbul ignore next */ (func.name = key);
 					arr.push(func);
+
+					isTreeEnabled && !func.name && /* istanbul ignore next */ (func.name = key);
+					isTreeEnabled && (func.treeIndent = Tas.tree.nested.getCount() + deep);
 				}
 			}
 		},
 
 		clearTheRemainingFunctions: function(){
 			var d = data;
-			var layer = d.currentTask.layer;
-			var root = d.currentTask.root;
+			var layer = currentTask.layer;
+			var root = currentTask.root;
 			var functions = d.units[layer];
 
 			for (var i = 0, len = functions.length; i < len; i ++) {
@@ -450,6 +457,10 @@ function(module, exports, __webpack_require__) {
 					functions.shift();
 				}
 			}
+		},
+
+		saveTas: function(Tas_){
+			Tas = Tas_;
 		}
 	};
 
@@ -471,10 +482,6 @@ function(module, exports, __webpack_require__) {
 
 		setIsAwait: function(val){
 			data.flag.isAwait = val;
-		},
-
-		setHasAsync: function(val){
-			data.flag.hasAsync = val;
 		}
 	};
 
@@ -538,7 +545,8 @@ function(module, exports, __webpack_require__) {
 	var flag = __webpack_require__(6);
 
 	var abort = {
-		do: function(){
+		do: function(msg){
+			msg && console.log(msg);
 
 			tasks.clearTheRemainingTasks();
 			pass.reset();
@@ -572,13 +580,24 @@ function(module, exports, __webpack_require__) {
 	var flag = __webpack_require__(6);
 
 	var begin = {
-		do: function(obj2){
-			obj2.isFirst = true;
+		f: false,
+
+		do: function(obj){
+			this.f = false;
+			obj.isFirst = true;
 
 			// Restore flag iaAbort to false.
 			flag.setIsAbort(false);
 
-			return obj2;
+			return obj;
+		},
+
+		is: function(){
+			return this.f;
+		},
+
+		set: function(){
+			this.f = true;
 		}
 	};
 
@@ -590,6 +609,8 @@ function(module, exports, __webpack_require__) {
 	var Tas;
 
 	var loader = {
+		isUnload: false,
+
 		init: function(Tas_){
 			Tas = Tas_;
 		},
@@ -607,7 +628,14 @@ function(module, exports, __webpack_require__) {
 		},
 
 		loadExtension: function(name){
-			__webpack_require__(12)("./" + name).init(Tas);
+			var ext = __webpack_require__(12)("./" + name);
+			loader.isUnload ? ext.unload() : ext.init(Tas);
+		},
+
+		unload: function(names){
+			loader.isUnload = true;
+			loader.load(names);
+			loader.isUnload = false;
 		}
 	};
 
@@ -714,10 +742,7 @@ function(module, exports, __webpack_require__) {
 			Tas.all = this.all;
 		},
 
-		all: function(obj, obj2){
-			var isBegin = obj === 'begin';
-			obj === 'begin' && (obj = obj2);
-
+		all: function(obj){
 			var times = Object.keys(obj).length;
 			var count = 0;
 			var allData = [];
@@ -733,13 +758,13 @@ function(module, exports, __webpack_require__) {
 				},
 
 				abort: function(){
+					debugger;
 					Tas.abort();
 					this.done('abort');
 				}
 			};
 
-			obj = util.convert(obj, This);
-			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+			Tas.await(util.convert(obj, This));
 		}
 	};
 
@@ -775,10 +800,7 @@ function(module, exports, __webpack_require__) {
 			Tas.cancel = this.cancel;
 		},
 
-		race: function(obj, obj2){
-			var isBegin = obj === 'begin';
-			obj === 'begin' && (obj = obj2);
-
+		race: function(obj){
 			var count = 0;
 			var This = {
 				done: function(err, data){
@@ -793,8 +815,7 @@ function(module, exports, __webpack_require__) {
 				}
 			};
 
-			obj = util.convert(obj, This);
-			Tas.await.apply(null, isBegin ? ['begin', obj] : [obj]);
+			Tas.await(util.convert(obj, This));
 		},
 
 		cancel: function(handlers){
@@ -832,45 +853,149 @@ function(module, exports, __webpack_require__) {
 
 function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {
+
 	var Tas;
 	var data = __webpack_require__(3);
 	var runner = __webpack_require__(2);
+	var units = __webpack_require__(5);
 
-	var isShowLogTree = true;
+	var nested = {
+		count: 0,
+
+		add: function(){
+			nested.count ++;
+		},
+
+		sub: function(){
+			nested.count --;
+		},
+
+		getCount: function(){
+			return nested.count;
+		},
+
+		createFnForBegin: function(arr){
+			var fn = function(){
+				nested.add();
+			};
+			fn.__isIgnore = true;
+			arr.push(fn);
+		},
+
+		createFnForEnd: function(arr){
+			var fn = function(){
+				nested.sub();
+			};
+			fn.__isIgnore = true;
+			arr.push(fn);
+		},
+
+		createFnForAdd: function(fnName, arr, deep){
+			var fn = function(){
+				nested.add();
+			};
+
+			fn.treeIndent = nested.getCount() + deep;
+			fn.__isIgnore = true;
+			fn.__realName = fnName;
+			arr.push(fn);
+		},
+
+		createFnForSub: function(arr, deep){
+			var fn = function(){
+				!data.flag.isAwait && nested.sub();
+			};
+
+			fn.treeIndent = nested.getCount() + deep;
+			fn.__isIgnore = true;
+			arr.push(fn);
+		}
+	};
+
+	var indent = {
+		lastTreeIndent: 0,
+
+		getStr: function(i){
+			var level = indent.lastTreeIndent + 1 + (typeof i === 'undefined' ? 0 : i);
+			var indentStr = util.repeat(' ', (level - 1) * 4);
+			var prefix = ('  ' + level).substr(-2) + '|';
+			return prefix + indentStr;
+		}
+	};
+
+	var logArray = {
+		data: [],
+		isSaveToArr: false,
+
+		begin: function(){
+			logArray.isSaveToArr = true;
+			logArray.data.length = 0;
+		},
+
+		save: function(str){
+			logArray.data.push(str);
+		},
+
+		getStr: function(){
+			return logArray.data.join('\n');
+		}
+	};
+
 	var tree = {
 		init: function (Tas_){
 			Tas = Tas_;
 			runner.saveTas(Tas);
+			units.saveTas(Tas);
 
-			Tas.logTree = this.logTree;
-			Tas.enableLogTree = this.setIsEnabled;
-			Tas.setIsShowLogTree = this.setIsShowLogTree;
+			Tas.tree = this;
+			Tas.tree.logArray = logArray;
+			Tas.tree.nested = nested;
+
+			data.extensions.isTreeEnabled = true;
 		},
 
-		setIsEnabled: function(val){
-			data.extensions.isLogTreeEnabled = val;
+		unload: function(){
+			data.extensions.isTreeEnabled = false;
 		},
 
-		setIsShowLogTree: function(val){
-			isShowLogTree = val;
+		print: function(func){
+			var funcName = func.__isIgnore ? func.__realName : func.name;
+			if (!funcName) return;
+
+			typeof func.treeIndent !== 'undefined' && (indent.lastTreeIndent = func.treeIndent);
+
+			var indentStr = indent.getStr();
+			util.log(indentStr, funcName);
 		},
 
-		logTree: function(str){
-			if (!data.extensions.isLogTreeEnabled) return;
+		log: function(){
+			if (!data.extensions.isTreeEnabled) return;
 
-			var layer = data.layer + 1;
-			var maxLayer = data.maxLayer + 1;
+			var args = [].slice.call(arguments);
+			var indentStr = indent.getStr(+1);
 
-			var lay = data.flag.isAwait ? maxLayer + 1 : layer;
-			var indent = util.repeat(' ', (lay - 1) * 4);
-			util.log(('  ' + lay).substr(-2) + '| ' + indent + str);
+			args.unshift(indentStr);
+			util.log.apply(null, args);
 		}
 	};
 
 	var util = {
 		log: function(){
 			var args = [].slice.call(arguments);
-			isShowLogTree && /* istanbul ignore next */ console.log.apply(console, args);
+
+			/* istanbul ignore else */
+			if (logArray.isSaveToArr) {
+				logArray.save(args[0] + ' ' + args[1]);
+			}
+			else {
+				!util.isDisableLog() && console.log.apply(console, args);
+			}
+		},
+
+		isDisableLog: function(){
+			return 	typeof global === 'object' && global.isDisabledLog ===  true ||
+					typeof window === 'object' && window.global.isDisabledLog === true;
 		},
 
 		repeat: function (str, times) {
@@ -879,6 +1004,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = tree;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
 }
 
 
