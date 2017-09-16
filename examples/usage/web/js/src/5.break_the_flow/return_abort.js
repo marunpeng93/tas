@@ -25,7 +25,7 @@ var returnAbort = function(){
 		}
 	});
 
-	tas(function(){
+	tas(function(){ // ignored
 		a ++;
 	});
 

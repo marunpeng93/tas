@@ -27,7 +27,7 @@ var tasAbort = function(){
 		}
 	});
 
-	tas(function(){
+	tas(function(){ // ignored
 		a ++;
 	});
 

@@ -28,7 +28,7 @@ function(tas){
 		}
 	});
 
-	tas(function(){
+	tas(function(){ // ignored
 		a ++;
 	});
 

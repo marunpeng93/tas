@@ -17,8 +17,8 @@ tas({
 		});
 	},
 
-	t2: function(){
-		a ++; // ignored
+	t2: function(){ // ignored
+		a ++;
 	}
 });
 

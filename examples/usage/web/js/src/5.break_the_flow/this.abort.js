@@ -43,7 +43,7 @@ var thisAbort = function(){
 		}
 	});
 
-	tas(function(err, data){
+	tas(function(err, data){ // ignored
 		a ++;
 	});
 

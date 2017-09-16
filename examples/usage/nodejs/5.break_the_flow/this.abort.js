@@ -44,7 +44,7 @@ tas.all({
 	}
 });
 
-tas(function(err, data){
+tas(function(err, data){ // ignored
 	a ++;
 });
 

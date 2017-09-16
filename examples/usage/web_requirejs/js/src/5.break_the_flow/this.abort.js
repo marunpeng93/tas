@@ -44,7 +44,7 @@ function(tas, superagent){
 		}
 	});
 
-	tas(function(err, data){
+	tas(function(err, data){ // ignored
 		a ++;
 	});
 
