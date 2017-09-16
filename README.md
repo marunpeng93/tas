@@ -18,7 +18,7 @@ Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoi
 
 In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise and generator / yield, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
-Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
 　
 
@@ -182,7 +182,7 @@ tas(function(){
 
 ### As Promise
 
-We can use tas as Promise. Tas is better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable. Tas performs more than **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)).
+We can use tas as Promise. Tas is better than Promise and generator / yield, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable. Tas performs more than **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)).
 
 ```js
 tas.promise(function(){
@@ -233,7 +233,7 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 | tas.all()     | After all async tasks are completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 | tas.race()    | As long as one of async tasks is completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
 | tas.cancel()  | When tas.race() is done, cancel the unfinished async task(s). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
-| this.done     | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js)) |
+| this.done     | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 
 　
 
@@ -251,10 +251,10 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 | API            | Functions                                | Usage                                    |
 | -------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.begin()    | Use it before all tasks if you wanna [abort in Tas](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
-| tas.abort()    | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) from nested function (closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/tas.abort.js) |
-| return "abort" | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
-| this.abort()   | Abort the current [tasks stream](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) in tas.all() or tas.race(). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/this.abort.js) |
+| tas.begin()    | Use it before all tasks if you wanna [abort in Tas](./doc/execution-order/concurrency-order.md). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
+| tas.abort()    | Abort the current [tasks stream](./doc/concurrency-order/concurrency-order.md) from nested function (closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/tas.abort.js) |
+| return "abort" | Abort the current [tasks stream](./doc/concurrency-order/concurrency-order.md) in task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_abort.js) |
+| this.abort()   | Abort the current [tasks stream](./doc/concurrency-order/concurrency-order.md) in tas.all() or tas.race(). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/this.abort.js) |
 | return "break" | Break the current tasks.                 | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/return_break.js) |
 | tas.break()    | Break the current tasks from nested function (closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/5.break_the_flow/tas.break.js) |
 
@@ -284,7 +284,7 @@ var tas = require('tas').load('promise-all', 'promise-race');
 
 ## Log Tree
 
-Tas can automatically print the names of all tasks as a tree, and the logs in tasks is printed with the indent of tasks,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md)
+Tas can automatically print the names of all tasks as a tree, and the logs in tasks is printed with the indent of tasks,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](./doc/log-tree/log-tree.md)
 
 　
 
