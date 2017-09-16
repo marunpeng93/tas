@@ -546,7 +546,7 @@ function(module, exports, __webpack_require__) {
 
 	var abort = {
 		do: function(msg){
-			msg && console.log(msg);
+			msg && /* istanbul ignore next */ console.log(msg);
 
 			tasks.clearTheRemainingTasks();
 			pass.reset();
@@ -629,7 +629,7 @@ function(module, exports, __webpack_require__) {
 
 		loadExtension: function(name){
 			var ext = __webpack_require__(12)("./" + name);
-			loader.isUnload ? ext.unload() : ext.init(Tas);
+			loader.isUnload ? ext.unload && ext.unload() : ext.init(Tas);
 		},
 
 		unload: function(names){
@@ -690,10 +690,18 @@ function(module, exports, __webpack_require__) {
 		init: function(Tas_){
 			Tas = Tas_;
 			runner.saveForEach(this);
-			data.extensions.isForEachEnabled = true;
 
 			Tas.forEach = this.forEach;
 			Tas.continue = this.continue;
+
+			data.extensions.isForEachEnabled = true;
+		},
+
+		unload: function(){
+			data.extensions.isForEachEnabled = false;
+
+			Tas.forEach = null;
+			Tas.continue = null;
 		},
 
 		forEach: function(task){
@@ -734,12 +742,19 @@ function(module, exports, __webpack_require__) {
 function(module, exports, __webpack_require__) {
 
 	var Tas;
+	var data = __webpack_require__(3);
 	var util = __webpack_require__(15);
 
 	var promiseAll = {
 		init: function(Tas_){
 			Tas = Tas_;
 			Tas.all = this.all;
+			data.extensions.isPromiseAllEnabled = true;
+		},
+
+		unload: function(){
+			data.extensions.isPromiseAllEnabled = false;
+			Tas.all = null;
 		},
 
 		all: function(obj){
@@ -758,7 +773,6 @@ function(module, exports, __webpack_require__) {
 				},
 
 				abort: function(){
-					debugger;
 					Tas.abort();
 					this.done('abort');
 				}
@@ -790,14 +804,24 @@ function(module, exports) {
 function(module, exports, __webpack_require__) {
 
 	var Tas;
+	var data = __webpack_require__(3);
 	var flag = __webpack_require__(6);
 	var util = __webpack_require__(15);
 
 	var promiseRace = {
 		init: function(Tas_){
 			Tas = Tas_;
+
 			Tas.race = this.race;
 			Tas.cancel = this.cancel;
+
+			data.extensions.isPromiseRaceEnabled = true;
+		},
+
+		unload: function(){
+			data.extensions.isPromiseRaceEnabled = false;
+			Tas.race = null;
+			Tas.cancel = null;
 		},
 
 		race: function(obj){
@@ -910,6 +934,10 @@ function(module, exports, __webpack_require__) {
 			fn.treeIndent = nested.getCount() + deep;
 			fn.__isIgnore = true;
 			arr.push(fn);
+		},
+
+		reset: function(){
+			nested.count = 0;
 		}
 	};
 
@@ -921,7 +949,12 @@ function(module, exports, __webpack_require__) {
 			var indentStr = util.repeat(' ', (level - 1) * 4);
 			var prefix = ('  ' + level).substr(-2) + '|';
 			return prefix + indentStr;
+		},
+
+		reset: function(){
+			indent.lastTreeIndent = 0;
 		}
+
 	};
 
 	var logArray = {
@@ -939,6 +972,11 @@ function(module, exports, __webpack_require__) {
 
 		getStr: function(){
 			return logArray.data.join('\n');
+		},
+
+		reset: function(){
+			logArray.data.length = 0;
+			logArray.isSaveToArr = false;
 		}
 	};
 
@@ -957,6 +995,11 @@ function(module, exports, __webpack_require__) {
 
 		unload: function(){
 			data.extensions.isTreeEnabled = false;
+			Tas.tree = null;
+
+			nested.reset();
+			indent.reset();
+			logArray.reset();
 		},
 
 		print: function(func){
@@ -970,8 +1013,6 @@ function(module, exports, __webpack_require__) {
 		},
 
 		log: function(){
-			if (!data.extensions.isTreeEnabled) return;
-
 			var args = [].slice.call(arguments);
 			var indentStr = indent.getStr(+1);
 
@@ -989,13 +1030,10 @@ function(module, exports, __webpack_require__) {
 				logArray.save(args[0] + ' ' + args[1]);
 			}
 			else {
-				!util.isDisableLog() && console.log.apply(console, args);
-			}
-		},
-
-		isDisableLog: function(){
-			return 	typeof global === 'object' && global.isDisabledLog ===  true ||
+				var isDisableLog = typeof global === 'object' && global.isDisabledLog ===  true ||
 					typeof window === 'object' && window.global.isDisabledLog === true;
+				!isDisableLog && console.log.apply(console, args);
+			}
 		},
 
 		repeat: function (str, times) {
