@@ -71,7 +71,7 @@ We can see that tas.promise is faster than native Promise, and as fast as bluebi
 
 ### About Validity
 
-Yes, the above tests looks so good. But how can we prove that the results are correct? See  [Execution Order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) and  [Concurrency Order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/concurrency-order/__readme.md) for more details.
+Yes, the above tests looks so good. But how can we prove that the results are correct? See  [Execution Order](../execution-order/execution-order.md) and  [Concurrency Order](../execution-order/concurrency-order.md) for more details.
 
 　
 
