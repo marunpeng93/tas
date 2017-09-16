@@ -16,7 +16,7 @@
 
 Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
-In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise and generator / yield, and the tasks [execution order](https://github.com/tasjs/tas/tree/master/benchmark/analytics/execution-order/__readme.md) is more reasonable.
+In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise and generator / yield, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
 Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark](https://github.com/tasjs/tas/tree/master/benchmark/__readme.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
@@ -269,18 +269,22 @@ In order to pursue faster performance, the following features which not commonly
 | tas.forEach()     | require('tas').load('forEach'), or tas.load('forEach') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
 | tas.all()         | require('tas').load('promise-all'), or tas.load('promise-all') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 | tas.race()        | require('tas').load('promise-race'), or tas.load('promise-race') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
-| Tas tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md) |
+| log tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md) |
 
 We can load multiple extensions at once, as follows:
 ```js
 var tas = require('tas').load('promise-all', 'promise-race');
+
+// Or like below:
+// var tas = require('tas');
+// tas.load('promise-all', 'promise-race');
 ```
 
 　
 
 ## Log Tree
 
-Tas can automatically print the names of all tasks as a tree,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md)
+Tas can automatically print the names of all tasks as a tree, and the logs in tasks is printed with the indent of tasks,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md)
 
 　
 
