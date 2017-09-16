@@ -23,7 +23,7 @@ tas.await({
 		}, 500);
 	},
 
-	t5: function t5(){
+	t5: function (){
 		a ++; // 5
 
 		log('wait 0.5 seconds...');
