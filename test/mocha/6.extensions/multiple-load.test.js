@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// Each of tas.all() and tas.race() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('promise-all', 'promise-race');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');

@@ -21,7 +21,6 @@ describe('6.extensions: tree', function(){
 		tas.tree.logArray.begin();
 
 		var log = tas.tree.log;
-
 		var test = function(done, count) {
 
 			tas.await(function t0(){

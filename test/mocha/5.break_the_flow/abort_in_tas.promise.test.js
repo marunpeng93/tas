@@ -39,11 +39,11 @@ describe('5.break the flow: abort in tas.promise()', function(){
 				});
 			});
 
-			tas(function (data){
+			tas(function (data){ // ignored when count === 1
 				a ++;
 			});
 
-			tas(function (){
+			tas(function (){ // ignored when count === 1
 				done(count, a);
 			});
 		};

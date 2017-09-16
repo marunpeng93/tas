@@ -18,11 +18,13 @@ describe('5.break the flow: return "break"', function(){
 			tas({
 				t1: function (){
 					if (count === 1) {
+
+						// The remaining task(s) in the current tasks will be ignored.
 						return 'break';
 					}
 				},
 
-				t2: function (){
+				t2: function (){ // ignored
 					a ++;
 				}
 			});

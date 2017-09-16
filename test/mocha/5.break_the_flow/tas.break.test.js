@@ -19,12 +19,14 @@ describe('5.break the flow: tas.break()', function(){
 				t1: function (){
 					[1].forEach(function(){
 						if (count === 1) {
+
+							// The remaining task(s) in the current tasks will be ignored.
 							tas.break();
 						}
 					});
 				},
 
-				t2: function (){
+				t2: function (){ // ignored
 					a ++;
 				}
 			});

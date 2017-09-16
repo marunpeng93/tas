@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.all() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('promise-all');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
@@ -50,11 +52,11 @@ describe('5.break the flow: abort in tas.all()', function(){
 				}
 			});
 
-			tas(function(err, data){
+			tas(function(err, data){ // ignored when count === 1
 				a ++; // 4
 			});
 
-			tas(function (){
+			tas(function (){ // ignored when count === 1
 				done(count, a);
 			});
 		};

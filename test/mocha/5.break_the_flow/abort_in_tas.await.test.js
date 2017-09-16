@@ -34,20 +34,20 @@ describe('5.break the flow: abort in tas.await()', function(){
 					}, 0);
 				},
 
-				t2: function (){
+				t2: function (){ // ignored when count === 1
 					a ++;
 					tas.next();
 				}
 			});
 
-			tas.await(function(){
+			tas.await(function(){ // ignored when count === 1
 				a ++;
 				setTimeout(function (){
 					tas.next();
 				}, 0);
 			});
 
-			tas(function (){
+			tas(function (){ // ignored when count === 1
 				done(count, a);
 			});
 		};

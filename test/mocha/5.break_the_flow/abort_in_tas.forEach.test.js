@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.forEach() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('forEach');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
@@ -61,12 +63,12 @@ describe('5.break the flow: abort in tas.forEach()', function(){
 				}
 			});
 
-			tas(function(){
+			tas(function(){ // ignored when count === 1
 				a ++; // 5
 			});
 
 			tas(function (){
-				done(count, a);
+				done(count, a); // ignored when count === 1
 			});
 		};
 

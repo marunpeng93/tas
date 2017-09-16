@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.forEach() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('forEach');
+
 var tester = require('../tester');
 var expect = require('chai').expect;
 
@@ -21,6 +23,7 @@ describe('4.forEach tasks: tas.continue()', function(){
 				return [arr];
 			});
 
+			// Perform a set of tasks for each array element
 			tas.forEach({
 				init: function(element){
 					a += element;

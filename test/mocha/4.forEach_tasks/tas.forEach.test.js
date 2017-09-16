@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.forEach() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('forEach');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
@@ -19,8 +21,11 @@ describe('4.forEach tasks: tas.forEach()', function(){
 		var test = function(done, count){
 			var a = 0;
 
+			// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
+			// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
 			tas.begin();
 
+			// Get data and save to array.
 			tas.await(function(){
 				var url = config.res.array;
 
@@ -28,10 +33,13 @@ describe('4.forEach tasks: tas.forEach()', function(){
 					if (err) return tas.abort(err);
 
 					var arr = JSON.parse(data.text).data;
+
+					// Pass the array to the next task.
 					tas.next(arr);
 				});
 			});
 
+			// Perform a set of tasks for each array element.
 			tas.forEach({
 				init: function init(element, index){
 					a ++; // 2 times
@@ -43,6 +51,7 @@ describe('4.forEach tasks: tas.forEach()', function(){
 						tas.next();
 
 					}, 0);
+
 					return "await";
 				},
 
@@ -59,6 +68,7 @@ describe('4.forEach tasks: tas.forEach()', function(){
 						tas.next();
 
 					}, 0);
+
 					return "await";
 				},
 

@@ -31,12 +31,12 @@ describe('5.break the flow: tas.abort()', function(){
 					});
 				},
 
-				t2: function (){
+				t2: function (){ // ignored when count === 1
 					a ++;
 				}
 			});
 
-			tas(function (){
+			tas(function (){ // ignored when count === 1
 				done(count, a);
 			});
 		};

@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.race() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('promise-race');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
@@ -20,6 +22,7 @@ describe('3.as promise: tas.race()', function(){
 			var handlers = [];
 			var a = 0;
 
+			// Perform all tasks at the same time.
 			tas.race({
 				t1: function(){
 					if (count === 1) {
@@ -42,8 +45,13 @@ describe('3.as promise: tas.race()', function(){
 				}
 			});
 
+			// When one of tasks execution is completed, then continue.
+			// The total waiting time is the longest task time
+			// because the other tasks are not canceled.
+
+			// If you want to cancel other tasks that have not yet been completed,
+			// see "tas.cancel.test.js" for more details.
 			tas(function (err, data){
-				tas.cancel(handlers);
 				done(count, a + (typeof data === 'object' ? 1 : 0));
 			});
 		};

@@ -17,6 +17,7 @@ describe('1.sync_tasks: pass data', function(){
 
 			tas({
 				t1: function(){
+					// Return a parameter
 					if (count === 1) {
 						return 2;
 					}
@@ -27,6 +28,8 @@ describe('1.sync_tasks: pass data', function(){
 
 				t2: function(arg){
 					a += arg; // 3
+
+					// Return multiple parameters
 					return [4, 5];
 				}
 			});
@@ -36,6 +39,8 @@ describe('1.sync_tasks: pass data', function(){
 					t4: function(a0, a1){
 						a += a0; // 7
 						a += a1; // 12
+
+						// Return nothing
 					},
 
 					t5: {
@@ -44,6 +49,7 @@ describe('1.sync_tasks: pass data', function(){
 								a ++;
 							}
 
+							// Return multiple parameters
 							return [1, 2, 3];
 						},
 

@@ -5,7 +5,9 @@
  * Released under the MIT License.
  */
 
+// tas.all() is an extension of Tas, we need to load it at the first.
 var tas = require('../tas').load('promise-all');
+
 var tester = require('../tester');
 var config = require('../config');
 var request = require('superagent');
@@ -19,6 +21,7 @@ describe('3.as promise: this.done', function(){
 		var test = function(done, count){
 			var a = 0;
 
+			// Perform all tasks at the same time.
 			tas.all({
 				t1: function(){
 					if (count === 1) {
@@ -41,6 +44,8 @@ describe('3.as promise: this.done', function(){
 				}
 			});
 
+			// When all tasks execution is completed, then continue.
+			// The total waiting time is the longest task time.
 			tas(function (err, data){
 				done(count, a + data.length);
 			});

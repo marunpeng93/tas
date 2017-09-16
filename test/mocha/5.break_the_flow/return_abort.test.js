@@ -29,12 +29,12 @@ describe('5.break the flow: return "abort"', function(){
 					}
 				},
 
-				t2: function t2(){
+				t2: function t2(){ // ignored when count === 1
 					a ++;
 				}
 			});
 
-			tas(function end(){
+			tas(function end(){ // ignored when count === 1
 				done(count, a);
 			});
 		};
