@@ -10,7 +10,7 @@ var tester = require('../tester');
 var expect = require('chai').expect;
 
 describe('2.async tasks: tas.next()', function(){
-	it('should return 20,19', function(done){
+	it('should return 21,20', function(done){
 
 		var test = function(done, count){
 			var a = 1;
@@ -41,6 +41,21 @@ describe('2.async tasks: tas.next()', function(){
 					setTimeout(function(){
 
 						// Pass multiple parameters
+						tas.next(0, 1);
+					}, 0);
+
+					return "await";
+				},
+
+				t4: function(a0, a1){
+					a += a0; // 5
+					a += a1; // 6
+				},
+
+				t5: function(){
+					setTimeout(function(){
+
+						// Pass multiple parameters
 						tas.next(2, 3, 4);
 					}, 0);
 
@@ -50,9 +65,9 @@ describe('2.async tasks: tas.next()', function(){
 
 			tas.await({
 				t1: function (a0, a1, a2){
-					a += a0; // 7
-					a += a1; // 10
-					a += a2; // 14
+					a += a0; // 8
+					a += a1; // 11
+					a += a2; // 15
 
 					setTimeout(function(){
 						var arr = [1, 2, 3];
@@ -81,7 +96,7 @@ describe('2.async tasks: tas.next()', function(){
 		};
 
 		var check = function(results){
-			expect(results.toString() === '20,19').to.be.equal(true);
+			expect(results.toString() === '21,20').to.be.equal(true);
 			done();
 		};
 

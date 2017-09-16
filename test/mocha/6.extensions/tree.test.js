@@ -215,9 +215,6 @@ describe('6.extensions: tree', function(){
 			// Unload Tas tree to avoid affect the other modules.
 			tas.unload('tree');
 
-			// Just for code coverage only.
-			tas.tree.log('this line will not be shown.');
-
 			done();
 		};
 

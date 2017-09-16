@@ -6,7 +6,7 @@
  */
 
 // Each of tas.all() and tas.race() is an extension of Tas, we need to load it at the first.
-var tas = require('../tas').load('promise-all', 'promise-race');
+var tas = require('../tas').load('forEach', 'promise-all', 'promise-race');
 
 var tester = require('../tester');
 var config = require('../config');
@@ -78,6 +78,12 @@ describe('6.extensions: multiple load', function(){
 
 		var check = function(results){
 			expect(results.toString() === '8,6').to.be.equal(true);
+
+			// For code coverage
+			tas.unload('forEach');
+			tas.unload('promise-all');
+			tas.unload('promise-race');
+
 			done();
 		};
 

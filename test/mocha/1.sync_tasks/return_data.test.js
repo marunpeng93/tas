@@ -40,7 +40,9 @@ describe('1.sync_tasks: pass data', function(){
 						a += a0; // 7
 						a += a1; // 12
 
-						// Return nothing
+						// For code coverage
+						// Return no parameter
+						return [];
 					},
 
 					t5: {

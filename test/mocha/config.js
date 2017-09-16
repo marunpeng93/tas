@@ -7,7 +7,7 @@
 
 (function(n,f){if(typeof define==='function'){define(f)}else if(typeof module!=='undefined'&&module.exports){module.exports=f()}else{this[n]=f()}})
 ('config', function(){
-
+	
 	var config = {
 		res: {
 			a: 'https://raw.githubusercontent.com/tasjs/tas/master/examples/__res/pics/a.json',
