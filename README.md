@@ -269,7 +269,7 @@ In order to pursue faster performance, the following features which not commonly
 | tas.forEach()     | require('tas').load('forEach'), or tas.load('forEach') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
 | tas.all()         | require('tas').load('promise-all'), or tas.load('promise-all') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 | tas.race()        | require('tas').load('promise-race'), or tas.load('promise-race') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
-| log tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/7.log_tree/__readme.md) |
+| log tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](./doc/log-tree/log-tree.md)      |
 
 We can load multiple extensions at once, as follows:
 ```js
