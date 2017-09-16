@@ -50,12 +50,12 @@
 
 ([
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var runner = __webpack_require__(2);
 	var tasks = __webpack_require__(4);
@@ -129,9 +129,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports = Tas;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var data = __webpack_require__(3);
 	var tasks = __webpack_require__(4);
@@ -266,9 +266,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = runner;
-},
+}),
 
-function(module, exports) {
+(function(module, exports) {
 
 	var data = {
 		layer: 0,
@@ -292,9 +292,9 @@ function(module, exports) {
 	};
 
 	module.exports = data;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var data = __webpack_require__(3);
 	var runner = __webpack_require__(2);
@@ -373,9 +373,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = tasks;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var data = __webpack_require__(3);
 	var runner = __webpack_require__(2);
@@ -438,7 +438,7 @@ function(module, exports, __webpack_require__) {
 					func.isAwait = isAwait;
 					arr.push(func);
 
-					isTreeEnabled && !func.name && /* istanbul ignore next */ (func.name = key);
+					isTreeEnabled && (func.treeBranch = key);
 					isTreeEnabled && (func.treeIndent = Tas.tree.nested.getCount() + deep);
 				}
 			}
@@ -465,9 +465,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = units;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var data = __webpack_require__(3);
 
@@ -486,9 +486,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = flag;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var data = __webpack_require__(3);
 
@@ -535,9 +535,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = pass;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var tasks = __webpack_require__(4);
 	var pass = __webpack_require__(7);
@@ -560,9 +560,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = abort;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var units = __webpack_require__(5);
 
@@ -573,9 +573,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = break_;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var flag = __webpack_require__(6);
 
@@ -602,9 +602,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports = begin;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var Tas;
 
@@ -640,9 +640,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = loader;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var map = {
 		"./forEach": 13,
@@ -670,9 +670,9 @@ function(module, exports, __webpack_require__) {
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
 	webpackContext.id = 12;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var Tas;
 	var data = __webpack_require__(3);
@@ -737,9 +737,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = forEach;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var Tas;
 	var data = __webpack_require__(3);
@@ -783,9 +783,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = promiseAll;
-},
+}),
 
-function(module, exports) {
+(function(module, exports) {
 
 	var util = {
 		convert: function(obj, This){
@@ -799,9 +799,9 @@ function(module, exports) {
 	};
 
 	module.exports.__proto__ = util;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	var Tas;
 	var data = __webpack_require__(3);
@@ -873,9 +873,9 @@ function(module, exports, __webpack_require__) {
 	};
 
 	module.exports.__proto__ = promiseRace;
-},
+}),
 
-function(module, exports, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
 
@@ -1003,7 +1003,7 @@ function(module, exports, __webpack_require__) {
 		},
 
 		print: function(func){
-			var funcName = func.__isIgnore ? func.__realName : func.name;
+			var funcName = func.__isIgnore ? func.__realName : (func.treeBranch || func.name);
 			if (!funcName) return;
 
 			typeof func.treeIndent !== 'undefined' && (indent.lastTreeIndent = func.treeIndent);
@@ -1045,7 +1045,7 @@ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-}
+})
 
 
 ]);}));
