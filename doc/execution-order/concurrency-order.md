@@ -1,7 +1,9 @@
 
 ## The Concurrency Order
 
-The concurrent tasks are occurs in sequence. Tas performs all tasks in each concurrency as a **task stream**, and 100 times concurrency correspond to 100 task streams. Consider the following code:
+In the [execution order](./execution-order.md) section, we know how Tas works, and now let's see how Tas handles concurrent tasks. The concurrent tasks are occurs in sequence. Tas performs all tasks in each concurrency as a **task stream**, and 100 times concurrency correspond to 100 task streams. 
+
+Consider the following code:
 
 ```js
 var tester = function(done, count){
@@ -66,18 +68,20 @@ var test = function(done, count){
 
                 t3: function(){
                     if (count === 1) {
+                      
+                        // Abort Tas, then the remaining tasks will be ignored.
                         tas.abort();
                     }
                 }
             });
         },
 
-        t4: function (){
+        t4: function (){ // ignored when count === 1
             a ++;
         }
     });
 
-    tas(function (){
+    tas(function (){ // ignored when count === 1
         done(count, a);
     });
 };
