@@ -453,7 +453,7 @@
 			for (var i = 0, len = functions.length; i < len; i ++) {
 
 				/* istanbul ignore else */
-				if (functions[i].root === root) {
+				if (functions[i] && functions[i].root === root) {
 					functions.shift();
 				}
 			}
