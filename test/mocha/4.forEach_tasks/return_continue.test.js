@@ -32,11 +32,13 @@ describe('4.forEach tasks: return "continue"', function(){
 				check: function(){
 					if (flag === 0) {
 						flag = 1;
+
+						// Ignore the remaining tasks, and go to init() for next loop.
 						return "continue";
 					}
 				},
 
-				calc: function(){
+				calc: function(){ // ignored when flag === 0
 					if (count === 1) {
 						a ++;
 					}

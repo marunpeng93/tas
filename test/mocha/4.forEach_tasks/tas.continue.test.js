@@ -34,12 +34,14 @@ describe('4.forEach tasks: tas.continue()', function(){
 						flag = 1;
 
 						[1, 2, 3].forEach(function(){
+
+							// Ignore the remaining tasks, and go to init() for next loop.
 							tas.continue();
 						});
 					}
 				},
 
-				calc: function(){
+				calc: function(){ // ignored when flag === 0
 					if (count === 1) {
 						a ++;
 					}
