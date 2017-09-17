@@ -34,7 +34,7 @@ tas.forEach({
 		}
 	},
 
-	calc: function(){
+	calc: function(){ // ignored when flag === 0
 		a ++;
 	}
 });
