@@ -1,7 +1,7 @@
 'use strict';
 
 var tas = require('../../../lib');
-var run = require('oyo/run');
+var run = require('oyo/run')({isDebug: 1});
 
 var tester = function(done, count){
 
@@ -27,4 +27,4 @@ var tester = function(done, count){
 	});
 };
 
-run(tester, isDebug);
+run(tester);

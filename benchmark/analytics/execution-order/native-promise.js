@@ -1,8 +1,7 @@
 'use strict';
 
-var run = require('oyo/run');
+var run = require('oyo/run')({isDebug: 1});
 
-var isDebug = 1;
 var tester = function(done, count){
 
 	console.log(0);
@@ -25,4 +24,4 @@ var tester = function(done, count){
 	});
 };
 
-run(tester, isDebug);
+run(tester);
