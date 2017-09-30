@@ -208,32 +208,32 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 ### Sync Tasks
 
-| API           | Functions                   | Usage                                    |
-| ------------- | --------------------------- | ---------------------------------------- |
-| return <data> | Pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/1.sync_tasks/return_data.js) |
+| API             | Functions                   | Usage                                    |
+| --------------- | --------------------------- | ---------------------------------------- |
+| return \<data\> | Pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/1.sync_tasks/return_data.js) |
 
 　
 
 ### Async Tasks
 
-| API              | Functions                                | Usage                                    |
-| ---------------- | ---------------------------------------- | ---------------------------------------- |
-| return "await"   | Hang up Tas, waiting for the async task execution is completed. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
-| tas.await()      | Sequential perform a set of async tasks. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
-| tas.next(<data>) | When async task is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/pass_data_via_tas.next.js) |
+| API                | Functions                                | Usage                                    |
+| ------------------ | ---------------------------------------- | ---------------------------------------- |
+| return "await"     | Hang up Tas, waiting for the async task execution is completed. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
+| tas.await()        | Sequential perform a set of async tasks. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/async_tasks.js) |
+| tas.next(\<data\>) | When async task is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/2.async_tasks/pass_data_via_tas.next.js) |
 
 　
 
 ### As Promise
 
-| API           | Functions                                | Usage                                    |
-| ------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.promise() | Equivalent to tas.await().               | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
-| tas.resolve() | Equivalent to tas.next().                | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
-| tas.all()     | After all async tasks are completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
-| tas.race()    | As long as one of async tasks is completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
-| tas.cancel()  | When tas.race() is done, cancel the unfinished async task(s). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
-| this.done     | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
+| API                  | Functions                                | Usage                                    |
+| -------------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.promise()        | Equivalent to tas.await().               | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
+| tas.resolve()        | Equivalent to tas.next().                | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
+| tas.all()            | After all async tasks are completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
+| tas.race()           | As long as one of async tasks is completed, continue. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
+| tas.cancel()         | When tas.race() is done, cancel the unfinished async task(s). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
+| this.done(err, data) | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 
 　
 
