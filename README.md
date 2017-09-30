@@ -16,7 +16,7 @@
 
 Tas makes the code structure clear. Tas executes async tasks as sync tasks, avoiding callback hell / callback pyramid, and can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
-In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise and generator / yield, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
+In Tas, we can insert or remove async tasks anywhere in any module without having to adjust the code structure elsewhere, all of them are executed in the order we write, just like the sync tasks, better than Promise,  generator / yield and async / await, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
 Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
 
@@ -239,11 +239,13 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 ### ForEach Tasks
 
-| API               | Functions                                | Usage                                    |
-| ----------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.forEach()     | Perform a set of tasks for each array element. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
-| tas.continue()    | Go to the next loop (in closures).       | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/tas.continue.js) |
-| return "continue" | Go to the next loop.                     | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/return_continue.js) |
+| API                   | Functions                                | Usage                                    |
+| --------------------- | ---------------------------------------- | ---------------------------------------- |
+| tas.forEach()         | Perform a set of tasks for each array element. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
+| return "continue"     | Go to the next loop.                     | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/return_continue.js) |
+| tas.continue()        | Go to the next loop (in closures).       | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/tas.continue.js) |
+| return "breakForEach" | Break the tas.forEach() and Go to the next task. | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/return_breakForEach.js) |
+| tas.breakForEach()    | Break the tas.forEach() and Go to the next task (in closures). | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/tas.breakForEach.js) |
 
 　
 
