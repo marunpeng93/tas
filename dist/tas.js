@@ -201,7 +201,8 @@
 						result === 'break' ? break_.do() :
 							result === 'abort' ? abort.do() :
 								result === 'continue' ? forEach.continue() :
-									pass.save1(result);
+									result === 'breakForEach' ? forEach.breakForEach() :
+										pass.save1(result);
 			}
 
 			data.layer > 0 && data.layer --;
@@ -693,6 +694,7 @@
 
 			Tas.forEach = this.forEach;
 			Tas.continue = this.continue;
+			Tas.breakForEach = this.breakForEach;
 
 			data.extensions.isForEachEnabled = true;
 		},
@@ -733,6 +735,11 @@
 		continue: function(){
 			units.clearTheRemainingFunctions();
 			forEach.loop();
+		},
+
+		breakForEach: function(){
+			units.clearTheRemainingFunctions();
+			elements.length = 0;
 		}
 	};
 
