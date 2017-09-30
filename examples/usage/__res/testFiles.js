@@ -39,8 +39,12 @@
 
 			'4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js',
 			'4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.test.js',
+			'4.forEach_tasks/return_breakForEach.js',
+			'4.forEach_tasks/return_breakForEach.test.js',
 			'4.forEach_tasks/return_continue.js',
 			'4.forEach_tasks/return_continue.test.js',
+			'4.forEach_tasks/tas.breakForEach.js',
+			'4.forEach_tasks/tas.breakForEach.test.js',
 			'4.forEach_tasks/tas.continue.js',
 			'4.forEach_tasks/tas.continue.test.js',
 

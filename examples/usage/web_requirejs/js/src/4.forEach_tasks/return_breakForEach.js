@@ -5,7 +5,8 @@
  * Released under the MIT License.
  */
 
-var returnBreakForEach = function() {
+define(['../tas'],
+function(tas) {
 
 	var a = 0;
 
@@ -45,4 +46,4 @@ var returnBreakForEach = function() {
 			return a; // 2
 		}
 	};
-}();
+});

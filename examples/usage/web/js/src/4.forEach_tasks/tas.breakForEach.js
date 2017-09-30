@@ -5,7 +5,7 @@
  * Released under the MIT License.
  */
 
-var returnBreakForEach = function() {
+var tasBreakForEach = function() {
 
 	var a = 0;
 
@@ -24,11 +24,13 @@ var returnBreakForEach = function() {
 		},
 
 		check: function () {
-			if (a === 1) {
+			[1].forEach(function () {
+				if (a === 1) {
 
-				// Break tas.forEach(), go to the next task
-				return "breakForEach";
-			}
+					// Break tas.forEach(), go to the next task
+					tas.breakForEach();
+				}
+			});
 		},
 
 		calc: function () { // ignored
