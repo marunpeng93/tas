@@ -16,7 +16,7 @@ describe('5.break the flow: return "abort"', function(){
 			var a = 0;
 
 			// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
-			// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
+			// https://github.com/tasjs/tas/blob/master/doc/execution-order/concurrency-order.md
 			tas.begin();
 
 			tas({
