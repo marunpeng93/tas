@@ -77,4 +77,4 @@ Yes, the above tests looks so good. But how can we prove that the results are co
 
 ### About Benchmark
 
-The above tests are based on [OYO](https://github.com/hiowenluke/oyo), it's a simple and practical benchmark tool.
+The above tests are based on [OYO](https://github.com/hiowenluke/oyo), it's a benchmark for concurrent performance of Node.js app, strongly recommend.
