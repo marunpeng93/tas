@@ -17,7 +17,7 @@ var useTasCancelToCancelTheUnfinishedTasks = function(){
 	tas.load('promise-race');
 
 	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
-	// https://github.com/tasjs/tas/blob/master/benchmark/analytics/concurrency-order/__readme.md
+	// https://github.com/tasjs/tas/blob/master/doc/execution-order/concurrency-order.md
 	tas.begin();
 
 	// Perform all tasks at the same time.
