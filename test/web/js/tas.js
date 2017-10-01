@@ -659,10 +659,6 @@
 			fn.treeIndent = nested.getCount() + deep;
 			fn.__isIgnore = true;
 			arr.push(fn);
-		},
-
-		reset: function(){
-			nested.count = 0;
 		}
 	};
 
@@ -674,12 +670,7 @@
 			var indentStr = util.repeat(' ', (level - 1) * 4);
 			var prefix = ('  ' + level).substr(-2) + '|';
 			return prefix + indentStr;
-		},
-
-		reset: function(){
-			indent.lastTreeIndent = 0;
 		}
-
 	};
 
 	var logArray = {
@@ -697,11 +688,6 @@
 
 		getStr: function(){
 			return logArray.data.join('\n');
-		},
-
-		reset: function(){
-			logArray.data.length = 0;
-			logArray.isSaveToArr = false;
 		}
 	};
 
