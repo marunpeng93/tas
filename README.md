@@ -8,8 +8,6 @@
 <a href='https://codecov.io/gh/tasjs/tas' target='_blank'><img src='https://img.shields.io/codecov/c/github/tasjs/tas/master.svg' alt='Coverage Status' /></a>
 <a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/v/tas.svg' alt='Version' /></a>
 <a href='https://npmjs.org/package/tas' target='_blank'><img src='https://img.shields.io/npm/l/tas.svg' alt='License' /></a>
-<br />
-<a href='https://saucelabs.com/beta/builds/c14fda5c87d642e3a908616eaa38856d' target='_blank'><img src='https://saucelabs.com/browser-matrix/tasjs.svg' alt='Sauce Test Status' /></a>
 </p>
 
 　
@@ -18,7 +16,7 @@ Tas makes the code elegant. In Tas, we can write a set of micro tasks (including
 
 In Tas, we can insert or remove an async tasks anywhere in any micro task without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks, and more better than Promise and generator / yield and async / await, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
-Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)). With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)). With Tas, we can write server code with clear structure and excellent performance in Node.js.
 
 　
 
@@ -287,6 +285,12 @@ var tas = require('tas').load('promise-all', 'promise-race');
 ## Log Tree
 
 Tas can automatically print the names of all tasks as a tree, and the logs in tasks is printed with the indent of tasks,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](./doc/log-tree/log-tree.md)
+
+　
+
+## Performance
+
+Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise ([Benchmark of Performance](./doc/performance/performance.md)). With Tas, we can write server code with clear structure and excellent performance in Node.js.
 
 　
 
