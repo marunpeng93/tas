@@ -9,14 +9,18 @@
 // How to use
 //--------------------------------------------
 // Do the following in your terminal to run this file to test all examples of Tas:
-// $ node /path/to/tas/examples/usage/nodejs/index.js
+// $ cd /path/to/tas
+// $ node examples/usage/nodejs/index.js
 
-// NOTICE:
-// This file loaded multiple JS files at once, and most of them contains async code.
-// In the past, these async code will not be executed in the order defined by the code.
+//--------------------------------------------
+// NOTICE
+//--------------------------------------------
+// This file load multiple JS files at once, and most of them contains async code.
+// In the past, these async code will not be executed in the order we write.
 
 // Now with Tas, it's not a problem any more. All tasks (mixing sync tasks and
-// async tasks) in these files are executed in the order defined by the code.
+// async tasks) in these files are executed in the order we write.
+// And, after that, the summary information will be printed.
 //--------------------------------------------
 
 // Disable printing the logs in testing dependencies files.
