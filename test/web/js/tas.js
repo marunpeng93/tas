@@ -741,9 +741,8 @@
 				logArray.save(args[0] + ' ' + args[1]);
 			}
 			else {
-				var isDisableLog = typeof global === 'object' && global.isDisabledLog ===  true ||
-					typeof window === 'object' && window.global.isDisabledLog === true;
-				!isDisableLog && console.log.apply(console, args);
+				var g = typeof global === 'object' ? global : typeof window === 'object' ? window : {};
+				!g.isDisabledLog && console.log.apply(console, args);
 			}
 		},
 
