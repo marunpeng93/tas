@@ -14,8 +14,8 @@ var r1 = [];
 describe('6.extensions: tree', function(){
 	it('should create tree logs', function(done){
 
-		// Load Tas tree in this module
-		tas.load('tree');
+		// Enable printing log tree in this module.
+		tas.enableTree();
 
 		// Save logs into an array instead of printing it immediately.
 		tas.tree.logArray.begin();
@@ -212,8 +212,8 @@ describe('6.extensions: tree', function(){
 		var check = function(results){
 			expect(results[1] === r1.join('\n')).to.be.equal(true);
 
-			// Unload Tas tree to avoid affect the other modules.
-			tas.unload('tree');
+			// Disable printing log tree to avoid affect the other modules.
+			tas.disableTree();
 
 			done();
 		};

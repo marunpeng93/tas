@@ -14,7 +14,9 @@ var sourceFiles = [
 	'../mocha/3.as_promise/tas.race.test.js',
 	'../mocha/3.as_promise/this.done.test.js',
 
+	'../mocha/4.forEach_tasks/return_breakForEach.test.js',
 	'../mocha/4.forEach_tasks/return_continue.test.js',
+	'../mocha/4.forEach_tasks/tas.breakForEach.test.js',
 	'../mocha/4.forEach_tasks/tas.continue.test.js',
 	'../mocha/4.forEach_tasks/tas.forEach.test.js',
 
@@ -29,6 +31,5 @@ var sourceFiles = [
 	'../mocha/5.break_the_flow/tas.abort.test.js',
 	'../mocha/5.break_the_flow/tas.break.test.js',
 
-	'../mocha/6.extensions/multiple-load.test.js',
-	'../mocha/6.extensions/tree.test.js',
+	'../mocha/6.log_tree/tree.test.js',
 ''];
