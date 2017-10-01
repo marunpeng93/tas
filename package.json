@@ -1,6 +1,6 @@
 {
   "name": "tas",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Simplify coding and maintaining. Better than Promise.",
   "main": "main.js",
   "repository": {
@@ -24,7 +24,7 @@
     "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcov -- -R spec",
     "test:coverReport": "codecov -t 59abf604-36e3-4d18-989d-7fb997b28809",
     "test:unit": "node ./node_modules/mocha/bin/_mocha",
-    "test:sauce": "karma start karma.sauce.js",
+    "sauce": "karma start karma.sauce.js",
     "appveyor": "npm run test:unit"
   },
   "author": "hi.owen.luke@gmail.com",

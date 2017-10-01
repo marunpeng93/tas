@@ -65,6 +65,13 @@
 	var break_ = __webpack_require__(9);
 	var begin = __webpack_require__(10);
 
+	var loadExtensions = function(Tas){
+		__webpack_require__(11).init(Tas);
+		__webpack_require__(12).init(Tas);
+		__webpack_require__(13).init(Tas);
+		__webpack_require__(15).init(Tas);
+	};
+
 	var Tas = function(obj){
 		if (begin.is()) {
 			begin.do(obj);
@@ -93,7 +100,7 @@
 		len === 2 ? pass.save2(a0, a1) :
 			len === 1 ? pass.save1(arguments[0]) :
 				len === 0 ? pass.save0() :
-					pass.saveArray([].slice.call(arguments));
+					pass.saveArray(Array.prototype.slice.call(arguments));
 
 		runner.next();
 	};
@@ -115,19 +122,7 @@
 		begin.set();
 	};
 
-	Tas.load = function(){
-		var loader = __webpack_require__(11);
-		loader.init(Tas);
-		loader.load([].slice.call(arguments));
-		return Tas;
-	};
-
-	Tas.unload = function(){
-		var loader = __webpack_require__(11);
-		loader.unload([].slice.call(arguments));
-		return Tas;
-	};
-
+	loadExtensions(Tas);
 	module.exports = Tas;
 }),
 
@@ -607,283 +602,6 @@
 
 (function(module, exports, __webpack_require__) {
 
-	var Tas;
-
-	var loader = {
-		isUnload: false,
-
-		init: function(Tas_){
-			Tas = Tas_;
-		},
-
-		load: function(names){
-			names.length === 1 ?
-				loader.loadExtension(names[0]) :
-					loader.loadExtensions(names);
-		},
-
-		loadExtensions: function(names){
-			names.forEach(function(name){
-				loader.loadExtension(name);
-			});
-		},
-
-		loadExtension: function(name){
-			var ext = __webpack_require__(12)("./" + name);
-			loader.isUnload ? ext.unload && ext.unload() : ext.init(Tas);
-		},
-
-		unload: function(names){
-			loader.isUnload = true;
-			loader.load(names);
-			loader.isUnload = false;
-		}
-	};
-
-	module.exports.__proto__ = loader;
-}),
-
-(function(module, exports, __webpack_require__) {
-
-	var map = {
-		"./forEach": 13,
-		"./forEach.js": 13,
-		"./loader": 11,
-		"./loader.js": 11,
-		"./promise-all": 14,
-		"./promise-all.js": 14,
-		"./promise-race": 16,
-		"./promise-race.js": 16,
-		"./promise~util": 15,
-		"./promise~util.js": 15,
-		"./tree": 17,
-		"./tree.js": 17
-	};
-	function webpackContext(req) {
-		return __webpack_require__(webpackContextResolve(req));
-	};
-	function webpackContextResolve(req) {
-		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
-	};
-	webpackContext.keys = function webpackContextKeys() {
-		return Object.keys(map);
-	};
-	webpackContext.resolve = webpackContextResolve;
-	module.exports = webpackContext;
-	webpackContext.id = 12;
-}),
-
-(function(module, exports, __webpack_require__) {
-
-	var Tas;
-	var data = __webpack_require__(3);
-	var runner = __webpack_require__(2);
-	var tasks = __webpack_require__(4);
-	var units = __webpack_require__(5);
-	var pass = __webpack_require__(7);
-
-	var elements;
-	var task;
-	var index = 0;
-
-	var forEach = {
-
-		init: function(Tas_){
-			Tas = Tas_;
-			runner.saveForEach(this);
-
-			Tas.forEach = this.forEach;
-			Tas.continue = this.continue;
-			Tas.breakForEach = this.breakForEach;
-
-			data.extensions.isForEachEnabled = true;
-		},
-
-		unload: function(){
-			data.extensions.isForEachEnabled = false;
-
-			Tas.forEach = null;
-			Tas.continue = null;
-		},
-
-		forEach: function(task){
-			task.isForEach = true;
-
-			tasks.markTheLastFunction(task);
-			data.flag.isAwait ? tasks.add(task) : forEach.exec(task);
-		},
-
-		exec: function(task_){
-			elements = data.pass[0].slice();
-			task = task_;
-			index = 0;
-			forEach.loop();
-		},
-
-		loop: function(){
-			var d = data;
-			var flag = d.flag;
-
-			while(!flag.isAwait && elements.length) {
-				d.layer ++;
-				pass.save2(elements.shift(), index ++);
-				tasks.add(task);
-				d.layer --;
-			}
-		},
-
-		continue: function(){
-			units.clearTheRemainingFunctions();
-			forEach.loop();
-		},
-
-		breakForEach: function(){
-			units.clearTheRemainingFunctions();
-			elements.length = 0;
-		}
-	};
-
-	module.exports.__proto__ = forEach;
-}),
-
-(function(module, exports, __webpack_require__) {
-
-	var Tas;
-	var data = __webpack_require__(3);
-	var util = __webpack_require__(15);
-
-	var promiseAll = {
-		init: function(Tas_){
-			Tas = Tas_;
-			Tas.all = this.all;
-			data.extensions.isPromiseAllEnabled = true;
-		},
-
-		unload: function(){
-			data.extensions.isPromiseAllEnabled = false;
-			Tas.all = null;
-		},
-
-		all: function(obj){
-			var times = Object.keys(obj).length;
-			var count = 0;
-			var allData = [];
-
-			var This = {
-				done: function(err, data){
-					count ++;
-					allData.push(data);
-
-					if (err || count === times) {
-						Tas.resolve(err, allData);
-					}
-				},
-
-				abort: function(){
-					Tas.abort();
-					this.done('abort');
-				}
-			};
-
-			Tas.await(util.convert(obj, This));
-		}
-	};
-
-	module.exports.__proto__ = promiseAll;
-}),
-
-(function(module, exports) {
-
-	var util = {
-		convert: function(obj, This){
-			return function(){
-				var keys = Object.keys(obj);
-				for (var i = 0; i < keys.length; i++) {
-					obj[keys[i]].call(This);
-				}
-			}
-		}
-	};
-
-	module.exports.__proto__ = util;
-}),
-
-(function(module, exports, __webpack_require__) {
-
-	var Tas;
-	var data = __webpack_require__(3);
-	var flag = __webpack_require__(6);
-	var util = __webpack_require__(15);
-
-	var promiseRace = {
-		init: function(Tas_){
-			Tas = Tas_;
-
-			Tas.race = this.race;
-			Tas.cancel = this.cancel;
-
-			data.extensions.isPromiseRaceEnabled = true;
-		},
-
-		unload: function(){
-			data.extensions.isPromiseRaceEnabled = false;
-			Tas.race = null;
-			Tas.cancel = null;
-		},
-
-		race: function(obj){
-			var count = 0;
-			var This = {
-				done: function(err, data){
-					if (++ count === 1) {
-						Tas.resolve(err, data);
-					}
-				},
-
-				abort: function(){
-					flag.setIsAwait(false);
-					Tas.abort();
-				}
-			};
-
-			Tas.await(util.convert(obj, This));
-		},
-
-		cancel: function(handlers){
-
-			/* istanbul ignore next */
-			if (!handlers || !(handlers instanceof Array)) return;
-
-			handlers.forEach(function(handle){
-
-				/* istanbul ignore next */
-				if (handle.abort) {
-
-					// For web
-					if (typeof XMLHttpRequest !== 'undefined' && handle instanceof XMLHttpRequest) {
-						if (handle.readyState !== XMLHttpRequest.UNSENT) {
-							handle.abort();
-						}
-					}
-					else {
-						// The ajax or request object has abort() method, such as
-						// Superagent (one of Node.js third-party modules).
-						handle.abort();
-					}
-				}
-				else {
-					// Valid for NodeJS and web.
-					clearTimeout(handle);
-				}
-			});
-		}
-	};
-
-	module.exports.__proto__ = promiseRace;
-}),
-
-(function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(global) {
 
 	var Tas;
@@ -941,10 +659,6 @@
 			fn.treeIndent = nested.getCount() + deep;
 			fn.__isIgnore = true;
 			arr.push(fn);
-		},
-
-		reset: function(){
-			nested.count = 0;
 		}
 	};
 
@@ -956,12 +670,7 @@
 			var indentStr = util.repeat(' ', (level - 1) * 4);
 			var prefix = ('  ' + level).substr(-2) + '|';
 			return prefix + indentStr;
-		},
-
-		reset: function(){
-			indent.lastTreeIndent = 0;
 		}
-
 	};
 
 	var logArray = {
@@ -979,11 +688,6 @@
 
 		getStr: function(){
 			return logArray.data.join('\n');
-		},
-
-		reset: function(){
-			logArray.data.length = 0;
-			logArray.isSaveToArr = false;
 		}
 	};
 
@@ -997,16 +701,16 @@
 			Tas.tree.logArray = logArray;
 			Tas.tree.nested = nested;
 
+			Tas.enableTree = this.enable;
+			Tas.disableTree = this.disable;
+		},
+
+		enable: function(){
 			data.extensions.isTreeEnabled = true;
 		},
 
-		unload: function(){
+		disable: function(){
 			data.extensions.isTreeEnabled = false;
-			Tas.tree = null;
-
-			nested.reset();
-			indent.reset();
-			logArray.reset();
 		},
 
 		print: function(func){
@@ -1020,7 +724,7 @@
 		},
 
 		log: function(){
-			var args = [].slice.call(arguments);
+			var args = Array.prototype.slice.call(arguments);
 			var indentStr = indent.getStr(+1);
 
 			args.unshift(indentStr);
@@ -1030,7 +734,7 @@
 
 	var util = {
 		log: function(){
-			var args = [].slice.call(arguments);
+			var args = Array.prototype.slice.call(arguments);
 
 			/* istanbul ignore else */
 			if (logArray.isSaveToArr) {
@@ -1052,6 +756,198 @@
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
+}),
+
+(function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var data = __webpack_require__(3);
+	var runner = __webpack_require__(2);
+	var tasks = __webpack_require__(4);
+	var units = __webpack_require__(5);
+	var pass = __webpack_require__(7);
+
+	var elements;
+	var task;
+	var index = 0;
+
+	var forEach = {
+
+		init: function(Tas_){
+			Tas = Tas_;
+			runner.saveForEach(this);
+
+			Tas.forEach = this.forEach;
+			Tas.continue = this.continue;
+			Tas.breakForEach = this.breakForEach;
+
+			data.extensions.isForEachEnabled = true;
+		},
+
+		forEach: function(task){
+			task.isForEach = true;
+
+			tasks.markTheLastFunction(task);
+			data.flag.isAwait ? tasks.add(task) : forEach.exec(task);
+		},
+
+		exec: function(task_){
+			elements = data.pass[0].slice();
+			task = task_;
+			index = 0;
+			forEach.loop();
+		},
+
+		loop: function(){
+			var d = data;
+			var flag = d.flag;
+
+			while(!flag.isAwait && elements.length) {
+				d.layer ++;
+				pass.save2(elements.shift(), index ++);
+				tasks.add(task);
+				d.layer --;
+			}
+		},
+
+		continue: function(){
+			units.clearTheRemainingFunctions();
+			forEach.loop();
+		},
+
+		breakForEach: function(){
+			units.clearTheRemainingFunctions();
+			elements.length = 0;
+		}
+	};
+
+	module.exports.__proto__ = forEach;
+}),
+
+(function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var data = __webpack_require__(3);
+	var util = __webpack_require__(14);
+
+	var promiseAll = {
+		init: function(Tas_){
+			Tas = Tas_;
+
+			Tas.all = this.all;
+			data.extensions.isPromiseAllEnabled = true;
+		},
+
+		all: function(obj){
+			var times = Object.keys(obj).length;
+			var count = 0;
+			var allData = [];
+
+			var This = {
+				done: function(err, data){
+					count ++;
+					allData.push(data);
+
+					if (err || count === times) {
+						Tas.resolve(err, allData);
+					}
+				},
+
+				abort: function(){
+					Tas.abort();
+					this.done('abort');
+				}
+			};
+
+			Tas.await(util.convert(obj, This));
+		}
+	};
+
+	module.exports.__proto__ = promiseAll;
+}),
+
+(function(module, exports) {
+
+	var util = {
+		convert: function(obj, This){
+			return function(){
+				var keys = Object.keys(obj);
+				for (var i = 0; i < keys.length; i++) {
+					obj[keys[i]].call(This);
+				}
+			}
+		}
+	};
+
+	module.exports.__proto__ = util;
+}),
+
+(function(module, exports, __webpack_require__) {
+
+	var Tas;
+	var data = __webpack_require__(3);
+	var flag = __webpack_require__(6);
+	var util = __webpack_require__(14);
+
+	var promiseRace = {
+		init: function(Tas_){
+			Tas = Tas_;
+
+			Tas.race = this.race;
+			Tas.cancel = this.cancel;
+
+			data.extensions.isPromiseRaceEnabled = true;
+		},
+
+		race: function(obj){
+			var count = 0;
+			var This = {
+				done: function(err, data){
+					if (++ count === 1) {
+						Tas.resolve(err, data);
+					}
+				},
+
+				abort: function(){
+					flag.setIsAwait(false);
+					Tas.abort();
+				}
+			};
+
+			Tas.await(util.convert(obj, This));
+		},
+
+		cancel: function(handlers){
+
+			/* istanbul ignore next */
+			if (!handlers || !(handlers instanceof Array)) return;
+
+			handlers.forEach(function(handle){
+
+				/* istanbul ignore next */
+				if (handle.abort) {
+
+					// For web
+					if (typeof XMLHttpRequest !== 'undefined' && handle instanceof XMLHttpRequest) {
+						if (handle.readyState !== XMLHttpRequest.UNSENT) {
+							handle.abort();
+						}
+					}
+					else {
+						// The ajax or request object has abort() method, such as
+						// Superagent (one of Node.js third-party modules).
+						handle.abort();
+					}
+				}
+				else {
+					// Valid for NodeJS and web.
+					clearTimeout(handle);
+				}
+			});
+		}
+	};
+
+	module.exports.__proto__ = promiseRace;
 })
 
 
