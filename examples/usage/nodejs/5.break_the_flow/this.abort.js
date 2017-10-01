@@ -5,8 +5,7 @@
  * Released under the MIT License.
  */
 
-// tas.all() is an extension of Tas, we need to load it at the first.
-var tas = require('../tas').load('promise-all');
+var tas = require('../tas');
 
 var request = require('superagent');
 var a = 0;

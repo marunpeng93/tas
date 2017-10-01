@@ -5,13 +5,11 @@
  * Released under the MIT License.
  */
 
-// Load Tas with tree for this demonstrating.
-// This will makes Tas in all modules loading tree automatically.
-// So in other modules, we do not have to do load('tree') repeatedly.
-var tas = require('./tas').load('tree');
-
-// Print the tree logs.
+var tas = require('./tas');
 var log = tas.tree.log;
+
+// Enable printing log tree in all modules for demo.
+tas.enableTree();
 
 // define a as global variable for testing
 a = 0;

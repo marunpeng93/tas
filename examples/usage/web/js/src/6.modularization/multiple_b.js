@@ -7,7 +7,7 @@
 
 var moduleMultipleB = function(){
 
-	var a  = 2;
+	var a = 2;
 
 	tas.await(function(){
 		a ++; // 3

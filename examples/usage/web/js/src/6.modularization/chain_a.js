@@ -7,7 +7,7 @@
 
 var moduleChainA = function(){
 
-	var a  = 0;
+	var a = 0;
 
 	tas.await(function(){
 		a ++; // 1

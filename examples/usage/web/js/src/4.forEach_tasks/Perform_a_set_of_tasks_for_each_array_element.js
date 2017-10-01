@@ -13,9 +13,6 @@ var useTasForEach = function() {
 	var a = 0;
 	var record;
 
-	// tas.forEach() is an extension, we need to load it independently.
-	tas.load('forEach');
-
 	// 'Cause we need to abort when an error occurred, we must use tas.begin() at the first. See details:
 	// https://github.com/tasjs/tas/blob/master/doc/execution-order/concurrency-order.md
 	tas.begin();

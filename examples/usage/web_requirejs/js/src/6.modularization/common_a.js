@@ -8,7 +8,7 @@
 define(['../tas'],
 function(tas){
 
-	var a  = 0;
+	var a = 0;
 
 	var calc = {
 		add: function(num){

@@ -5,8 +5,7 @@
  * Released under the MIT License.
  */
 
-// tas.race() is an extension of Tas, we need to load it at the first.
-var tas = require('../tas').load('forEach');
+var tas = require('../tas');
 
 var a = 0;
 var flag = 0;

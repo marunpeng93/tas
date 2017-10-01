@@ -7,7 +7,7 @@
 
 var returnBreak = function(){
 
-	var a  = 1;
+	var a = 1;
 
 	tas({
 		t1: function(){

@@ -1,5 +1,5 @@
 
-var tas = require('../../../lib').load("forEach");
+var tas = require('../../../lib');
 var fs = require('fs');
 var gm = require('gm');
 

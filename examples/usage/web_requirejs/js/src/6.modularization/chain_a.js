@@ -8,7 +8,7 @@
 define(['../tas'],
 function(tas){
 
-	var a  = 0;
+	var a = 0;
 
 	tas.await(function(){
 		a ++; // 1

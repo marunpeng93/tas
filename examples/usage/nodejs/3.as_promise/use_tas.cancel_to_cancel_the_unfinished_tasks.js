@@ -5,8 +5,7 @@
  * Released under the MIT License.
  */
 
-// tas.race() is an extension of Tas, we need to load it at the first.
-var tas = require('../tas').load('promise-race');
+var tas = require('../tas');
 
 var request = require('superagent');
 var dat;

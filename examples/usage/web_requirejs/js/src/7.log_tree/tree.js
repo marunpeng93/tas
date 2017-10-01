@@ -8,27 +8,13 @@
 define(['../tas'],
 function(tas){
 
-	var log;
+	var log = tas.tree.log;
 	var a = 0;
-
-	// In examples/demo/easy-asynchronization/index.js, we load Tas tree like below:
-	// var tas = require('../tas').load('tree');
-
-	// That's because all modules in that project need Tas tree.
-	// Sometimes we only need to print the Tas tree in a module,
-	// so we should load the Tas tree in the following way,
-	// and then unload it at the end of the module to
-	// avoid affect the other modules.
 
 	tas(function(){
 
-		tas.load('tree');
-
-		// If we run test.js independently, it will print logs in tree structure.
-		// But if it's run in ../index.js, it will not do that.
-		// Because the global.isDisabledLog is set as true in ../index.js,
-		// and this will lead tas.tree.log() to ignore printing logs.
-		log = tas.tree.log;
+		// Enable printing log tree in this module.
+		tas.enableTree();
 	});
 
 	tas.await({
@@ -325,8 +311,8 @@ function(tas){
 
 	tas(function(){
 
-		// Unload Tas tree to avoid affect the other modules.
-		tas.unload('tree');
+		// Disable printing log tree to avoid affect the other modules.
+		tas.disableTree();
 	});
 
 	return {

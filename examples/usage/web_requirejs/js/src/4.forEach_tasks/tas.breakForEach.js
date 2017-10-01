@@ -10,9 +10,6 @@ function(tas) {
 
 	var a = 0;
 
-	// tas.forEach() is an extension, we need to load it independently.
-	tas.load('forEach');
-
 	tas(function () {
 		var arr = [1, 2];
 		return [arr];
