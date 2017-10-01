@@ -260,31 +260,11 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 　
 
-## Extensions
-
-In order to pursue faster performance, the following features which not commonly used are not enabled by default and can be enabled by using require('tas').load() or tas.load().
-
-| Name of Extension | How to Load                              | Usage                                    |
-| ----------------- | ---------------------------------------- | ---------------------------------------- |
-| tas.forEach()     | require('tas').load('forEach'), or tas.load('forEach') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
-| tas.all()         | require('tas').load('promise-all'), or tas.load('promise-all') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
-| tas.race()        | require('tas').load('promise-race'), or tas.load('promise-race') | [Usage](https://github.com/tasjs/tas/blob/master/examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
-| log tree          | require('tas').load('tree'), or tas.load('tree') | [Usage](./doc/log-tree/log-tree.md)      |
-
-We can load multiple extensions at once, as follows:
-```js
-var tas = require('tas').load('promise-all', 'promise-race');
-
-// Or like below:
-// var tas = require('tas');
-// tas.load('promise-all', 'promise-race');
-```
-
-　
-
 ## Log Tree
 
-Tas can automatically print the names of all tasks as a tree, and the logs in tasks is printed with the indent of tasks,  like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](./doc/log-tree/log-tree.md)
+Tas can prints the task name with indent, and the logs in tasks is printed with the indent of tasks, so a tree structure is formed, like the gif presentation in above section "Easy Asynchronization". 
+
+This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](./doc/log-tree/log-tree.md)
 
 　
 
