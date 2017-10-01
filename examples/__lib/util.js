@@ -18,9 +18,8 @@
 		},
 
 		log: function(){
-			if (typeof global === 'object' && global.isDisabledLog === true) {
-				return;
-			}
+			var g = typeof global === 'object' ? global : typeof window === 'object' ? window : {};
+			if (g.isDisabledLog) return;
 
 			var args = [].slice.call(arguments);
 			var times = 0;

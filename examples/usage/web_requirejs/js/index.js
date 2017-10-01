@@ -25,7 +25,7 @@
 
 // Disable printing the logs in testing dependencies files.
 // Only the test results will be printed.
-global = {isDisabledLog: true};
+isDisabledLog = true;
 
 require(['src/tas', 'src/tester', '../../__res/testFiles'],
 function (tas, tester, testFiles){

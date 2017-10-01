@@ -25,7 +25,7 @@
 
 // Disable printing the logs in testing dependencies files.
 // Only the test results will be printed.
-global.isDisabledLog = true;
+isDisabledLog = true;
 
 // Set the repeat times to run all Tas tasks.
 // This proves that Tas can run repeatedly and correctly.
