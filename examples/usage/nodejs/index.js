@@ -9,7 +9,7 @@
 // How to use
 //--------------------------------------------
 // Do the following in your terminal to run this file to test all examples of Tas:
-// $ node /path/to/tas/examples/nodejs/__tas/test.js
+// $ node /path/to/tas/examples/usage/nodejs/index.js
 
 // NOTICE:
 // This file loaded multiple JS files at once, and most of them contains async code.
