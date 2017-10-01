@@ -1,6 +1,6 @@
 'use strict';
 
-var tas = require('../../lib').load('forEach');
+var tas = require('../../lib');
 var run = require('oyo/run');
 
 var tester = function(done, count){

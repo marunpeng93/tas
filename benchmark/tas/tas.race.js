@@ -1,6 +1,6 @@
 'use strict';
 
-var tas = require('../../lib').load('promise-race');
+var tas = require('../../lib');
 var run = require('oyo/run');
 
 var tester = function(done, count){
