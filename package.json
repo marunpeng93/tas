@@ -1,6 +1,6 @@
 {
   "name": "tas",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "description": "Simplify coding and maintaining. Better than Promise.",
   "main": "main.js",
   "repository": {
