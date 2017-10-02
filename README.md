@@ -1,5 +1,5 @@
 <p align='center'><a href='https://github.com/tasjs/tas' target='_blank'><img width='150' src='./res/logo_icon_150.png' /></a><br />
-<img src='./res/slogon.png' />
+<img height='50' src='./res/slogon.png' />
 </p>
 
 <p align='center'>
