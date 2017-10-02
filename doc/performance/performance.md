@@ -1,6 +1,6 @@
 # The Performance of Tas
 
-Tas performs more than **3 million** sync tasks or **1 million** async tasks per second concurrently, faster than native Promise. With Tas, we can write server code with clear code structure and excellent performance in Node.js.
+Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise. With Tas, we can write server code with clear structure and excellent performance in Node.js.
 
 Before running the tests of benchmark, clone the Tas repo first (if you have not done it yet):
 
@@ -12,7 +12,7 @@ $ npm install
 
 　
 
-### Performance
+### Performance of APIs
 
 Run the following:
 ```bash
