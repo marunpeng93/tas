@@ -66,5 +66,5 @@
 		}
 	};
 
-	module.exports = (wrap.do);
+	module.exports = wrap.do;
 });

@@ -96,5 +96,5 @@
 		}
 	};
 
-	module.exports = (clean.do);
+	module.exports = clean.do;
 });
