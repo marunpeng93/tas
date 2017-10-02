@@ -12,7 +12,7 @@
 
 　
 
-Make code clear, easy to test and maintain. With Tas, we can write a set of micro tasks instead of a complex function or module, and the async tasks are performed like sync task.  Tas can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
+Make code clear, easy to test and maintain. With Tas, we can write a set of micro tasks instead of a complex function or module, and the async tasks are performed like sync tasks.  Tas can be used in [Node.js](https://nodejs.org) and in browsers. "Tas" is the abbreviation of "tasks".
 
 In Tas, we can insert or remove an async tasks anywhere in any micro task without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks, and more better than Promise and generator / yield and async / await, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
