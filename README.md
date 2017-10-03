@@ -13,9 +13,9 @@
 
 　
 
-Make code clear, easy to test and maintain. With Tas, we can write a set of micro tasks instead of a complex module or function, and the async tasks are performed like sync tasks.  Tas means "tasks", can be used in [Node.js](https://nodejs.org) and in browsers.
+Make it easy to develop complex Node.js app. With Tas, we are free to combine async tasks and sync tasks, and the async tasks are performed like sync tasks. All of this makes code clear, easy to test and maintain. Tas means "tasks", can be used in [Node.js](https://nodejs.org) and in browsers.
 
-In Tas, we can insert or remove an async tasks anywhere in any module or micro task without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks, and more better than Promise and generator / yield and async / await, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
+In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere, all tasks are performed in the order we write, just like the sync tasks, and more better than Promise and generator / yield and async / await, and the tasks [execution order](./doc/execution-order/execution-order.md) is more reasonable.
 
 Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise. With Tas, we can write server code with clear structure and excellent performance in Node.js. [Benchmark of Performance](./doc/performance/performance.md)
 
@@ -125,7 +125,7 @@ See details: [Express examples by Tas](https://github.com/tasjs/express-examples
 
 ### Sync Tasks
 
-With Tas, we can turn complex logic or high-coupling logic into a set of mini-tasks. All mini-tasks are executed one by one. 
+With Tas, we can turn complex logic or high-coupling logic into a set of mini-tasks. All mini-tasks are performed one by one. 
 
 ```js
 tas({
@@ -157,7 +157,7 @@ tas({
 
 ### Async Tasks
 
-In Tas, we can insert or remove an async tasks anywhere in any micro task without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks.
+In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks.
 
 ```js
 var a = 0;
