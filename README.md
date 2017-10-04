@@ -15,7 +15,7 @@
 
 Make it easy to develop complex app. With Tas, we are free to combine async tasks and sync tasks, and the async tasks are performed in the order we write, just like the sync tasks. All of this makes code clear, easy to test and maintain. Tas means "tasks", can be used in [Node.js](https://nodejs.org) and in browsers.
 
-In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere. This greatly simplifies the workload to continuously develop and maintain app, especially for collaboration. Of course, there is no callback hell / pyramid any more.
+In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere. This greatly simplifies the development and maintenance of applications, especially for collaboration. Of course, there is no callback hell / pyramid any more.
 
 Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise. With Tas, we can write server code with clear structure and excellent performance in Node.js. [Benchmark of Performance](./doc/performance/performance.md)
 
