@@ -1,6 +1,6 @@
 {
   "name": "tas",
-  "version": "1.5.10",
+  "version": "1.5.11",
   "description": "Make it easy to develop complex app. With Tas, we are free to combine async tasks and sync tasks, and the async tasks are performed in the order we write, just like the sync tasks. All of this makes code clear, easy to test and maintain.",
   "main": "main.js",
   "repository": {
