@@ -15,9 +15,9 @@
 
 Make it easy to develop complex app. With Tas, we are free to combine async tasks and sync tasks, and the async tasks are performed in the order we write, just like the sync tasks. All of this makes code clear, easy to test and maintain. Tas means "tasks", can be used in [Node.js](https://nodejs.org) and in browsers.
 
-In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere. This greatly simplifies the development and maintenance of applications, especially for collaborative development. Of course, there is no callback hell / pyramid any more.
+With Tas, we can insert or remove an async task anywhere without having to adjust the code elsewhere. This greatly simplifies the development and maintenance of app. We can completely and easily use the async functions instead of the sync functions such as readFileSync, which greatly enhance the performance of the Node.js app. Of course, there is no callback hell any more.
 
-Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise. With Tas, we can write server code with clear structure and excellent performance in Node.js. [Benchmark of Performance](./doc/performance/performance.md)
+Tas can performs more than **3 million** sync tasks or **1 million** async tasks per second, faster than native Promise. With Tas, we can write server app with clear structure and excellent performance in Node.js. [Benchmark of Performance](./doc/performance/performance.md)
 
 　
 
@@ -157,7 +157,7 @@ tas({
 
 ### Async Tasks
 
-In Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere, all tasks are executed in the order we write, just like the sync tasks.
+With Tas, we can insert or remove an async tasks anywhere in any module without having to adjust the code elsewhere, all tasks are performed in the order we write, just like the sync tasks.
 
 ```js
 var a = 0;
@@ -217,9 +217,9 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 | API                | Functions                                | Usage                                    |
 | ------------------ | ---------------------------------------- | ---------------------------------------- |
-| return "await"     | Hang up Tas, waiting for the async task execution is completed. | [Usage](./examples/usage/nodejs/2.async_tasks/async_tasks.js) |
+| return "await"     | Hang up Tas, waiting for the async task to be finished. | [Usage](./examples/usage/nodejs/2.async_tasks/async_tasks.js) |
 | tas.await()        | Sequential perform a set of async tasks. | [Usage](./examples/usage/nodejs/2.async_tasks/async_tasks.js) |
-| tas.next(\<data\>) | When async task is done, pass data to the next task. | [Usage](./examples/usage/nodejs/2.async_tasks/pass_data_via_tas.next.js) |
+| tas.next(\<data\>) | When the async task is done, pass data to the next task. | [Usage](./examples/usage/nodejs/2.async_tasks/pass_data_via_tas.next.js) |
 
 　
 
@@ -229,9 +229,9 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 | -------------------- | ---------------------------------------- | ---------------------------------------- |
 | tas.promise()        | Equivalent to tas.await().               | [Usage](./examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
 | tas.resolve()        | Equivalent to tas.next().                | [Usage](./examples/usage/nodejs/3.as_promise/tas.promise_is_easier_to_use_than_promise.js) |
-| tas.all()            | After all async tasks are completed, continue. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
-| tas.race()           | As long as one of async tasks is completed, continue. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
-| tas.cancel()         | When tas.race() is done, cancel the unfinished async task(s). | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
+| tas.all()            | Waiting for all of the async tasks in tas.all() to be finished. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
+| tas.race()           | Waiting for one of the async tasks in tas.race() to be finished. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.race_as_promise.race.js) |
+| tas.cancel()         | When tas.race() is done, cancel the unfinished async tasks. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.cancel_to_cancel_the_unfinished_tasks.js) |
 | this.done(err, data) | When tas.all() or tas.race() is done, pass data to the next task. | [Usage](./examples/usage/nodejs/3.as_promise/use_tas.all_as_promise.all.js) |
 
 　
@@ -243,8 +243,8 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 | tas.forEach()         | Perform a set of tasks for each array element. | [Usage](./examples/usage/nodejs/4.forEach_tasks/Perform_a_set_of_tasks_for_each_array_element.js) |
 | return "continue"     | Go to the next loop.                     | [Usage](./examples/usage/nodejs/4.forEach_tasks/return_continue.js) |
 | tas.continue()        | Go to the next loop (in closures).       | [Usage](./examples/usage/nodejs/4.forEach_tasks/tas.continue.js) |
-| return "breakForEach" | Break the tas.forEach() and Go to the next task. | [Usage](./examples/usage/nodejs/4.forEach_tasks/return_breakForEach.js) |
-| tas.breakForEach()    | Break the tas.forEach() and Go to the next task (in closures). | [Usage](./examples/usage/nodejs/4.forEach_tasks/tas.breakForEach.js) |
+| return "breakForEach" | Break the tas.forEach() and go to the next task. | [Usage](./examples/usage/nodejs/4.forEach_tasks/return_breakForEach.js) |
+| tas.breakForEach()    | Break the tas.forEach() and go to the next task (in closures). | [Usage](./examples/usage/nodejs/4.forEach_tasks/tas.breakForEach.js) |
 
 　
 
@@ -263,7 +263,7 @@ See the **examples/usage** folder. All examples (with tests) are categorized acc
 
 ## Log Tree
 
-Tas can prints the task name with indent, and the logs in tasks is printed with the indent of tasks, so a tree structure is formed, like the gif presentation in above section "Easy Asynchronization". This makes the execution of the entire project very clear, more intuitive than the function stack in the debugger. [How To Use](./doc/log-tree/log-tree.md)
+Tas can prints the task name with indent, and the logs in tasks is printed with the indent of tasks, so a tree structure is formed, like the gif presentation in above section "Easy Asynchronization". This makes the order of the execution of the entire project very clear, more intuitive than the function stack in the debugger,  and can help us debug the app better. [How To Use](./doc/log-tree/log-tree.md)
 
 　
 
